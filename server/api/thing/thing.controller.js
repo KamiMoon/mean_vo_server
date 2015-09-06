@@ -12,19 +12,8 @@
 var _ = require('lodash');
 var Thing = require('./thing.model');
 
-var nodemailer = require('nodemailer');
+var config = require('../../config/environment');
 
-// create reusable transporter object using SMTP transport
-// NB! No need to recreate the transporter object. You can use
-// the same transporter object for all e-mails
-
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: 'capstoneconsultants3@gmail.com',
-        pass: 'capstonecon'
-    }
-});
 
 var mailOptions = {
     from: 'capstoneconsultants3@gmail.com', // sender address
@@ -43,7 +32,7 @@ exports.index = function(req, res) {
         }
 
         // send mail with defined transport object
-        transporter.sendMail(mailOptions, function(error, info) {
+        config.transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
                 return console.log(error);
             }
