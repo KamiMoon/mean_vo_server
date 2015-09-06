@@ -12,57 +12,114 @@
 var _ = require('lodash');
 var Thing = require('./thing.model');
 
+var nodemailer = require('nodemailer');
+
+// create reusable transporter object using SMTP transport
+// NB! No need to recreate the transporter object. You can use
+// the same transporter object for all e-mails
+
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'capstoneconsultants3@gmail.com',
+        pass: 'capstonecon'
+    }
+});
+
+var mailOptions = {
+    from: 'capstoneconsultants3@gmail.com', // sender address
+    to: 'erickizaki@gmail.com', // list of receivers
+    subject: 'Hello', // Subject line
+    text: 'Hello world', // plaintext body
+    html: '<b>Hello world</b>' // html body
+};
+
+
 // Get list of things
 exports.index = function(req, res) {
-  Thing.find(function (err, things) {
-    if(err) { return handleError(res, err); }
-    return res.status(200).json(things);
-  });
+    Thing.find(function(err, things) {
+        if (err) {
+            return handleError(res, err);
+        }
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+
+        });
+
+
+
+        return res.status(200).json(things);
+    });
 };
 
 // Get a single thing
 exports.show = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.status(404).send('Not Found'); }
-    return res.json(thing);
-  });
+    Thing.findById(req.params.id, function(err, thing) {
+        if (err) {
+            return handleError(res, err);
+        }
+        if (!thing) {
+            return res.status(404).send('Not Found');
+        }
+        return res.json(thing);
+    });
 };
 
 // Creates a new thing in the DB.
 exports.create = function(req, res) {
-  Thing.create(req.body, function(err, thing) {
-    if(err) { return handleError(res, err); }
-    return res.status(201).json(thing);
-  });
+    Thing.create(req.body, function(err, thing) {
+        if (err) {
+            return handleError(res, err);
+        }
+        return res.status(201).json(thing);
+    });
 };
 
 // Updates an existing thing in the DB.
 exports.update = function(req, res) {
-  if(req.body._id) { delete req.body._id; }
-  Thing.findById(req.params.id, function (err, thing) {
-    if (err) { return handleError(res, err); }
-    if(!thing) { return res.status(404).send('Not Found'); }
-    var updated = _.merge(thing, req.body);
-    updated.save(function (err) {
-      if (err) { return handleError(res, err); }
-      return res.status(200).json(thing);
+    if (req.body._id) {
+        delete req.body._id;
+    }
+    Thing.findById(req.params.id, function(err, thing) {
+        if (err) {
+            return handleError(res, err);
+        }
+        if (!thing) {
+            return res.status(404).send('Not Found');
+        }
+        var updated = _.merge(thing, req.body);
+        updated.save(function(err) {
+            if (err) {
+                return handleError(res, err);
+            }
+            return res.status(200).json(thing);
+        });
     });
-  });
 };
 
 // Deletes a thing from the DB.
 exports.destroy = function(req, res) {
-  Thing.findById(req.params.id, function (err, thing) {
-    if(err) { return handleError(res, err); }
-    if(!thing) { return res.status(404).send('Not Found'); }
-    thing.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.status(204).send('No Content');
+    Thing.findById(req.params.id, function(err, thing) {
+        if (err) {
+            return handleError(res, err);
+        }
+        if (!thing) {
+            return res.status(404).send('Not Found');
+        }
+        thing.remove(function(err) {
+            if (err) {
+                return handleError(res, err);
+            }
+            return res.status(204).send('No Content');
+        });
     });
-  });
 };
 
 function handleError(res, err) {
-  return res.status(500).send(err);
+    return res.status(500).send(err);
 }
