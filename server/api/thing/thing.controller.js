@@ -32,13 +32,13 @@ exports.index = function(req, res) {
         }
 
         // send mail with defined transport object
-        config.transporter.sendMail(mailOptions, function(error, info) {
+        /*config.transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
                 return console.log(error);
             }
             console.log('Message sent: ' + info.response);
 
-        });
+        });*/
 
 
 
