@@ -1,13 +1,38 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var validate = require('mongoose-validator');
+
+var nameValidator = [
+    validate({
+        validator: 'isLength',
+        arguments: [3, 50],
+        message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
+    }),
+    validate({
+        validator: 'isAlphanumeric',
+        passIfEmpty: true,
+        message: 'Name should contain alpha-numeric characters only'
+    })
+];
 
 var OrganizationSchema = new Schema({
-    name: String,
-    email: String,
+    name: {
+        type: String,
+        required: 'An organization name is required!',
+        validate: nameValidator
+    },
+    email: {
+        type: String,
+        required: 'An email is required!'
+    },
     phone: String,
-    short_description: String
+    short_description: {
+        type: String,
+        required: 'An short description is required!'
+    },
+    created: Date
 });
 
 module.exports = mongoose.model('Organization', OrganizationSchema);
