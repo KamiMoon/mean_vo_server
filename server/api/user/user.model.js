@@ -30,7 +30,8 @@ var UserSchema = new Schema({
     address: String,
     city: String,
     abbrev: String,
-    zip: String
+    zip: String,
+    fax: String
 
 });
 
@@ -64,7 +65,8 @@ UserSchema
             address: this.address,
             city: this.city,
             abbrev: this.abbrev,
-            zip: this.zip
+            zip: this.zip,
+            fax: this.fax
         };
     });
 
