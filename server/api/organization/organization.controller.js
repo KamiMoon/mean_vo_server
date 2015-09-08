@@ -8,6 +8,8 @@ exports.index = function(req, res) {
 
     var searchParams = {};
     var projection = {};
+    var anotherfield = 6;
+    var yetAnother = 7;
 
     Organization.find(req.query, projection, function(err, organizations) {
         if (err) {
