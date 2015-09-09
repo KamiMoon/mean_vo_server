@@ -2,18 +2,18 @@
 
 var _ = require('lodash');
 var Organization = require('./organization.model');
+var ControllerUtil = require('../../components/controllerUtil');
 
 // Get list of organizations
 exports.index = function(req, res) {
 
-    var searchParams = {};
+    //return everything
     var projection = {};
-    var anotherfield = 6;
-    var yetAnother = 7;
+    var query = ControllerUtil.getQuery(req);
 
-    Organization.find(req.query, projection, function(err, organizations) {
+    Organization.find(query, projection, function(err, organizations) {
         if (err) {
-            return handleError(res, err);
+            return ControllerUtil.handleError(res, err);
         }
         return res.status(200).json(organizations);
     });
