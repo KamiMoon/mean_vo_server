@@ -118,7 +118,25 @@ describe('Organization Model', function() {
                 Organization.findById(validOrganization._id).populate('state_id').exec(function(err, org) {
                     console.log('Retrieved--')
                     console.log(org);
-                    done();
+
+                    console.log('Now saving the retrieved');
+
+                    org.save(function(err, org2) {
+                        console.log(org2);
+
+
+                        Organization.findById(validOrganization._id, function(err, org3) {
+
+                            console.log('retrieving again - do not populate');
+
+                            console.log(org3);
+
+                            done();
+
+                        });
+
+                    })
+
                 });
 
 
