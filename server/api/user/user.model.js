@@ -4,17 +4,29 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
+var validate = require('mongoose-validator');
+var timestamps = require('mongoose-timestamp');
+var uniqueValidator = require('mongoose-unique-validator');
+
 
 var UserSchema = new Schema({
     name: String,
     email: {
         type: String,
-        lowercase: true
+        lowercase: true,
+        required: 'An email is required',
+        validate: [
+            validate({
+                validator: 'isEmail'
+            })
+        ],
+        unique: true
     },
     role: {
         type: String,
         default: 'user'
     },
+    //TODO - needs to be 6-10 characters long
     hashedPassword: String,
     provider: String,
     salt: String,
@@ -23,15 +35,41 @@ var UserSchema = new Schema({
     google: {},
     github: {},
 
-    first_name: String,
-    last_name: String,
-    username: String,
-    phone: String,
+    first_name: {
+        type: String,
+        required: 'A first name is required'
+    },
+    last_name: {
+        type: String,
+        required: 'A last name is required'
+    },
+    username: {
+        type: String,
+        required: 'A user name is required',
+        unique: true
+    },
+    phone: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isMobilePhone',
+                arguments: 'en-US'
+            })
+        ]
+    },
     address: String,
     city: String,
     abbrev: String,
     zip: String,
-    fax: String
+    fax: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isMobilePhone',
+                arguments: 'en-US'
+            })
+        ]
+    }
 
 });
 
@@ -85,12 +123,12 @@ UserSchema
  */
 
 // Validate empty email
-UserSchema
-    .path('email')
-    .validate(function(email) {
-        if (authTypes.indexOf(this.provider) !== -1) return true;
-        return email.length;
-    }, 'Email cannot be blank');
+// UserSchema
+//     .path('email')
+//     .validate(function(email) {
+//         if (authTypes.indexOf(this.provider) !== -1) return true;
+//         return email.length;
+//     }, 'Email cannot be blank');
 
 // Validate empty password
 UserSchema
@@ -101,21 +139,21 @@ UserSchema
     }, 'Password cannot be blank');
 
 // Validate email is not taken
-UserSchema
-    .path('email')
-    .validate(function(value, respond) {
-        var self = this;
-        this.constructor.findOne({
-            email: value
-        }, function(err, user) {
-            if (err) throw err;
-            if (user) {
-                if (self.id === user.id) return respond(true);
-                return respond(false);
-            }
-            respond(true);
-        });
-    }, 'The specified email address is already in use.');
+// UserSchema
+//     .path('email')
+//     .validate(function(value, respond) {
+//         var self = this;
+//         this.constructor.findOne({
+//             email: value
+//         }, function(err, user) {
+//             if (err) throw err;
+//             if (user) {
+//                 if (self.id === user.id) return respond(true);
+//                 return respond(false);
+//             }
+//             respond(true);
+//         });
+//     }, 'The specified email address is already in use.');
 
 var validatePresenceOf = function(value) {
     return value && value.length;
@@ -172,5 +210,10 @@ UserSchema.methods = {
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
     }
 };
+
+UserSchema.plugin(timestamps);
+UserSchema.plugin(uniqueValidator, {
+    message: 'Error, expected {PATH} to be unique.'
+});
 
 module.exports = mongoose.model('User', UserSchema);

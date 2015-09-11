@@ -4,12 +4,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
-
+var uniqueValidator = require('mongoose-unique-validator');
 
 var OrganizationSchema = new Schema({
     name: {
         type: String,
         required: 'An organization name is required!',
+        unique: true,
         validate: [
             validate({
                 validator: 'isLength',
@@ -56,5 +57,8 @@ var OrganizationSchema = new Schema({
 });
 
 OrganizationSchema.plugin(timestamps);
+OrganizationSchema.plugin(uniqueValidator, {
+    message: 'Error, expected {PATH} to be unique.'
+});
 
 module.exports = mongoose.model('Organization', OrganizationSchema);
