@@ -3,11 +3,14 @@
 var should = require('should');
 var app = require('../../app');
 var Organization = require('./organization.model');
+var State = require('../state/state.model');
+var mongoose = require('mongoose');
 
 var validOrganization = new Organization({
     name: 'My Organization',
     email: 'test@test.com',
-    short_description: 'My Desc'
+    short_description: 'My Desc',
+    state_id: 85
 });
 
 describe('Organization Model', function() {
@@ -18,11 +21,11 @@ describe('Organization Model', function() {
         });
     });
 
-    afterEach(function(done) {
-        Organization.remove().exec().then(function() {
-            done();
-        });
-    });
+    //afterEach(function(done) {
+    //Organization.remove().exec().then(function() {
+    //    done();
+    //});
+    //});
 
     it('should begin with no organizations', function(done) {
         Organization.find({}, function(err, organizations) {
@@ -97,6 +100,33 @@ describe('Organization Model', function() {
 
             done();
         });
+    });
+
+    it('should save a state_id', function(done) {
+
+        console.log('before');
+        console.log(validOrganization);
+
+        State.findById(validOrganization.state_id, function(e, state) {
+            console.log('Found states');
+            console.log(state);
+
+            validOrganization.save(function(err, saved) {
+                console.log('Saved--')
+                console.log(validOrganization);
+
+                Organization.findById(validOrganization._id).populate('state_id').exec(function(err, org) {
+                    console.log('Retrieved--')
+                    console.log(org);
+                    done();
+                });
+
+
+            });
+        });
+
+
+
     });
 
 });

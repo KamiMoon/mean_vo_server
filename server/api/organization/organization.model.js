@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
+var State = require('../state/state.model');
 
 var OrganizationSchema = new Schema({
     name: {
@@ -48,7 +49,10 @@ var OrganizationSchema = new Schema({
             })
         ]
     },
-    state_id: Number,
+    state_id: {
+        type: Number,
+        ref: 'State'
+    },
     status_id: Number,
     category_id: Number,
     events: Array,
