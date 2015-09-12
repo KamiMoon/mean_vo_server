@@ -5,14 +5,21 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var _ = require('lodash');
-var hostName = require('os').hostname();
 var ControllerUtil = require('../../components/controllerUtil');
 
 
 var createConfirmationEmail = function(req, user) {
+    var host = '';
 
     if (req && req.headers && req.host) {
-        var linkAddress = 'http://' + req.headers.host + '/api/users/activate/' + encodeURIComponent(user._id) + '/' + encodeURIComponent(user.activationHash);
+
+        host = req.headers.host;
+        //for localhost change it becasue of the proxy and two projects
+        if (host === 'localhost:9000') {
+            host = 'localhost:9090';
+        }
+
+        var linkAddress = 'http://' + host + '/api/users/activate/' + encodeURIComponent(user._id) + '/' + encodeURIComponent(user.activationHash);
 
         var body = 'Welcome ' + user.name + ', <br/>You are registered for Volunteer Omaha. <br/><br/>';
         body += 'To activate your account click this link: <a href="' + linkAddress + '">Activate Account</a>';
@@ -162,8 +169,6 @@ exports.activate = function(req, res) {
     //get the User
     User.findById(id, function(err, user) {
         console.log('FindById');
-        console.log(err);
-        console.log(user);
 
         if (err) {
             return ControllerUtil.handleError(res, err);
