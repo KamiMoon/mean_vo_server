@@ -16,12 +16,11 @@ var UserSchema = new Schema({
         lowercase: true,
         required: 'An email is required',
         validate: [
-                validate({
-                    validator: 'isEmail'
-                })
-            ]
-            //,
-            //unique: true
+            validate({
+                validator: 'isEmail'
+            })
+        ],
+        unique: true
     },
     role: {
         type: String,
