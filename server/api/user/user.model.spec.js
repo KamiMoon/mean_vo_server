@@ -73,4 +73,19 @@ describe('User Model', function() {
     it("should not authenticate user if password is invalid", function() {
         return user.authenticate('blah').should.not.be.true;
     });
+
+    it("should have an activation hash", function() {
+
+        console.log(user.activationHash);
+        return user.should.have.property('activationHash');
+    });
+
+    it("should have be able to get the hash and then use it", function() {
+        var hash = user.getActivationHash();
+        var useable = user.checkActivationHash(hash);
+
+        return useable.should.be.true;
+    });
+
+
 });

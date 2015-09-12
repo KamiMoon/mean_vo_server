@@ -5,9 +5,38 @@ var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var _ = require('lodash');
+var hostName = require('os').hostname();
+
 
 var validationError = function(res, err) {
     return res.status(422).json(err);
+};
+
+var createConfirmationEmail = function(req, user) {
+
+    if (req && req.headers && req.host) {
+        var linkAddress = 'http://' + req.headers.host + '/api/users/activate/' + user._id + '/' + user.getActivationHash();
+
+        var body = 'Welcome ' + user.name + ', <br/>You are registered for Volunteer Omaha. <br/><br/>';
+        body += 'To activate your account click this link: <a href="' + linkAddress + '">Activate Account</a>';
+
+        var mailOptions = {
+            from: 'Volunteer Omaha <capstoneconsultants3@gmail.com', // sender address
+            to: user.email, // list of receivers
+            subject: 'Confirm Registration', // Subject line
+            html: body // html body
+        };
+
+        config.transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+
+        });
+    }
+
+
 };
 
 /**
@@ -35,6 +64,12 @@ exports.create = function(req, res, next) {
         }, config.secrets.session, {
             expiresInMinutes: 60 * 5
         });
+
+
+        //create an email with the activation hash in it
+        createConfirmationEmail(req, user);
+
+
         res.json({
             token: token
         });

@@ -16,11 +16,12 @@ var UserSchema = new Schema({
         lowercase: true,
         required: 'An email is required',
         validate: [
-            validate({
-                validator: 'isEmail'
-            })
-        ],
-        unique: true
+                validate({
+                    validator: 'isEmail'
+                })
+            ]
+            //,
+            //unique: true
     },
     role: {
         type: String,
@@ -35,7 +36,7 @@ var UserSchema = new Schema({
     google: {},
     github: {},
 
-    first_name: {
+    /*first_name: {
         type: String,
         required: 'A first name is required'
     },
@@ -47,7 +48,7 @@ var UserSchema = new Schema({
         type: String,
         required: 'A user name is required',
         unique: true
-    },
+    },*/
     phone: {
         type: String,
         validate: [
@@ -69,7 +70,11 @@ var UserSchema = new Schema({
                 arguments: 'en-US'
             })
         ]
-    }
+    },
+    activated: {
+        type: Boolean
+    },
+    activationHash: String
 
 });
 
@@ -82,6 +87,9 @@ UserSchema
         this._password = password;
         this.salt = this.makeSalt();
         this.hashedPassword = this.encryptPassword(password);
+
+        //also store an activation hash
+        this.activationHash = this.encryptPassword(new Date().getTime().toString());
     })
     .get(function() {
         return this._password;
@@ -166,10 +174,12 @@ UserSchema
     .pre('save', function(next) {
         if (!this.isNew) return next();
 
-        if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1)
+        if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1) {
             next(new Error('Invalid password'));
-        else
+        } else {
             next();
+        }
+
     });
 
 /**
@@ -185,6 +195,14 @@ UserSchema.methods = {
      */
     authenticate: function(plainText) {
         return this.encryptPassword(plainText) === this.hashedPassword;
+    },
+
+    getActivationHash: function() {
+        return this.activationHash;
+    },
+
+    checkActivationHash: function(someHash) {
+        return someHash === this.activationHash;
     },
 
     /**
