@@ -3,6 +3,9 @@
 var should = require('should');
 var ControllerUtil = require('./controllerUtil');
 
+var clientHost = 'localhost:9000';
+var serverHost = 'localhost:9090';
+
 describe('ControllerUtil', function() {
 
     describe('getQuery', function() {
@@ -35,5 +38,50 @@ describe('ControllerUtil', function() {
         });
     });
 
+    it('should get host from request and return port for local development', function() {
+        var mockRequest = {
+            headers: {
+                host: clientHost
+            }
+
+        }
+
+        var host = ControllerUtil.getHostFromRequest(mockRequest);
+
+        should(host).be.exactly(serverHost);
+    });
+
+    it('should get host from request and return port for client', function() {
+        var mockRequest = {
+            headers: {
+                host: clientHost
+            }
+
+        }
+
+        var host = ControllerUtil.getHostFromRequest(mockRequest, true);
+
+        should(host).be.exactly(clientHost);
+    });
+
+    it('should redirect to a client url', function() {
+        var mockRequest = {
+            headers: {
+                host: clientHost
+            }
+
+        }
+
+        var mockResponse = {
+            redirectResult: '',
+            redirect: function(url) {
+                this.redirectResult = url;
+            }
+        };
+
+        ControllerUtil.redirect(mockRequest, mockResponse, '/login', true);
+
+        should(mockResponse.redirectResult).be.exactly('http://' + clientHost + '/#/login');
+    });
 
 });

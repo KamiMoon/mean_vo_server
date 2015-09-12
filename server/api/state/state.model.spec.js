@@ -28,7 +28,7 @@ describe('State Model', function() {
         validState.save(function(err) {
             should.not.exist(err);
 
-            console.log(validState);
+            //console.log(validState);
 
             done();
         });

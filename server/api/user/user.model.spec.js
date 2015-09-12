@@ -76,7 +76,7 @@ describe('User Model', function() {
 
     it("should have an activation hash", function() {
 
-        console.log(user.activationHash);
+        //console.log(user.activationHash);
         return user.should.have.property('activationHash');
     });
 

@@ -16,7 +16,7 @@ var newUser = new User({
 
 });
 
-describe('User Model', function() {
+describe('User Controller', function() {
     before(function(done) {
 
 
@@ -33,7 +33,7 @@ describe('User Model', function() {
         });
     });
 
-    it('should create confirmation email', function(done) {
+    xit('should create confirmation email', function(done) {
 
         newUser.provider = 'local';
         newUser.role = 'user';

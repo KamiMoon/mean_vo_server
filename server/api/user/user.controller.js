@@ -9,15 +9,9 @@ var ControllerUtil = require('../../components/controllerUtil');
 
 
 var createConfirmationEmail = function(req, user) {
-    var host = '';
+    var host = ControllerUtil.getHostFromRequest(req);
 
-    if (req && req.headers && req.host) {
-
-        host = req.headers.host;
-        //for localhost change it becasue of the proxy and two projects
-        if (host === 'localhost:9000') {
-            host = 'localhost:9090';
-        }
+    if (host) {
 
         var linkAddress = 'http://' + host + '/api/users/activate/' + encodeURIComponent(user._id) + '/' + encodeURIComponent(user.activationHash);
 
@@ -189,11 +183,10 @@ exports.activate = function(req, res) {
                 if (err) {
                     return ControllerUtil.handleError(res, err);
                 }
-                //Success flash
+                //TODO: Success flash
 
                 //redirect to login page
-
-                return res.status(200).json('Success');
+                ControllerUtil.redirect(req, res, '/login', true);
             });
 
 

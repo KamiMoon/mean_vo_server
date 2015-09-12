@@ -104,32 +104,32 @@ describe('Organization Model', function() {
 
     it('should save a state_id', function(done) {
 
-        console.log('before');
-        console.log(validOrganization);
+        //console.log('before');
+        //console.log(validOrganization);
 
         State.findById(validOrganization.state_id, function(e, state) {
-            console.log('Found states');
-            console.log(state);
+            //console.log('Found states');
+            //console.log(state);
 
             validOrganization.save(function(err, saved) {
-                console.log('Saved--')
-                console.log(validOrganization);
+                //console.log('Saved--')
+                //console.log(validOrganization);
 
                 Organization.findById(validOrganization._id).populate('state_id').exec(function(err, org) {
-                    console.log('Retrieved--')
-                    console.log(org);
+                    //console.log('Retrieved--')
+                    //console.log(org);
 
-                    console.log('Now saving the retrieved');
+                    //console.log('Now saving the retrieved');
 
                     org.save(function(err, org2) {
-                        console.log(org2);
+                        //console.log(org2);
 
 
                         Organization.findById(validOrganization._id, function(err, org3) {
 
-                            console.log('retrieving again - do not populate');
+                            //console.log('retrieving again - do not populate');
 
-                            console.log(org3);
+                            //console.log(org3);
 
                             done();
 
