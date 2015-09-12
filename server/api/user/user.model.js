@@ -72,7 +72,8 @@ var UserSchema = new Schema({
         ]
     },
     activated: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     activationHash: String
 
@@ -195,14 +196,6 @@ UserSchema.methods = {
      */
     authenticate: function(plainText) {
         return this.encryptPassword(plainText) === this.hashedPassword;
-    },
-
-    getActivationHash: function() {
-        return this.activationHash;
-    },
-
-    checkActivationHash: function(someHash) {
-        return someHash === this.activationHash;
     },
 
     /**

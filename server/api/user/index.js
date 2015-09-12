@@ -17,4 +17,7 @@ router.put('/:id', controller.update);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 
+router.get('/activate/:id/:activationHash', controller.activate);
+
+
 module.exports = router;

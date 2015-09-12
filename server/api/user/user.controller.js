@@ -6,16 +6,13 @@ var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var _ = require('lodash');
 var hostName = require('os').hostname();
+var ControllerUtil = require('../../components/controllerUtil');
 
-
-var validationError = function(res, err) {
-    return res.status(422).json(err);
-};
 
 var createConfirmationEmail = function(req, user) {
 
     if (req && req.headers && req.host) {
-        var linkAddress = 'http://' + req.headers.host + '/api/users/activate/' + user._id + '/' + user.getActivationHash();
+        var linkAddress = 'http://' + req.headers.host + '/api/users/activate/' + encodeURIComponent(user._id) + '/' + encodeURIComponent(user.activationHash);
 
         var body = 'Welcome ' + user.name + ', <br/>You are registered for Volunteer Omaha. <br/><br/>';
         body += 'To activate your account click this link: <a href="' + linkAddress + '">Activate Account</a>';
@@ -58,7 +55,7 @@ exports.create = function(req, res, next) {
     newUser.provider = 'local';
     newUser.role = 'user';
     newUser.save(function(err, user) {
-        if (err) return validationError(res, err);
+        if (err) return ControllerUtil.validationError(res, err);
         var token = jwt.sign({
             _id: user._id
         }, config.secrets.session, {
@@ -112,7 +109,7 @@ exports.changePassword = function(req, res, next) {
         if (user.authenticate(oldPass)) {
             user.password = newPass;
             user.save(function(err) {
-                if (err) return validationError(res, err);
+                if (err) return ControllerUtil.validationError(res, err);
                 res.status(200).send('OK');
             });
         } else {
@@ -141,7 +138,7 @@ exports.update = function(req, res) {
     }
     User.findById(req.params.id, function(err, user) {
         if (err) {
-            return handleError(res, err);
+            return ControllerUtil.handleError(res, err);
         }
         if (!user) {
             return res.status(404).send('Not Found');
@@ -149,16 +146,61 @@ exports.update = function(req, res) {
         var updated = _.merge(user, req.body);
         updated.save(function(err) {
             if (err) {
-                return handleError(res, err);
+                return ControllerUtil.handleError(res, err);
             }
             return res.status(200).json(user);
         });
     });
 };
 
-function handleError(res, err) {
-    return res.status(500).send(err);
-}
+exports.activate = function(req, res) {
+    var id = decodeURIComponent(req.params.id);
+    var activationHash = decodeURIComponent(req.params.activationHash);
+
+    console.log('Activate');
+
+    //get the User
+    User.findById(id, function(err, user) {
+        console.log('FindById');
+        console.log(err);
+        console.log(user);
+
+        if (err) {
+            return ControllerUtil.handleError(res, err);
+        }
+        if (!user) {
+            return res.status(404).send('Not Found');
+        }
+
+        //read his activationHash
+        var userActivationHash = user.activationHash;
+
+        console.log("Comparing hashes: " + activationHash + " , " + userActivationHash);
+        if (activationHash === userActivationHash) {
+            //if they are the same then flag him as activated
+            user.activated = true;
+
+            user.save(function(err) {
+                if (err) {
+                    return ControllerUtil.handleError(res, err);
+                }
+                //Success flash
+
+                //redirect to login page
+
+                return res.status(200).json('Success');
+            });
+
+
+        } else {
+            //Didn't match - forbidden
+            res.status(403).send('Forbidden');
+        }
+
+
+    });
+};
+
 
 /**
  * Authentication callback

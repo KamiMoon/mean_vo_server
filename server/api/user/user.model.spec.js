@@ -81,8 +81,8 @@ describe('User Model', function() {
     });
 
     it("should have be able to get the hash and then use it", function() {
-        var hash = user.getActivationHash();
-        var useable = user.checkActivationHash(hash);
+        var hash = user.activationHash;
+        var useable = user.activationHash === hash;
 
         return useable.should.be.true;
     });

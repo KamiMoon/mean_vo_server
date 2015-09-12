@@ -2,6 +2,9 @@ exports.handleError = function(res, err) {
     return res.status(500).send(err);
 };
 
+exports.validationError = function(res, err) {
+    return res.status(422).json(err);
+};
 
 //Take req.query and return a cleaned object used for query purposes
 //Also remove any key that has a value of empty string because that was an empty field
