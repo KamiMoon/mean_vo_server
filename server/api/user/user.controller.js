@@ -134,6 +134,8 @@ exports.me = function(req, res, next) {
 };
 
 exports.update = function(req, res) {
+    console.log('Update');
+
     if (req.body._id) {
         delete req.body._id;
     }
@@ -145,6 +147,13 @@ exports.update = function(req, res) {
             return res.status(404).send('Not Found');
         }
         var updated = _.merge(user, req.body);
+
+        //file upload
+        var file = req.file;
+        if (file) {
+            user.photo = file.path;
+        }
+
         updated.save(function(err) {
             if (err) {
                 return ControllerUtil.handleError(res, err);

@@ -92,7 +92,8 @@ module.exports = function(grunt) {
 
                     '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
                     '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
-                    '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+                    '<%= yeoman.client %>/uploads/**/*'
                 ],
                 options: {
                     livereload: 35780
@@ -104,6 +105,7 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['express:dev', 'wait'],
                 options: {
+                    bases: ['server/static'],
                     livereload: 35781,
                     nospawn: true //Without this option specified express won't be reloaded
                 }
@@ -347,6 +349,7 @@ module.exports = function(grunt) {
                         'bower_components/**/*',
                         'assets/images/{,*/}*.{webp}',
                         'assets/fonts/**/*',
+                        'uploads/**/*',
                         'index.html'
                     ]
                 }, {
