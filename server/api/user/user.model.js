@@ -74,7 +74,10 @@ var UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    activationHash: String
+    activationHash: String,
+    photo: {
+        type: String
+    }
 
 });
 

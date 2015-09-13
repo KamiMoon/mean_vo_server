@@ -200,6 +200,12 @@ exports.activate = function(req, res) {
 };
 
 
+exports.uploadImage = function(req, res, next) {
+    console.log(req.file);
+
+    res.end("file uploaded");
+};
+
 /**
  * Authentication callback
  */
