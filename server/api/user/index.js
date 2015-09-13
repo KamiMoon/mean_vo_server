@@ -9,26 +9,22 @@ var fs = require("fs");
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
-            var newDestination = 'uploads/my-uploads/' + req.params.type;
-            var stat = null;
-            try {
-                stat = fs.statSync(newDestination);
-            } catch (err) {
-                fs.mkdirSync(newDestination);
-            }
-            if (stat && !stat.isDirectory()) {
-                throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
-            }
-
-            cb(null, newDestination);
+        var newDestination = 'uploads/my-uploads/' + req.params.folder;
+        var stat = null;
+        try {
+            stat = fs.statSync(newDestination);
+        } catch (err) {
+            fs.mkdirSync(newDestination);
         }
-        /*,
-            filename: function(req, file, cb) {
+        if (stat && !stat.isDirectory()) {
+            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
+        }
 
-                console.log(file);
-
-                cb(null, file.fieldname + '-' + Date.now())
-            }*/
+        cb(null, newDestination);
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + '_' + file.originalname);
+    }
 });
 var upload = multer({
     storage: storage
@@ -49,6 +45,6 @@ router.post('/', controller.create);
 router.get('/activate/:id/:activationHash', controller.activate);
 
 //req.file is the 'avatar' file
-router.post('/avatar/:type', upload.single('avatar'), controller.uploadImage);
+router.post('/avatar/:folder', upload.single('avatar'), controller.uploadImage);
 
 module.exports = router;
