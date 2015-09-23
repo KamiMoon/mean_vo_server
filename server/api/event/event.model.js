@@ -5,8 +5,15 @@ var Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
+var relationship = require("mongoose-relationship");
+var Organization = require('../organization/organization.model');
 
 var EventSchema = new Schema({
+    organization_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+        childPath: 'events'
+    },
     name: {
         type: String,
         required: 'An event name is required',
@@ -60,6 +67,10 @@ var EventSchema = new Schema({
 EventSchema.plugin(timestamps);
 EventSchema.plugin(uniqueValidator, {
     message: 'Error, expected {PATH} to be unique.'
+});
+
+EventSchema.plugin(relationship, {
+    relationshipPathName: 'organization_id'
 });
 
 module.exports = mongoose.model('Event', EventSchema);

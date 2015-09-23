@@ -21,7 +21,10 @@ exports.index = function(req, res) {
 
 // Get a single organization
 exports.show = function(req, res) {
-    Organization.findById(req.params.id, function(err, organization) {
+
+    console.log('Organization show');
+
+    Organization.findById(req.params.id).populate('events').exec(function(err, organization) {
         if (err) {
             return handleError(res, err);
         }
