@@ -8,7 +8,6 @@ var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
 
-
 var UserSchema = new Schema({
     name: String,
     email: {
@@ -59,7 +58,10 @@ var UserSchema = new Schema({
     },
     address: String,
     city: String,
-    abbrev: String,
+    state_id: {
+        type: Number,
+        ref: 'State'
+    },
     zip: String,
     fax: {
         type: String,
@@ -77,7 +79,15 @@ var UserSchema = new Schema({
     activationHash: String,
     photo: {
         type: String
-    }
+    },
+    interests: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Interest'
+    }],
+    registrations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Registration'
+    }]
 
 });
 

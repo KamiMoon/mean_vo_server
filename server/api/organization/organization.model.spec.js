@@ -5,6 +5,8 @@ var app = require('../../app');
 var Organization = require('./organization.model');
 var State = require('../state/state.model');
 var mongoose = require('mongoose');
+var Event = require('../event/event.model');
+var Interest = require('../interest/interest.model');
 
 var validOrganization = new Organization({
     name: 'My Organization',
@@ -117,19 +119,16 @@ describe('Organization Model', function() {
 
                 Organization.findById(validOrganization._id).populate('state_id').exec(function(err, org) {
                     //console.log('Retrieved--')
-                    //console.log(org);
-
-                    //console.log('Now saving the retrieved');
+                    org.state_id.name.should.be.exactly('Kansas');
 
                     org.save(function(err, org2) {
                         //console.log(org2);
-
 
                         Organization.findById(validOrganization._id, function(err, org3) {
 
                             //console.log('retrieving again - do not populate');
 
-                            //console.log(org3);
+                            org3.state_id.should.be.exactly(85);
 
                             done();
 
@@ -145,6 +144,49 @@ describe('Organization Model', function() {
 
 
 
+    });
+
+
+    it('should have events', function(done) {
+
+        var myEvent = new Event({
+            organization_id: validOrganization._id,
+            name: 'My Event',
+            email: 'test@test.com',
+            state_id: 85
+        });
+
+        myEvent.save(function(err, returnedEvent) {
+
+            Organization.findById(validOrganization._id, function(err, returnedOrg) {
+
+                returnedOrg.events.indexOf(returnedEvent._id).should.not.be.exactly(-1);
+
+                done();
+
+            });
+
+        });
+
+    });
+
+    it("should have interests", function(done) {
+
+        var interest = new Interest({
+            organization_id: validOrganization._id
+        });
+
+        interest.save(function(err, returnedInterest) {
+
+            Organization.findById(validOrganization._id, function(err, returnedOrg) {
+
+                returnedOrg.interests.indexOf(returnedInterest._id).should.not.be.exactly(-1);
+
+                done();
+
+            });
+
+        });
     });
 
 });

@@ -6,8 +6,6 @@ var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
 var relationship = require("mongoose-relationship");
-var State = require('../state/state.model');
-var Event = require('../event/event.model');
 
 var OrganizationSchema = new Schema({
     name: {
@@ -61,6 +59,10 @@ var OrganizationSchema = new Schema({
     events: [{
         type: Schema.Types.ObjectId,
         ref: 'Event'
+    }],
+    interests: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Interest'
     }]
 });
 
