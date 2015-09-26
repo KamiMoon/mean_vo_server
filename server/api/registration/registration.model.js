@@ -36,7 +36,7 @@ var RegistrationSchema = new Schema({
 });
 
 RegistrationSchema.plugin(relationship, {
-    relationshipPathName: 'user_id'
+    relationshipPathName: ['user_id', 'event_id']
 });
 
 module.exports = mongoose.model('Registration', RegistrationSchema);

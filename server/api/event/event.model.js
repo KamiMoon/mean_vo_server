@@ -22,6 +22,10 @@ var EventSchema = new Schema({
         type: Number,
         ref: 'Interest'
     }],
+    registrations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Registration'
+    }],
     name: {
         type: String,
         required: 'An event name is required',

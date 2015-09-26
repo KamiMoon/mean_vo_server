@@ -5,6 +5,7 @@
 
 'use strict';
 
+var mongoose = require('mongoose');
 var User = require('../api/user/user.model');
 var State = require('../api/state/state.model');
 var Category = require('../api/category/category.model');
@@ -16,24 +17,26 @@ var Status = require('../api/status/status.model');
 
 console.log('Running seed.js');
 
-/*
-User.find({}).remove(function() {
-  User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
-    provider: 'local',
-    role: 'admin',
-    name: 'Admin',
-    email: 'admin@admin.com',
-    password: 'admin'
-  }, function() {
-      console.log('finished populating users');
-    }
-  );
-});*/
+mongoose.connection.collections['users'].drop(function() {
+    User.create({
+        provider: 'local',
+        name: 'Test User',
+        email: 'test@test.com',
+        password: 'test',
+        state_id: 97,
+        activated: true
+    }, {
+        provider: 'local',
+        role: 'admin',
+        name: 'Admin',
+        email: 'admin@admin.com',
+        password: 'admin',
+        state_id: 97,
+        activated: true
+    }, function() {
+        console.log('Populated users');
+    });
+});
 
 
 State.find({}).remove(function() {

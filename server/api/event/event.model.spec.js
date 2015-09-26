@@ -3,6 +3,8 @@
 var should = require('should');
 var app = require('../../app');
 var Event = require('./event.model');
+var Registration = require('../registration/registration.model');
+var User = require('../user/user.model');
 
 var validEvent = new Event({
     name: 'My Event',
@@ -112,6 +114,39 @@ describe('Event Model', function() {
             returnedEvent.status_id.name.should.be.exactly('Pending');
             done();
         });
+    });
+
+    it("should have a status", function(done) {
+        Event.findById(validEvent._id).populate('status_id').exec(function(err, returnedEvent) {
+            returnedEvent.status_id.name.should.be.exactly('Pending');
+            done();
+        });
+    });
+
+    it("should have registrations", function(done) {
+        User.findOne({
+            'email': 'test@test.com'
+        }, {}, function(err, resultingUser) {
+            var registration = new Registration({
+                user_id: resultingUser._id,
+                event_id: validEvent._id
+            });
+
+            registration.save(function(err, returnedReg) {
+
+                Event.findById(validEvent._id, function(err, returnedEvent) {
+                    returnedEvent.registrations.indexOf(returnedReg._id).should.not.be.exactly(-1);
+
+                    User.findById(resultingUser._id, function(err, returnedUser) {
+                        returnedUser.registrations.indexOf(returnedReg._id).should.not.be.exactly(-1);
+                        done();
+                    });
+
+                });
+
+            });
+        });
+
     });
 
 

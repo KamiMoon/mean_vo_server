@@ -7,51 +7,15 @@ var State = require('../state/state.model');
 var Registration = require('../registration/registration.model');
 var Interest = require('../interest/interest.model');
 
-
 var user = new User({
     provider: 'local',
     name: 'Fake User',
-    email: 'test@test.com',
+    email: 'test34@test.com',
     password: 'password',
-    username: 'EricKiza87',
-    last_name: 'Kizaki',
-    first_name: 'Eric'
 
 });
 
 describe('User Model', function() {
-    before(function(done) {
-
-
-
-        // Clear users before testing
-        User.remove().exec().then(function() {
-            done();
-        });
-    });
-
-    afterEach(function(done) {
-        User.remove().exec().then(function() {
-            done();
-        });
-    });
-
-    it('should begin with no users', function(done) {
-        User.find({}, function(err, users) {
-            users.should.have.length(0);
-            done();
-        });
-    });
-
-    it('should fail when saving a duplicate user', function(done) {
-        user.save(function() {
-            var userDup = new User(user);
-            userDup.save(function(err) {
-                should.exist(err);
-                done();
-            });
-        });
-    });
 
     it('should fail when saving without an email', function(done) {
         user.email = '';
@@ -64,10 +28,10 @@ describe('User Model', function() {
     it('should save when saving with a valid user', function(done) {
 
         var user2 = new User({
-            name: 'Fake User',
-            email: 'erickizaki2@gmail.com',
+            name: 'Fake Usefr',
+            email: 'erickizakdi2@gmail.com',
             password: 'password',
-            username: 'EricKiza87',
+            username: 'EricKiza800000f7',
             last_name: 'Kizaki',
             first_name: 'Eric'
 
@@ -111,7 +75,7 @@ describe('User Model', function() {
             name: 'Fake User',
             email: 'test12344@test.com',
             password: 'password',
-            username: 'EricKiza87',
+            username: 'EricKizadddddddd87',
             last_name: 'Kizaki',
             first_name: 'Eric',
             state_id: 85
@@ -138,7 +102,7 @@ describe('User Model', function() {
             name: 'Fake User',
             email: 'test123744@test.com',
             password: 'password',
-            username: 'EricKiza87',
+            username: 'EricsssssssKiza87',
             last_name: 'Kizaki',
             first_name: 'Eric',
             state_id: 85,
@@ -154,18 +118,10 @@ describe('User Model', function() {
     });
 
     it("should have registrations", function(done) {
-        var user3 = {
-            name: 'Fake User',
-            email: 'test1234477@test.com',
-            password: 'password',
-            username: 'EricKiza87',
-            last_name: 'Kizaki',
-            first_name: 'Eric',
-            state_id: 85
-        };
 
-        User.create(user3, function(err, resultingUser) {
-
+        User.findOne({
+            'email': 'test@test.com'
+        }, {}, function(err, resultingUser) {
             var registration = new Registration({
                 user_id: resultingUser._id
             });
@@ -173,7 +129,6 @@ describe('User Model', function() {
             registration.save(function(err, returnedReg) {
 
                 User.findById(resultingUser._id, function(err, returnedUser2) {
-
                     returnedUser2.registrations.indexOf(returnedReg._id).should.not.be.exactly(-1);
 
                     done();
@@ -181,7 +136,7 @@ describe('User Model', function() {
                 });
 
             });
-        })
+        });
 
     });
 
