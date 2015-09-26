@@ -9,6 +9,18 @@ var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new Schema({
+    interests: [{
+        type: Number,
+        ref: 'Interest'
+    }],
+    registrations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Registration'
+    }],
+    role: {
+        type: String,
+        default: 'user'
+    },
     name: String,
     email: {
         type: String,
@@ -21,10 +33,6 @@ var UserSchema = new Schema({
         ],
         unique: true
     },
-    role: {
-        type: String,
-        default: 'user'
-    },
     //TODO - needs to be 6-10 characters long
     hashedPassword: String,
     provider: String,
@@ -33,6 +41,7 @@ var UserSchema = new Schema({
     twitter: {},
     google: {},
     github: {},
+    activationHash: String,
 
     /*first_name: {
         type: String,
@@ -56,19 +65,34 @@ var UserSchema = new Schema({
             })
         ]
     },
-    address: String,
-    city: String,
+    address: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50]
+            })
+        ]
+    },
+    city: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50]
+            })
+        ]
+    },
     state_id: {
         type: Number,
         ref: 'State'
     },
-    zip: String,
-    fax: {
+    zip: {
         type: String,
         validate: [
             validate({
-                validator: 'isMobilePhone',
-                arguments: 'en-US'
+                validator: 'isLength',
+                arguments: [0, 16]
             })
         ]
     },
@@ -76,18 +100,14 @@ var UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    activationHash: String,
+    leaderboardopt: {
+        type: Boolean,
+        default: false
+    },
     photo: {
         type: String
-    },
-    interests: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Interest'
-    }],
-    registrations: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Registration'
-    }]
+    }
+
 
 });
 

@@ -3,9 +3,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var InterestSchema = new Schema({
+var SchoolSchema = new Schema({
     _id: Number,
     name: String
 });
 
-module.exports = mongoose.model('Interest', InterestSchema);
+module.exports = mongoose.model('School', SchoolSchema);

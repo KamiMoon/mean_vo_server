@@ -2,19 +2,19 @@
 
 var should = require('should');
 var app = require('../../app');
-var request = require('supertest');
+var Interest = require('./interest.model');
 
-describe('GET /api/interests', function() {
+var validInterest = new Interest({
+    _id: 99,
+    name: 'Some Interest'
+});
 
-  it('should respond with JSON array', function(done) {
-    request(app)
-      .get('/api/interests')
-      .expect(200)
-      .expect('Content-Type', /json/)
-      .end(function(err, res) {
-        if (err) return done(err);
-        res.body.should.be.instanceof(Array);
-        done();
-      });
-  });
+describe('Interest Model', function() {
+
+    it('should save when adding a valid interest', function(done) {
+        validInterest.save(function(err) {
+            should.not.exist(err);
+            done();
+        });
+    });
 });

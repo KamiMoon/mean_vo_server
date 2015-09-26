@@ -7,7 +7,8 @@ var Event = require('./event.model');
 var validEvent = new Event({
     name: 'My Event',
     email: 'test@test.com',
-    short_description: 'My Desc'
+    short_description: 'My Desc',
+    interests: [1]
 });
 
 describe('Event Model', function() {
@@ -18,7 +19,7 @@ describe('Event Model', function() {
         });
     });
 
-    afterEach(function(done) {
+    after(function(done) {
         Event.remove().exec().then(function() {
             done();
         });
@@ -98,5 +99,20 @@ describe('Event Model', function() {
             done();
         });
     });
+
+    it("should have interests", function(done) {
+        Event.findById(validEvent._id).populate('interests').exec(function(err, returnedEvent) {
+            returnedEvent.interests[0].name.should.be.exactly('Animals');
+            done();
+        });
+    });
+
+    it("should have a status", function(done) {
+        Event.findById(validEvent._id).populate('status_id').exec(function(err, returnedEvent) {
+            returnedEvent.status_id.name.should.be.exactly('Pending');
+            done();
+        });
+    });
+
 
 });

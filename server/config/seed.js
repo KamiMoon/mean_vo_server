@@ -5,33 +5,16 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var State = require('../api/state/state.model');
+var Category = require('../api/category/category.model');
+var Interest = require('../api/interest/interest.model');
+var Role = require('../api/role/role.model');
+var School = require('../api/school/school.model');
+var Status = require('../api/status/status.model');
+
 
 console.log('Running seed.js');
-
-Thing.find({}).remove(function() {
-    Thing.create({
-        name: 'Development Tools',
-        info: 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-    }, {
-        name: 'Server and Client integration',
-        info: 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-    }, {
-        name: 'Smart Build System',
-        info: 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-    }, {
-        name: 'Modular Structure',
-        info: 'Best practice client and server structures allow for more code reusability and maximum scalability'
-    }, {
-        name: 'Optimized Build',
-        info: 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-    }, {
-        name: 'Deployment Ready',
-        info: 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-    });
-});
 
 /*
 User.find({}).remove(function() {
@@ -317,6 +300,83 @@ State.find({}).remove(function() {
         }
 
     );
+});
+
+Category.find({}).remove(function() {
+    Category.create({
+        "_id": 1,
+        "name": 'School'
+    }, {
+        "_id": 2,
+        "name": 'Non-Profit'
+    }, {
+        "_id": 3,
+        "name": 'Corporation'
+    }, {
+        "_id": 4,
+        "name": 'Government'
+    });
+});
+
+Interest.find({}).remove(function() {
+    Interest.create({
+        "_id": 1,
+        "name": 'Animals'
+    }, {
+        "_id": 2,
+        "name": 'Construction'
+    }, {
+        "_id": 3,
+        "name": 'Health'
+    }, {
+        "_id": 4,
+        "name": 'Education'
+    });
+});
+
+Role.find({}).remove(function() {
+    Role.create({
+        "_id": 1,
+        "name": 'VO Admin'
+    }, {
+        "_id": 2,
+        "name": 'Organization Admin Primary'
+    }, {
+        "_id": 3,
+        "name": 'Organization Admin Secondary'
+    }, {
+        "_id": 4,
+        "name": 'Student'
+    });
+});
+
+School.find({}).remove(function() {
+    School.create({
+        "_id": 500,
+        "name": 'Millard North High School'
+    }, {
+        "_id": 501,
+        "name": 'Millard South High School'
+    }, {
+        "_id": 502,
+        "name": 'Millard West High School'
+    }, {
+        "_id": 503,
+        "name": 'Millard Horizon High School'
+    });
+});
+
+Status.find({}).remove(function() {
+    Status.create({
+        "_id": 1,
+        "name": 'Pending'
+    }, {
+        "_id": 2,
+        "name": 'Approved'
+    }, {
+        "_id": 3,
+        "name": 'Dissaproved'
+    });
 });
 
 console.log('DONE - Running seed.js');

@@ -8,6 +8,24 @@ var uniqueValidator = require('mongoose-unique-validator');
 var relationship = require("mongoose-relationship");
 
 var OrganizationSchema = new Schema({
+    status_id: {
+        type: Number,
+        ref: 'Status',
+        default: 1
+    },
+    category_id: {
+        type: Number,
+        ref: 'Category',
+        default: 1
+    },
+    events: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Event'
+    }],
+    interests: [{
+        type: Number,
+        ref: 'Interest'
+    }],
     name: {
         type: String,
         required: 'An organization name is required!',
@@ -16,6 +34,16 @@ var OrganizationSchema = new Schema({
             validate({
                 validator: 'isLength',
                 arguments: [3, 20],
+                message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
+            })
+        ]
+    },
+    url: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50],
                 message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
             })
         ]
@@ -49,21 +77,48 @@ var OrganizationSchema = new Schema({
             })
         ]
     },
+    long_description: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 8000],
+                message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters'
+            })
+        ]
+    },
+    photo: String,
+    address: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50]
+            })
+        ]
+    },
+    city: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50]
+            })
+        ]
+    },
     state_id: {
         type: Number,
         ref: 'State'
     },
-    status_id: Number,
-    category_id: Number,
-    photo: String,
-    events: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Event'
-    }],
-    interests: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Interest'
-    }]
+    zip: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 16]
+            })
+        ]
+    }
 });
 
 OrganizationSchema.plugin(timestamps);

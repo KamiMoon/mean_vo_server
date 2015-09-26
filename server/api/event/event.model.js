@@ -13,6 +13,15 @@ var EventSchema = new Schema({
         ref: 'Organization',
         childPath: 'events'
     },
+    status_id: {
+        type: Number,
+        ref: 'Status',
+        default: 1
+    },
+    interests: [{
+        type: Number,
+        ref: 'Interest'
+    }],
     name: {
         type: String,
         required: 'An event name is required',
@@ -35,6 +44,15 @@ var EventSchema = new Schema({
             })
         ]
     },
+    start_time: {
+        type: Date
+    },
+    end_time: {
+        type: Date
+    },
+    photo: String,
+    contact_first_name: String,
+    contact_last_name: String,
     email: {
         type: String,
         required: 'An email is required!',
@@ -53,13 +71,37 @@ var EventSchema = new Schema({
             })
         ]
     },
-    photo: String,
-    contact_first_name: String,
-    contact_last_name: String,
-    address: String,
-    city: String,
-    abbrev: String,
-    zip: String
+    address: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50]
+            })
+        ]
+    },
+    city: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 50]
+            })
+        ]
+    },
+    state_id: {
+        type: Number,
+        ref: 'State'
+    },
+    zip: {
+        type: String,
+        validate: [
+            validate({
+                validator: 'isLength',
+                arguments: [0, 16]
+            })
+        ]
+    }
 });
 
 //TODO - refactor - this is becoming repetitive

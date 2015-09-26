@@ -12,7 +12,8 @@ var validOrganization = new Organization({
     name: 'My Organization',
     email: 'test@test.com',
     short_description: 'My Desc',
-    state_id: 85
+    state_id: 85,
+    interests: [0, 1]
 });
 
 describe('Organization Model', function() {
@@ -172,20 +173,23 @@ describe('Organization Model', function() {
 
     it("should have interests", function(done) {
 
-        var interest = new Interest({
-            organization_id: validOrganization._id
+        Organization.findById(validOrganization._id).populate('interests').exec(function(err, returnedOrg) {
+            returnedOrg.interests[0].name.should.be.exactly('Animals');
+            done();
         });
+    });
 
-        interest.save(function(err, returnedInterest) {
+    it("should have a status", function(done) {
+        Organization.findById(validOrganization._id).populate('status_id').exec(function(err, returnedOrg) {
+            returnedOrg.status_id.name.should.be.exactly('Pending');
+            done();
+        });
+    });
 
-            Organization.findById(validOrganization._id, function(err, returnedOrg) {
-
-                returnedOrg.interests.indexOf(returnedInterest._id).should.not.be.exactly(-1);
-
-                done();
-
-            });
-
+    it("should have a category", function(done) {
+        Organization.findById(validOrganization._id).populate('category_id').exec(function(err, returnedOrg) {
+            returnedOrg.category_id.name.should.be.exactly('School');
+            done();
         });
     });
 

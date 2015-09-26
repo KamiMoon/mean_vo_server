@@ -141,25 +141,14 @@ describe('User Model', function() {
             username: 'EricKiza87',
             last_name: 'Kizaki',
             first_name: 'Eric',
-            state_id: 85
+            state_id: 85,
+            interests: [1, 2]
         };
 
         User.create(user3, function(err, resultingUser) {
-
-            var interest = new Interest({
-                user_id: resultingUser._id
-            });
-
-            interest.save(function(err, returnedInterest) {
-
-                User.findById(resultingUser._id, function(err, returnedUser2) {
-
-                    returnedUser2.interests.indexOf(returnedInterest._id).should.not.be.exactly(-1);
-
-                    done();
-
-                });
-
+            User.findById(resultingUser._id).populate('interests').exec(function(err, returnedUser2) {
+                returnedUser2.interests[0].name.should.be.exactly('Animals');
+                done();
             });
         })
     });
