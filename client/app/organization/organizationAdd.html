@@ -1,2 +1,49 @@
-
-Add Organization
+<h1>Create Organization / School</h1>
+<form class="form" name="form" ng-submit="save(form)" novalidate>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-heading">
+                <h3><span class="glyphicon glyphicon-globe"></span> Basic Info:</h3>
+            </div>
+            <div class="form-horizontal">
+                <b-input model="organization.name"></b-input>
+                <!--<input type="file" ngf-select ng-model="photo" name="photo" accept="image/*" ngf-max-size="2MB">
+                <b-input label="Category:"></b-input>-->
+                <b-input label="Short Description" model="organization.short_description"></b-input>
+                <!-- TODO: long_description -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel-heading">
+                <h3><span class="glyphicon glyphicon-user"></span> Contact Info:</h3>
+            </div>
+            <div class="form-horizontal">
+                <b-input type="email" model="organization.email"></b-input>
+                <b-input model="organization.phone"></b-input>
+                <b-input model="organization.fax"></b-input>
+                <b-input model="organization.url"></b-input>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel-heading">
+                <h3><span class="glyphicon glyphicon-home"></span> Address:</h3>
+            </div>
+            <div class="form-horizontal">
+                <b-input model="organization.address"></b-input>
+                <b-input model="organization.city"></b-input>
+                <!--<b-input model="organization.abbrev"></b-input>-->
+                <b-input model="organization.zip"></b-input>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div align="right">
+                <b-input type="submit"></b-input>
+            </div>
+        </div>
+    </div>
+</form>

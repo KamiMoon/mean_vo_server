@@ -4,7 +4,6 @@ describe('Directive: bInput', function() {
 
     // load the directive's module and view
     beforeEach(module('meanVoServerApp'));
-    beforeEach(module('components/bInput/bInput.html'));
 
     var element;
     var scope;
