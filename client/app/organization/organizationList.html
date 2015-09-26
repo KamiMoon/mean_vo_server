@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1>Organizations / Schools List</h1>
+    </div>
+    <div class="col-md-4">
+        <img src="img/Omaha.png" width="400px">
+    </div>
+    <div class="col-md=2">
+    </div>
+</div>
+<br>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+           <span class="glyphicon glyphicon-globe"></span> 
+            Search for Organizations / Schools 
+           <span class =" spangglyph glyphicon glyphicon-chevron-down"></span>
+        </a>
+      </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+                <!--<?php 
+    echo $this->Form->create('Organization', array('type' => 'get', 
+            'novalidate' => true ));
+    echo $this->Form->input('name');
+    echo $this->Form->input('category_id', array ('options' => $categories, 'empty' => ''));
+    echo $this->Form->input('address');
+    echo $this->Form->input('city');
+    echo $this->Form->input('state_id', array(
+            'options' => $states,
+            'empty' => ''
+        ));
+    echo $this->Form->input('zip');
+    echo $this->Form->input('phone');
+    echo $this->Form->input('email');
+    echo $this->Form->input('fax');
+    echo $this->Form->input('Interest', array(
+            'label' => 'Interests',
+            'type' => 'select',
+            'multiple' => true, // or 'checkbox' if you want a set of checkboxes
+            'options' => $interests
+    ));
+    echo $this->Form->end('Search');
+    ?> -->
+                <div class="form-horizontal">
+                    <b-input label="Name:" ng-model="searchParams.name"></b-input>
+                    <b-input label="Address:" ng-model="searchParams.address"></b-input>
+                    <b-input label="City:" ng-model="searchParams.city"></b-input>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary" ng-click="search()">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+<span class="glyphicon glyphicon-plus-sign"></span>
+<a href="/#/organization/add">Add Organization</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="organization in organizations">
+            <td>
+                <!--                         <?php
+            if(isset($organization['Organization']['photo']))
+                        {
+                            echo "<img src='/volunteeromaha/files/organization/photo/".$organization['Organization']['id']. "/".$organization['Organization']['photo']."' width='60px' height='60px' class='img-thumbnail'> ";
+                        } 
+                    else{
+                            echo "<img src='/volunteeromaha/img/Default.png' width='60px' height='60px' class='img-thumbnail'>";
+                        } 
+            ?> -->
+            </td>
+            <td>
+                <a href="/#/organization/view/{{organization._id}}">{{organization.name}}</a>
+            </td>
+            <td>
+                <!-- <?php echo $organization['Category']['name']; ?> -->
+            </td>
+            <td>
+                {{organization.created}}
+            </td>
+            <td>
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- <?php if($this->Auth->isOrgAdminFor($organization['Organization']['id']) ){ ?> -->
+                        <button type="button" class="btn btn-default btn-sm" id="buttonlink"><span class="glyphicon glyphicon-pencil"></span>
+                            <a href="/#/organization/edit/{{organization._id}}">Edit</a>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" id="buttonlink"><span class="glyphicon glyphicon-pencil"></span>
+                            <a href="#" ng-click="delete(organization._id)" target="_self">Delete</a>
+                        </button>
+                        <!-- <?php }?> -->
+                    </div>
+                    <div class="col-md-9" align="center">
+                        <!--  <?php
+            
+                if($this->Auth->isVoAdmin()){
+                    echo $this->element('update_status', 
+                        array(
+                            'orgId' => $organization['Organization']['id'],
+                            'statusId' => $organization['Status']['id'], 
+                            'updateId' => $organization['Organization']['id'],
+                            'defaultAction' => 'updateOrganizationStatus'
+                        ));
+                }
+            ?> -->
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

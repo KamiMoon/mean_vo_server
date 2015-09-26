@@ -16,6 +16,8 @@
         "it": true,
         "before": true,
         "afterEach": true,
-        "beforeEach": true "xit": true
+        "beforeEach": true,
+        "xit": true,
+        "afterEach": true
     }
 }
