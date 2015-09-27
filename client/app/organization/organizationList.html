@@ -94,12 +94,8 @@
                 <div class="row">
                     <div class="col-md-3">
                         <!-- <?php if($this->Auth->isOrgAdminFor($organization['Organization']['id']) ){ ?> -->
-                        <button type="button" class="btn btn-default btn-sm" id="buttonlink"><span class="glyphicon glyphicon-pencil"></span>
-                            <a href="/#/organization/edit/{{organization._id}}">Edit</a>
-                        </button>
-                        <button type="button" class="btn btn-default btn-sm" id="buttonlink"><span class="glyphicon glyphicon-pencil"></span>
-                            <a href="#" ng-click="delete(organization._id)" target="_self">Delete</a>
-                        </button>
+                        <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                        <a target="_self" ng-click="delete(organization._id)" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Delete</a>
                         <!-- <?php }?> -->
                     </div>
                     <div class="col-md-9" align="center">
