@@ -1,0 +1,60 @@
+<div style="margin-bottom: 25px" align="center">
+    <a><img src="assets/img/Logoblack.png" alt="Volunteer Omaha" height="60px"></a>
+</div>
+<h1>Create Event</h1>
+<form name="form" ng-submit="save(form)" novalidate>
+    <div class="row">
+        <div class="col-md-12">
+            <h3><span class="glyphicon glyphicon-globe"></span> Event Info:</h3>
+            <!-- <?php
+            echo $this->Form->input('organization_id', array('type' => 'hidden', 'value' => $organization_id));
+            echo $this->Form->input('name');
+            echo $this->Form->input('photo', array('type' => 'file'));
+            echo $this->Form->input('photo_dir', array('type' => 'hidden'));
+            echo $this->Form->input('description', array('type' => 'textarea', 'rows' => '6', 'cols' => '5'));
+            echo $this->Form->input('status', array('type' => 'hidden'));
+            echo $this->Form->datePicker('start_time');
+            echo $this->Form->datePicker('end_time');
+            echo $this->Form->input('Interest', array(
+                    'label' => 'Interests',
+                    'type' => 'select',
+                    'multiple' => true, // or 'checkbox' if you want a set of checkboxes
+                    'options' => $interests
+            ));
+            ?> -->
+            <div class="form-horizontal">
+                <b-input model="event.name" required="true"></b-input>
+                <b-input model="event.photo" type="file"></b-input>
+                <b-input model="event.description"></b-input>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-user"></span> Contact Info:</h3>
+            <div class="form-horizontal">
+                <b-input label="First Name:" model="event.contact_first_name"></b-input>
+                <b-input label="Last Name:" model="event.contact_last_name"></b-input>
+                <b-input model="event.email"></b-input>
+                <b-input model="event.phone"></b-input>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-home"></span> Address:</h3>
+            <div class="form-horizontal">
+                <b-input model="event.address"></b-input>
+                <b-input model="event.city"></b-input>
+                <!-- <b-input label="State:" name="abbrev" ng-model="event.abbrev"></b-input> -->
+                <b-input model="event.zip"></b-input>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div align="right">
+                <b-input type="submit" />
+            </div>
+        </div>
+    </div>
+</form>

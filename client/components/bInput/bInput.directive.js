@@ -51,7 +51,7 @@ angular.module('meanVoServerApp')
                 if (attrs.name) {
                     var someClass = "";
                     someClass += "{ 'has-success': form." + attrs.name + ".$valid && submitted,";
-                    someClass += " 'has-error': form." + attrs.name + ".$invalid && submitted }";
+                    someClass += " 'has-error': (form." + attrs.name + ".$invalid && submitted) || errors." + attrs.name + " }";
 
                     html += ' ng-class="' + someClass + '"';
                 }
@@ -77,7 +77,7 @@ angular.module('meanVoServerApp')
                 }
 
                 html += '/>';
-                html += '</div>';
+
                 if (attrs.name) {
 
                     if (attrs.required) {
@@ -108,7 +108,7 @@ angular.module('meanVoServerApp')
                     html += '<p class="help-block" ng-if="errors.' + attrs.name + '">';
                     html += '{{errors.' + attrs.name + '}}</p>';
                 }
-
+                html += '</div>';
                 html += '</div>';
             }
 

@@ -70,6 +70,8 @@ angular.module('meanVoServerApp')
                 }, $scope.organization).$promise.then(function(organization) {
                     ValidationService.displaySuccess();
                     $location.path('/organization/view/' + organization._id);
+                }, function(err) {
+                    ValidationService.displayErrors(form, err);
                 });
             }
 
