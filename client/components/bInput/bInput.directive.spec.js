@@ -18,6 +18,6 @@ describe('Directive: bInput', function() {
         scope.$apply();
 
         console.log(element[0].outerHTML);
-        expect(element[0].outerHTML).toBe('<b-input class="ng-scope"><div class="form-group ng-scope"><label></label><input type="text" class="form-control"></div></b-input>');
+        expect(element[0].outerHTML).toBe('<b-input class="ng-scope"><div class="form-group ng-scope"><label class="col-lg-2 control-label"></label><div class="col-lg-10"><input type="text" class="form-control"></div></div></b-input>');
     }));
 });
