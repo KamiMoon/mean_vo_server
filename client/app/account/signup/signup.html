@@ -1,11 +1,10 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1>Sign up</h1>
-        </div>
-        <div class="col-sm-12">
-            <form class="form" name="form" ng-submit="register(form)" novalidate>
-                <!--<div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Sign up</h1>
+    </div>
+    <div class="col-sm-12">
+        <form class="form" name="form" ng-submit="register(form)" novalidate>
+            <!--<div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
                     <label>Name</label>
                     <input type="text" name="name" class="form-control" ng-model="user.name" required/>
@@ -13,7 +12,7 @@
                         A name is required
                     </p>
                 </div>-->
-                <!--
+            <!--
                 <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                             'has-error': form.email.$invalid && submitted }">
                     <label>Email</label>
@@ -28,10 +27,10 @@
                         {{ errors.email }}
                     </p>
                 </div>-->
-                <b-input model="user.name" required="true"></b-input>
-                <b-input type="email" model="user.email" required="true"></b-input>
-                <b-input type="password" model="user.password" required="true" minlength="3"></b-input>
-                <!--<div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+            <b-input model="user.name" required="true"></b-input>
+            <b-input type="email" model="user.email" required="true"></b-input>
+            <b-input type="password" model="user.password" required="true" minlength="3"></b-input>
+            <!--<div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
                                             'has-error': form.password.$invalid && submitted }">
                     <label>Password</label>
                     <input type="password" name="password" class="form-control" ng-model="user.password" ng-minlength="3" required mongoose-error/>
@@ -42,26 +41,25 @@
                         {{ errors.password }}
                     </p>
                 </div>-->
-                <div>
-                    <b-input type="submit"></b-input>
-                    <a class="btn btn-default btn-lg btn-register" href="/login">
+            <div>
+                <b-input type="submit"></b-input>
+                <a class="btn btn-default btn-lg btn-register" href="/login">
             Login
           </a>
-                </div>
-                <hr>
-                <div>
-                    <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
-                        <i class="fa fa-facebook"></i> Connect with Facebook
-                    </a>
-                    <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
-                        <i class="fa fa-google-plus"></i> Connect with Google+
-                    </a>
-                    <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
-                        <i class="fa fa-twitter"></i> Connect with Twitter
-                    </a>
-                </div>
-            </form>
-        </div>
+            </div>
+            <hr>
+            <div>
+                <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+                    <i class="fa fa-facebook"></i> Connect with Facebook
+                </a>
+                <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+                    <i class="fa fa-google-plus"></i> Connect with Google+
+                </a>
+                <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+                    <i class="fa fa-twitter"></i> Connect with Twitter
+                </a>
+            </div>
+        </form>
     </div>
-    <hr>
 </div>
+<hr>
