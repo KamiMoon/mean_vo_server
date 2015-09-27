@@ -1,5 +1,5 @@
 <h1>Create Organization / School</h1>
-<form class="form" name="form" ng-submit="save(form)" novalidate>
+<form name="form" ng-submit="save(form)" novalidate>
     <div class="row">
         <div class="col-md-12">
             <div class="panel-heading">
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="panel-heading">
                 <h3><span class="glyphicon glyphicon-user"></span> Contact Info:</h3>
             </div>
@@ -26,9 +26,7 @@
                 <b-input model="organization.url"></b-input>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="panel-heading">
                 <h3><span class="glyphicon glyphicon-home"></span> Address:</h3>
             </div>
@@ -40,6 +38,7 @@
             </div>
         </div>
     </div>
+    <br>
     <div class="row">
         <div class="col-md-12">
             <b-input type="submit"></b-input>

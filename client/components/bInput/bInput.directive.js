@@ -44,9 +44,9 @@ angular.module('meanVoServerApp')
             } else {
 
                 html += '<div class="form-group';
-                /*if (attrs.required) {
+                if (attrs.required) {
                     html += ' required';
-                }*/
+                }
                 html += '"';
                 if (attrs.name) {
                     var someClass = "";
@@ -56,7 +56,8 @@ angular.module('meanVoServerApp')
                     html += ' ng-class="' + someClass + '"';
                 }
                 html += '>';
-                html += '<label>' + attrs.label + '</label>';
+                html += '<label class="col-lg-2 control-label">' + attrs.label + '</label>';
+                html += '<div class="col-lg-10">';
                 html += '<input type="' + attrs.type + '"';
                 if (attrs.model) {
                     html += ' ng-model="' + attrs.model + '"';
@@ -76,6 +77,7 @@ angular.module('meanVoServerApp')
                 }
 
                 html += '/>';
+                html += '</div>';
                 if (attrs.name) {
 
                     if (attrs.required) {
