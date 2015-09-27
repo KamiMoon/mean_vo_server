@@ -1,37 +1,35 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
-    $scope.user = {};
-    $scope.errors = {};
+    .controller('SignupCtrl', function($scope, Auth, $location, $window, ValidationService) {
+        $scope.user = {};
 
-    $scope.register = function(form) {
-      $scope.submitted = true;
+        $scope.register = function(form) {
+            $scope.submitted = true;
 
-      if(form.$valid) {
-        Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password
-        })
-        .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
-        })
-        .catch( function(err) {
-          err = err.data;
-          $scope.errors = {};
+            if (form.$valid) {
 
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
-          });
-        });
-      }
-    };
+                if ($scope.user.password !== $scope.user.confirmPassword) {
+                    ValidationService.error('Confirmation password must match password.');
+                } else {
 
-    $scope.loginOauth = function(provider) {
-      $window.location.href = '/auth/' + provider;
-    };
-  });
+                    Auth.createUser({
+                            name: $scope.user.name,
+                            email: $scope.user.email,
+                            password: $scope.user.password
+                        })
+                        .then(function() {
+                            ValidationService.displaySuccess('You have been registered. Check your email to verify.');
+                            // Account created, redirect to home
+                            $location.path('/thanks');
+                        }, function(err) {
+                            ValidationService.displayErrors(form, err);
+                        });
+                }
+            }
+        };
+
+        $scope.loginOauth = function(provider) {
+            $window.location.href = '/auth/' + provider;
+        };
+    });
