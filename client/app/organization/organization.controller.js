@@ -33,7 +33,7 @@ angular.module('meanVoServerApp')
             }
         };
 
-    }).controller('OrganizationAddCtrl', function($scope, OrganizationService, ValidationService, $location) {
+    }).controller('OrganizationAddCtrl', function($scope, $location, OrganizationService, ValidationService) {
 
         $scope.organization = {};
 
@@ -53,7 +53,7 @@ angular.module('meanVoServerApp')
 
         };
 
-    }).controller('OrganizationEditCtrl', function($scope, $stateParams, OrganizationService) {
+    }).controller('OrganizationEditCtrl', function($scope, $stateParams, $location, OrganizationService, ValidationService) {
 
         var id = $stateParams.id;
 
@@ -61,14 +61,18 @@ angular.module('meanVoServerApp')
             id: id
         });
 
-        $scope.save = function() {
-            console.log($scope.organization);
+        $scope.save = function(form) {
+            $scope.submitted = true;
 
-            OrganizationService.update({
-                id: $scope.organization._id
-            }, $scope.organization).$promise.then(function() {
-                console.log("SAVED");
-            });
+            if (form.$valid) {
+                OrganizationService.update({
+                    id: $scope.organization._id
+                }, $scope.organization).$promise.then(function(organization) {
+                    ValidationService.displaySuccess();
+                    $location.path('/organization/view/' + organization._id);
+                });
+            }
+
         };
 
     }).controller('OrganizationViewCtrl', function($scope, $stateParams, OrganizationService) {

@@ -133,8 +133,6 @@ describe('Controllers: Organization', function() {
             httpBackend.flush();
 
             expect(location.path()).toBe('/organization/view/1');
-
-
         });
 
     });
@@ -186,11 +184,13 @@ describe('Controllers: Organization', function() {
                 .respond(responseData);
 
             scope.$apply(function() {
-                scope.save();
+                scope.save({
+                    $valid: true
+                });
             });
 
             httpBackend.flush();
-
+            expect(location.path()).toBe('/organization/view/1');
         });
 
     });

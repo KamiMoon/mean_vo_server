@@ -92,7 +92,7 @@ module.exports = function(grunt) {
 
                     '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
                     '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
-                    '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}',
+                    '<%= yeoman.client %>/assets/**/*',
                     '<%= yeoman.client %>/uploads/**/*'
                 ],
                 options: {
@@ -163,21 +163,6 @@ module.exports = function(grunt) {
             server: '.tmp'
         },
 
-        // Add vendor prefixed styles
-        autoprefixer: {
-            options: {
-                browsers: ['last 1 version']
-            },
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/',
-                    src: '{,*/}*.css',
-                    dest: '.tmp/'
-                }]
-            }
-        },
-
         // Debugging with node inspector
         'node-inspector': {
             custom: {
@@ -228,8 +213,7 @@ module.exports = function(grunt) {
                     src: [
                         '<%= yeoman.dist %>/public/{,*/}*.js',
                         '<%= yeoman.dist %>/public/{,*/}*.css',
-                        '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-                        '<%= yeoman.dist %>/public/assets/fonts/*'
+                        '<%= yeoman.dist %>/public/assets/**/*'
                     ]
                 }
             }
@@ -253,7 +237,7 @@ module.exports = function(grunt) {
             options: {
                 assetsDirs: [
                     '<%= yeoman.dist %>/public',
-                    '<%= yeoman.dist %>/public/assets/images'
+                    '<%= yeoman.dist %>/public/assets/**/*'
                 ],
                 // This is so we update image references in our ng-templates
                 patterns: {
@@ -530,7 +514,6 @@ module.exports = function(grunt) {
                 'concurrent:server',
                 'injector',
                 'wiredep',
-                'autoprefixer',
                 'concurrent:debug'
             ]);
         }
@@ -541,7 +524,6 @@ module.exports = function(grunt) {
             'concurrent:server',
             'injector',
             'wiredep',
-            'autoprefixer',
             'express:dev',
             'wait',
             'open',
@@ -567,7 +549,6 @@ module.exports = function(grunt) {
                 'env:all',
                 'concurrent:test',
                 'injector',
-                'autoprefixer',
                 'karma'
             ]);
         } else if (target === 'e2e') {
@@ -578,7 +559,6 @@ module.exports = function(grunt) {
                 'concurrent:test',
                 'injector',
                 'wiredep',
-                'autoprefixer',
                 'express:dev',
                 'protractor'
             ]);
@@ -594,7 +574,6 @@ module.exports = function(grunt) {
         'injector',
         'wiredep',
         'useminPrepare',
-        'autoprefixer',
         'ngtemplates',
         'concat',
         'ngAnnotate',

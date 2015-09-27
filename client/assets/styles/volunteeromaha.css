@@ -1,0 +1,140 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-bottom: 0px;
+}
+
+ul, li {
+list-style-type:none;
+padding:0;
+margin:0;
+}
+
+#buttonlink a{
+color:#000;
+text-decoration:none;
+}
+
+#approvalbtn a{
+  color: #fff;
+  text-decoration: none;
+}
+/* CSS for Breadcrumbs */
+#crumbs {
+border:1px solid #dedede;
+height:2.4em;
+}
+#crumbs li {
+float:left;
+line-height:2.3em;
+padding-left:.75em;
+color:#777;
+}
+#crumbs li a {
+display:block;
+padding:0 15px 0 0;
+background:url(../img/crumbs.gif) no-repeat right center;
+}
+#crumbs li a:link, #crumbs li a:visited {
+text-decoration:none;
+color:#777;
+}
+#crumbs li a:hover, #crumbs li a:focus {
+color:#dd2c0d;
+}
+
+.under
+{
+position:absolute;
+left:0px;
+top:0px;
+z-index:-1;
+}
+.over
+{
+position:absolute;
+left:0px;
+top:0px;
+z-index:-1;
+}
+/* CSS for Tables Goes Here */
+
+
+/* Component styles */
+@font-face {
+	font-family: 'Blokk';
+	src: url('../fonts/blokk/BLOKKRegular.eot');
+	src: url('../fonts/blokk/BLOKKRegular.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/blokk/BLOKKRegular.woff') format('woff'),
+		 url('../fonts/blokk/BLOKKRegular.svg#BLOKKRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+.component {
+	line-height: 1.5em;
+	margin: 0 auto;
+	padding: 2em 0 3em;
+	width: 90%;
+	max-width: 1000px;
+	overflow: hidden;
+}
+.component .filler {
+	font-family: "Blokk", Arial, sans-serif;
+	color: #d3d3d3;
+}
+
+.table table {
+    border-collapse: collapse;
+    margin-bottom: 3em;
+    width: 100%;
+    background: #fff;
+}
+
+.table td, th {
+    padding: 0.75em 1.5em;
+    text-align: left;
+}
+.table	td.err {
+		background-color: #e992b9;
+		color: #fff;
+		font-size: 0.75em;
+		text-align: center;
+		line-height: 1;
+	}
+.table th {
+    background-color: #31bc86;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+}
+.table tbody th {
+	background-color: #2ea879;
+}
+.table tbody tr:nth-child(2n-1) {
+    background-color: #f5f5f5;
+    transition: all .125s ease-in-out;
+}
+.table tbody tr:hover {
+    background-color: rgba(129,208,177,.3);
+}
+
+
+#resgistration table th {
+	background-color:#28a4c9;
+}
+
+.mapstyle {
+background-image:url("../img/map.png"); 
+background-repeat: no-repeat;
+position: absolute;
+width: 6.5%;
+height: 3.2%;
+}
+
+.textinside {
+    margin: 34px 0px 0px 0px;
+    padding: 4px;
+    font-weight: bold;
+    font-size: 14px;
+	color: #333;
+}
+

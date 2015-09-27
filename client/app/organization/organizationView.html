@@ -1,1 +1,221 @@
-View Organization
+<!-- First Row: consists of three col: organization photo/short , carousel slide and Basic Info -->
+<br>
+<div class="row">
+    <div class="col-md-7" align="center">
+        <!--         <?php if (!empty($organization['Organization']['photo'])) 
+                {
+                    echo "<img height=270px src='/volunteeromaha/files/organization/photo/".$organization['Organization']['id']. "/".$organization['Organization']['photo']."' > ";      
+                } 
+                else {?>
+            <?php   echo "<img src='/volunteeromaha/img/Default.png' width='100px' height='100px' class='img-thumbnail'>";
+                }?>
+                <br>
+                <br>
+                <?php echo '"'.$organization['Organization']['short_description'].'"';?> -->
+        {{organization.short_description}}
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-info">
+            <div class="panel-body"><span class="glyphicon glyphicon-globe"></span> Basic Info:
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-1">
+                        <p>
+                            ' '
+                        </p>
+                    </div>
+                    <div class="col-md-11">
+                        <table style="border-spacing: 5px; border-collapse: separate">
+                            <tr>
+                                <td style="vertical-align: top; width:10px">
+                                    <label>Name:</label>
+                                </td>
+                                <td ng-bind="organization.name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top; width:10px">
+                                    <label>Email:</label>
+                                </td>
+                                <td>
+                                    <a href="mailto:{{organization.email}}" target="_top" ng-bind="organization.email">
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Phone:</label>
+                                </td>
+                                <td>
+                                    <!-- TODO: formatting -->
+                                    <!--                                     <?php $phone_number= $organization['Organization']['phone']; 
+                            echo substr($phone_number, 0,3)."-".substr($phone_number,3,3)."-".substr($phone_number,-4);
+                        ?> -->
+                                    {{organization.phone}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Website:</label>
+                                </td>
+                                <td>
+                                    <a ng-if="organization.url" href="//{{organization.url}}">Go To Website</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Joined:</label>
+                                </td>
+                                <td>
+                                    <!-- TODO: formatting -->
+                                    <!-- <?php echo date ("F d, Y", strtotime($organization['Organization']['created']));?> -->
+                                    {{organization.created}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Fax:</label>
+                                </td>
+                                <td ng-bind="organization.fax">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <label>Interests:</label>
+                                </td>
+                                <td>
+                                    <!--                                     <?php 
+                    $interests = $organization['Interest'];
+                    
+                    foreach ($interests as $interest){
+                    
+
+                    echo $interest['interests'].'<br>';
+                    }
+                    ?> -->
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- Join Now button TODO Add conditions so to verify a user is already a member or not-->
+                        <!-- <?php if($this->Auth->isLoggedIn()){ ?> -->
+                        <button type="button" class="btn btn-default btn-sm" id="buttonlink">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <a href="/member/add/{{organization._id}}">
+                                    Request Admin Rights for {{organization.name}} Now</a>
+                        </button>
+                        <!-- <?php }?> -->
+                        <!-- <?php if($this->Auth->isOrgAdminFor($organization['Organization']['id']) ){ ?> -->
+                        <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                        <a href="/organization/admin/{{organization._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
+                        <!-- <?php ;}?> -->
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<!-- Second Row Consists of Long description for the organization -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading"><span class="glyphicon glyphicon-user"></span>
+                <Strong>Description</Strong>
+            </div>
+            <div class="panel-body">
+                <pre style="background-color: white" ng-bind="organization.long_description">
+                </pre>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<!-- Third Row Consists of Two columns: Upcoming events and MAP -->
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-danger">
+            <div class="panel-heading"><span class="glyphicon glyphicon-calendar"></span>Schedule of Events
+            </div>
+            <div class="panel-body">
+                <div ng-repeat="event in organization.events">
+                    <h4 ng-bind="event.name"></h4>
+                    <!-- 
+                <?php 
+                            echo date ("l F d, Y", strtotime($event['Event']['created']));?> -->
+                    <p>
+                        <!--                         <?php 
+                            echo substr($event['Event']['description'], 0,200);
+                        ?>... -->
+                    </p>
+                    <p>
+                        <a href="/event/view/{{event._id}}">
+                            <button type="button" class="btn btn-link btn-sm"><span class="glyphicon glyphicon-plus"></span> More</button>
+                        </a>
+                    </p>
+                    <hr>
+                </div>
+                <!-- <?php foreach ($events as $event): ?> -->
+                <!--
+                <h4><?php echo $event['Event']['name'];?> </h4>
+                <?php 
+                            echo date ("l F d, Y", strtotime($event['Event']['created']));?>
+                    <p>
+                        <?php 
+                            echo substr($event['Event']['description'], 0,200);
+                        ?>...
+                    </p>
+                    <p>
+                        <a href="/volunteeromaha/events/view/<?php echo $event['Event']['id'];?>">
+                            <button type="button" class="btn btn-link btn-sm"><span class="glyphicon glyphicon-plus"></span> More</button>
+                        </a>
+                    </p>
+                    <hr>
+                    <?php endforeach; ?>
+                        <?php if($organization['Organization']['status_id']  == 2 &&  ($this->Auth->isOrgAdminFor($organization['Organization']['id']))) { ?>
+                            <a align="left" href="/volunteeromaha/events/add/<?php echo $organization['Organization']['id']; ?>">
+                                <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Add Event</button>
+                            </a>
+                            <?php }?>
+                                <a align="right" href="/volunteeromaha/users/calendar?orgId=<?php echo $organization['Organization']['id']; ?>">
+                                    <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-tasks"></span> View All Events</button>
+                                </a>
+                            -->
+                <a align="left" href="/event/add/{{organization._id}}">
+                    <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Add Event</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> MAP
+            </div>
+            <div class="panel-body">
+                <table style="border-spacing: 1px; border-collapse: separate">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <label>Address: </label>
+                        </td>
+                        <td>
+                            <br>
+                            <address>
+                                {{organization.address}}
+                                <br> {{organization.city}}, {{organization.abbrev}} {{organization.zip}}
+                                <br>
+                            </address>
+                        </td>
+                    </tr>
+                </table>
+                <!--
+                <?php if(isset($mapAddress)) {?>
+                    <input id="mapAddress" type="hidden" value="<?php echo $mapAddress; ?>" />
+                    <div id="map-canvas" style="height: 390px; box-shadow: rgb(190, 190, 190) 0px 0px 5px 1px"></div>
+                    <?php }?>
+                -->
+            </div>
+        </div>
+    </div>
+</div>
