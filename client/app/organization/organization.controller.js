@@ -38,13 +38,18 @@ angular.module('meanVoServerApp')
         $scope.organization = {};
 
         $scope.save = function(form) {
+            $scope.submitted = true;
 
-            OrganizationService.save($scope.organization).$promise.then(function(organization) {
-                ValidationService.displaySuccess();
-                $location.path('/organization/view/' + organization._id);
-            }, function(err) {
-                ValidationService.displayErrors(form, err);
-            });
+            if (form.$valid) {
+
+                OrganizationService.save($scope.organization).$promise.then(function(organization) {
+                    ValidationService.displaySuccess();
+                    $location.path('/organization/view/' + organization._id);
+                }, function(err) {
+                    ValidationService.displayErrors(form, err);
+                });
+
+            }
 
         };
 

@@ -80,22 +80,22 @@ angular.module('meanVoServerApp')
 
                     if (attrs.required) {
                         html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.required && submitted">';
-                        html += getDefaultRequiredMessage(attrs.name) + '</p>';
+                        html += getDefaultRequiredMessage(attrs.label) + '</p>';
                     }
 
                     if (attrs.minlength && !attrs.maxlength) {
                         html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.minlength && submitted">';
-                        html += getDefaultMinLengthMessage(attrs.name, attrs.minlength) + '</p>';
+                        html += getDefaultMinLengthMessage(attrs.label, attrs.minlength) + '</p>';
                     }
 
                     if (attrs.maxlength && !attrs.minlength) {
                         html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.maxlength && submitted">';
-                        html += getDefaultMaxLengthMessage(attrs.name, attrs.maxlength) + '</p>';
+                        html += getDefaultMaxLengthMessage(attrs.label, attrs.maxlength) + '</p>';
                     }
 
                     if (attrs.maxlength && attrs.minlength) {
                         html += '<p class="help-block" ng-show="(form.' + attrs.name + '.$error.maxlength || form.' + attrs.name + '.$error.minlength) && submitted">';
-                        html += getDefaultMinAndMaxLengthMessage(attrs.name, attrs.minlength, attrs.maxlength) + '</p>';
+                        html += getDefaultMinAndMaxLengthMessage(attrs.label, attrs.minlength, attrs.maxlength) + '</p>';
                     }
 
                     if (attrs.type === 'email') {

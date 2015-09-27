@@ -125,7 +125,9 @@ describe('Controllers: Organization', function() {
                 .respond(responseData);
 
             scope.$apply(function() {
-                scope.save();
+                scope.save({
+                    $valid: true
+                });
             });
 
             httpBackend.flush();
