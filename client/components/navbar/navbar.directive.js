@@ -4,7 +4,7 @@ angular.module('meanVoServerApp')
     .directive('navbar', function($location, Auth) {
 
         return {
-            templateUrl: 'components/navbar/navbar.html',
+            templateUrl: 'components/navbar/navbar2.html',
             restrict: 'E',
             scope: {},
             link: function(scope, element, attrs) {
