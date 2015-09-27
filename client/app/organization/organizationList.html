@@ -46,12 +46,12 @@
     echo $this->Form->end('Search');
     ?> -->
                 <div class="form-horizontal">
-                    <b-input label="Name:" ng-model="searchParams.name"></b-input>
-                    <b-input label="Address:" ng-model="searchParams.address"></b-input>
-                    <b-input label="City:" ng-model="searchParams.city"></b-input>
+                    <b-input model="searchParams.name"></b-input>
+                    <b-input model="searchParams.address"></b-input>
+                    <b-input model="searchParams.city"></b-input>
                 </div>
                 <br />
-                <button type="submit" class="btn btn-primary" ng-click="search()">Search</button>
+                <button class="btn btn-primary" ng-click="search()">Search</button>
             </div>
         </div>
     </div>
