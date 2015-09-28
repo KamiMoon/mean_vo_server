@@ -27,11 +27,12 @@ var UserSchema = new Schema({
         lowercase: true,
         required: 'An email is required',
         validate: [
-            validate({
-                validator: 'isEmail'
-            })
-        ],
-        unique: true
+                validate({
+                    validator: 'isEmail'
+                })
+            ]
+            /*, TODO - for real this is unique - only turned off for testing purposes
+                    unique: true*/
     },
     //TODO - needs to be 6-10 characters long
     hashedPassword: String,

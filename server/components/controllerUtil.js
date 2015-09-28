@@ -1,21 +1,8 @@
-var clientHost = 'localhost:9000';
-var serverHost = 'localhost:9090';
-
-var getHostFromRequest = function(req, isToClient) {
+var getHostFromRequest = function(req) {
     var host = '';
 
     if (req && req.headers && req.headers.host) {
         host = req.headers.host;
-
-        if (isToClient) {
-            host = clientHost;
-        } else {
-            //for localhost change it becasue of the proxy and two projects
-            //if (host === clientHost) {
-            host = serverHost;
-            //}
-        }
-
     }
 
     return host;
@@ -34,8 +21,8 @@ exports.validationError = function(res, err) {
 
 //in - '/login'
 //out - '//localhost:9090/#/login'
-exports.redirect = function(req, res, url, isToClient) {
-    var host = getHostFromRequest(req, isToClient);
+exports.redirect = function(req, res, url) {
+    var host = getHostFromRequest(req);
 
     var redirectUrl = 'http://' + host + '/#' + url;
     console.log('Redirecting to: ' + redirectUrl);

@@ -21,7 +21,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ng-if="isLoggedIn()">
-                    <a href="/#/profile/{{ getCurrentUser()._id }}">
+                    <a href="/#/profile">
                         <img ng-if="getCurrentUser() && getCurrentUser().photo" ng-src="{{getCurrentUser().photo}}" width="20px" height="20px" class="img-circle">
                         <span ng-if="!getCurrentUser().photo" class="glyphicon glyphicon-user"></span>{{ getCurrentUser().name }}
                     </a>

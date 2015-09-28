@@ -195,7 +195,7 @@ exports.activate = function(req, res) {
                 //TODO: Success flash
 
                 //redirect to login page
-                ControllerUtil.redirect(req, res, '/login', true);
+                ControllerUtil.redirect(req, res, '/login');
             });
 
 
