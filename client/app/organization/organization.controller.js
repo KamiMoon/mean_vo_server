@@ -23,7 +23,11 @@ angular.module('meanVoServerApp')
                     }).$promise.then(function() {
                         ValidationService.displaySuccess();
 
-                        $scope.organizations = OrganizationService.query($scope.searchParams);
+                        angular.forEach($scope.organizations, function(org, i) {
+                            if (org._id === id) {
+                                $scope.organizations.splice(i, 1);
+                            }
+                        });
 
                     }, function() {
                         alert('Delete Failed');

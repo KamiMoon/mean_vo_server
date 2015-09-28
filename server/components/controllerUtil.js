@@ -11,9 +11,9 @@ var getHostFromRequest = function(req, isToClient) {
             host = clientHost;
         } else {
             //for localhost change it becasue of the proxy and two projects
-            if (host === clientHost) {
-                host = serverHost;
-            }
+            //if (host === clientHost) {
+            host = serverHost;
+            //}
         }
 
     }
