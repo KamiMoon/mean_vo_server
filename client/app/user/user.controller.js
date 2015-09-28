@@ -45,14 +45,6 @@ angular.module('meanVoServerApp')
             $scope.submitted = true;
 
             if (form.$valid) {
-                /*User.update({
-                    id: $scope.user._id
-                }, $scope.user).$promise.then(function(user) {
-                    ValidationService.displaySuccess();
-                    $location.path('/profile');
-                }, function(err) {
-                    ValidationService.displayErrors(form, err);
-                });*/
 
                 var request = Upload.upload({
                     url: '/api/users/' + $scope.user._id,

@@ -141,18 +141,18 @@
             </div>
             <div class="panel-body">
                 <div ng-repeat="event in organization.events">
-                    <h4 ng-bind="event.name"></h4>
+                    <!-- <h4 ng-bind="event.name"></h4> -->
                     <!-- 
                 <?php 
                             echo date ("l F d, Y", strtotime($event['Event']['created']));?> -->
-                    <p>
-                        <!--                         <?php 
+                    <!-- <p> -->
+                    <!--                         <?php 
                             echo substr($event['Event']['description'], 0,200);
                         ?>... -->
-                    </p>
+                    <!-- </p> -->
                     <p>
-                        <a href="/event/view/{{event._id}}">
-                            <button type="button" class="btn btn-link btn-sm"><span class="glyphicon glyphicon-plus"></span> More</button>
+                        <a href="/event/view/{{event._id}}" class="btn btn-link btn-sm">
+                            {{event.name}}
                         </a>
                     </p>
                     <hr>
