@@ -2,8 +2,9 @@
 
 var path = require('path');
 var _ = require('lodash');
-
 var nodemailer = require('nodemailer');
+var multer = require('multer');
+var fs = require('fs');
 
 // create reusable transporter object using SMTP transport
 // NB! No need to recreate the transporter object. You can use
@@ -76,7 +77,37 @@ var all = {
         callbackURL: (process.env.DOMAIN || '') + '/auth/google/callback'
     },
 
-    transporter: transporter
+    transporter: transporter,
+
+    createUpload: function(folderName) {
+
+        var storage = multer.diskStorage({
+            destination: function(req, file, cb) {
+
+                //check if uploads exists
+                var newDestination = 'server/static/uploads/' + folderName + '/' + req.params.id;
+                var stat = null;
+                try {
+                    stat = fs.statSync(newDestination);
+                } catch (err) {
+                    fs.mkdirSync(newDestination);
+                }
+                if (stat && !stat.isDirectory()) {
+                    throw new Error('Directory cannot be created because an inode of a different type exists at ' + newDestination);
+                }
+
+                cb(null, newDestination);
+            },
+            filename: function(req, file, cb) {
+                cb(null, Date.now() + '_' + file.originalname);
+            }
+        });
+        var upload = multer({
+            storage: storage
+        });
+
+        return upload;
+    }
 };
 
 // Export the config object based on the NODE_ENV

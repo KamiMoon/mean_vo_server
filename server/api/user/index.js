@@ -4,35 +4,8 @@ var express = require('express');
 var controller = require('./user.controller');
 var config = require('../../config/environment');
 var auth = require('../../auth/auth.service');
-var multer = require('multer');
-var fs = require("fs");
 
-//TODO: uploads/users folder has to already exist
-
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-
-        //check if uploads exists
-        var newDestination = 'server/static/uploads/users/' + req.params.id;
-        var stat = null;
-        try {
-            stat = fs.statSync(newDestination);
-        } catch (err) {
-            fs.mkdirSync(newDestination);
-        }
-        if (stat && !stat.isDirectory()) {
-            throw new Error('Directory cannot be created because an inode of a different type exists at "' + dest + '"');
-        }
-
-        cb(null, newDestination);
-    },
-    filename: function(req, file, cb) {
-        cb(null, Date.now() + '_' + file.originalname);
-    }
-});
-var upload = multer({
-    storage: storage
-});
+var upload = config.createUpload('users');
 
 var router = express.Router();
 
