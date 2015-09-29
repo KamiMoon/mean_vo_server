@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var getHostFromRequest = function(req) {
     var host = '';
 
@@ -10,9 +12,11 @@ var getHostFromRequest = function(req) {
 
 exports.getHostFromRequest = getHostFromRequest;
 
-exports.handleError = function(res, err) {
+var handleError = function(res, err) {
     return res.status(500).send(err);
 };
+
+exports.handleError = handleError;
 
 exports.validationError = function(res, err) {
     return res.status(422).json(err);
@@ -48,4 +52,50 @@ exports.getQuery = function(req) {
     }
 
     return queryObj;
+};
+
+exports.update = function(req, res, modelObj, uploadField) {
+
+    if (req.body._id) {
+        delete req.body._id;
+    }
+
+    //might be posted with data object
+    if (req.body.data && req.body.data._id) {
+        delete req.body.data._id;
+    }
+
+    modelObj.findById(req.params.id, function(err, user) {
+        if (err) {
+            return handleError(res, err);
+        }
+        if (!user) {
+            return res.status(404).send('Not Found');
+        }
+
+        var postedUser;
+
+        if (req.body.data) {
+            postedUser = JSON.parse(req.body.data);
+        } else {
+            postedUser = req.body;
+        }
+
+        if (uploadField) {
+            //photo upload
+            var file = req.file;
+            if (file) {
+                postedUser[uploadField] = file.path;
+            }
+        }
+
+        var merged = _.merge(user, postedUser);
+
+        merged.save(function(err) {
+            if (err) {
+                return handleError(res, err);
+            }
+            return res.status(200).json(merged);
+        });
+    });
 };

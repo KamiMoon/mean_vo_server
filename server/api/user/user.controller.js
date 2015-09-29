@@ -134,41 +134,7 @@ exports.me = function(req, res, next) {
 };
 
 exports.update = function(req, res) {
-    console.log('Update');
-
-    console.log(req.body.data);
-
-    if (req.body.data._id) {
-        delete req.body.data._id;
-    }
-    User.findById(req.params.id, function(err, user) {
-        if (err) {
-            return ControllerUtil.handleError(res, err);
-        }
-        if (!user) {
-            return res.status(404).send('Not Found');
-        }
-
-        var postedUser = JSON.parse(req.body.data);
-
-        //photo upload
-        var file = req.file;
-        if (file) {
-            console.log('got a photo: ' + file.path);
-            postedUser.photo = file.path;
-        }
-
-        var merged = _.merge(user, postedUser);
-
-        console.log(merged);
-
-        merged.save(function(err) {
-            if (err) {
-                return ControllerUtil.handleError(res, err);
-            }
-            return res.status(200).json(merged);
-        });
-    });
+    ControllerUtil.update(req, res, User, 'photo');
 };
 
 exports.activate = function(req, res) {

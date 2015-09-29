@@ -52,13 +52,11 @@ angular.module('meanVoServerApp')
                     data: $scope.user
                 });
 
-                request.success(function(data, status, headers, config) {
+                request.then(function() {
                     ValidationService.displaySuccess();
                     $location.path('/profile');
-                }).error(function(data, status, headers, config) {
-                    ValidationService.displayErrors(form, {
-                        data: data
-                    });
+                }, function(err) {
+                    ValidationService.displayErrors(form, err);
                 });
             }
 
