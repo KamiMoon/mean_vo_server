@@ -56,7 +56,9 @@ angular.module('meanVoServerApp')
                     ValidationService.displaySuccess();
                     $location.path('/profile');
                 }).error(function(data, status, headers, config) {
-                    ValidationService.displayErrors(form, err);
+                    ValidationService.displayErrors(form, {
+                        data: data
+                    });
                 });
             }
 
