@@ -48,7 +48,8 @@ angular.module('meanVoServerApp')
 
                 var request = Upload.upload({
                     url: '/api/users/' + $scope.user._id,
-                    file: $scope.photo
+                    file: $scope.photo,
+                    data: $scope.user
                 });
 
                 request.success(function(data, status, headers, config) {

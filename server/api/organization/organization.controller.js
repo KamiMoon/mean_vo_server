@@ -38,6 +38,12 @@ exports.show = function(req, res) {
 // Creates a new organization in the DB.
 exports.create = function(req, res) {
     Organization.create(req.body, function(err, organization) {
+
+        var img = req.img;
+        if (img) {
+            organization.photo = img.path;
+        }
+
         if (err) {
             return handleError(res, err);
         }

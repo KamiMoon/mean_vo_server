@@ -136,8 +136,10 @@ exports.me = function(req, res, next) {
 exports.update = function(req, res) {
     console.log('Update');
 
-    if (req.body._id) {
-        delete req.body._id;
+    console.log(req.body.data);
+
+    if (req.body.data._id) {
+        delete req.body.data._id;
     }
     User.findById(req.params.id, function(err, user) {
         if (err) {
@@ -146,19 +148,25 @@ exports.update = function(req, res) {
         if (!user) {
             return res.status(404).send('Not Found');
         }
-        var updated = _.merge(user, req.body);
 
-        //file upload
+        var postedUser = JSON.parse(req.body.data);
+
+        //photo upload
         var file = req.file;
         if (file) {
-            user.photo = file.path;
+            console.log('got a photo: ' + file.path);
+            postedUser.photo = file.path;
         }
 
-        updated.save(function(err) {
+        var merged = _.merge(user, postedUser);
+
+        console.log(merged);
+
+        merged.save(function(err) {
             if (err) {
                 return ControllerUtil.handleError(res, err);
             }
-            return res.status(200).json(user);
+            return res.status(200).json(merged);
         });
     });
 };
@@ -206,13 +214,6 @@ exports.activate = function(req, res) {
 
 
     });
-};
-
-
-exports.uploadImage = function(req, res, next) {
-    console.log(req.file);
-
-    res.end("file uploaded");
 };
 
 /**
