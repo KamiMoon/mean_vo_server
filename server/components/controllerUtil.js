@@ -99,3 +99,10 @@ exports.update = function(req, res, modelObj, uploadField) {
         });
     });
 };
+
+exports.findByIdAndRemove = function(req, res, modelObj) {
+    modelObj.findByIdAndRemove(req.params.id, function(err) {
+        if (err) return res.status(500).send(err);
+        return res.status(204).send('No Content');
+    });
+}

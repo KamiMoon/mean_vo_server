@@ -92,10 +92,7 @@ exports.show = function(req, res, next) {
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-    User.findByIdAndRemove(req.params.id, function(err, user) {
-        if (err) return res.status(500).send(err);
-        return res.status(204).send('No Content');
-    });
+    ControllerUtil.findByIdAndRemove(req, res, User);
 };
 
 /**

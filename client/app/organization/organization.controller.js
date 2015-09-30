@@ -57,7 +57,7 @@ angular.module('meanVoServerApp')
 
         };
 
-    }).controller('OrganizationEditCtrl', function($scope, $stateParams, $location, OrganizationService, ValidationService) {
+    }).controller('OrganizationEditCtrl', function($scope, $stateParams, $location, OrganizationService, ControllerUtil) {
 
         var id = $stateParams.id;
 
@@ -66,9 +66,10 @@ angular.module('meanVoServerApp')
         });
 
         $scope.save = function(form) {
-            $scope.submitted = true;
 
-            if (form.$valid) {
+            if (ControllerUtil.validate($scope, form)) {
+
+                /*
                 OrganizationService.update({
                     id: $scope.organization._id
                 }, $scope.organization).$promise.then(function(organization) {
@@ -77,6 +78,19 @@ angular.module('meanVoServerApp')
                 }, function(err) {
                     ValidationService.displayErrors(form, err);
                 });
+                */
+
+                var request = ControllerUtil.upload({
+                    url: '/api/organizations/' + id,
+                    method: 'PUT',
+                    file: $scope.photo,
+                    data: $scope.organization
+                });
+
+                ControllerUtil.handle(request, form).then(function() {
+                    $location.path('/organization/view/' + id);
+                });
+
             }
 
         };

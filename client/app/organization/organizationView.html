@@ -2,17 +2,15 @@
 <br>
 <div class="row">
     <div class="col-md-7" align="center">
-        <!--         <?php if (!empty($organization['Organization']['photo'])) 
-                {
-                    echo "<img height=270px src='/volunteeromaha/files/organization/photo/".$organization['Organization']['id']. "/".$organization['Organization']['photo']."' > ";      
-                } 
-                else {?>
-            <?php   echo "<img src='/volunteeromaha/img/Default.png' width='100px' height='100px' class='img-thumbnail'>";
-                }?>
-                <br>
-                <br>
-                <?php echo '"'.$organization['Organization']['short_description'].'"';?> -->
-        {{organization.short_description}}
+        <span ng-if="organization.photo">
+                    <img height="270px" ng-src="{{organization.photo}}">
+
+                </span>
+        <span ng-if="!organization.photo">
+                    <img src="assets/img/Default.png" width="100px" height="100px" class="img-thumbnail" />
+                </span>
+        <br>
+        <br> {{organization.short_description}}
     </div>
     <div class="col-md-5">
         <div class="panel panel-info">

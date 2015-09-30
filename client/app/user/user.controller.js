@@ -37,26 +37,22 @@ angular.module('meanVoServerApp')
             }
         };
 
-    }).controller('UserEditCtrl', function($scope, $location, User, ValidationService, Upload) {
+    }).controller('UserEditCtrl', function($scope, $location, User, ControllerUtil) {
 
         $scope.user = User.get();
 
         $scope.save = function(form) {
-            $scope.submitted = true;
 
-            if (form.$valid) {
+            if (ControllerUtil.validate($scope, form)) {
 
-                var request = Upload.upload({
+                var request = ControllerUtil.upload({
                     url: '/api/users/' + $scope.user._id,
                     file: $scope.photo,
                     data: $scope.user
                 });
 
-                request.then(function() {
-                    ValidationService.displaySuccess();
+                ControllerUtil.handle(request, form).then(function() {
                     $location.path('/profile');
-                }, function(err) {
-                    ValidationService.displayErrors(form, err);
                 });
             }
 
