@@ -37,21 +37,33 @@ angular.module('meanVoServerApp')
             }
         };
 
-    }).controller('OrganizationAddCtrl', function($scope, $location, OrganizationService, ValidationService) {
+    }).controller('OrganizationAddCtrl', function($scope, $location, OrganizationService, ControllerUtil) {
 
         $scope.organization = {};
 
         $scope.save = function(form) {
-            $scope.submitted = true;
 
-            if (form.$valid) {
+            if (ControllerUtil.validate($scope, form)) {
 
-                OrganizationService.save($scope.organization).$promise.then(function(organization) {
-                    ValidationService.displaySuccess();
-                    $location.path('/organization/view/' + organization._id);
-                }, function(err) {
-                    ValidationService.displayErrors(form, err);
+                var request = ControllerUtil.upload({
+                    url: '/api/organizations/',
+                    method: 'POST',
+                    file: $scope.photo,
+                    data: $scope.organization
                 });
+
+                ControllerUtil.handle(request, form).then(function(data) {
+
+                    $location.path('/organization/view/' + data.data._id);
+                });
+
+
+                // OrganizationService.save($scope.organization).$promise.then(function(organization) {
+                //     ValidationService.displaySuccess();
+                //     $location.path('/organization/view/' + organization._id);
+                // }, function(err) {
+                //     ValidationService.displayErrors(form, err);
+                // });
 
             }
 
@@ -68,17 +80,6 @@ angular.module('meanVoServerApp')
         $scope.save = function(form) {
 
             if (ControllerUtil.validate($scope, form)) {
-
-                /*
-                OrganizationService.update({
-                    id: $scope.organization._id
-                }, $scope.organization).$promise.then(function(organization) {
-                    ValidationService.displaySuccess();
-                    $location.path('/organization/view/' + organization._id);
-                }, function(err) {
-                    ValidationService.displayErrors(form, err);
-                });
-                */
 
                 var request = ControllerUtil.upload({
                     url: '/api/organizations/' + id,
