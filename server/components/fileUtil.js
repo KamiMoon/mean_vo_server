@@ -1,5 +1,5 @@
-var fs = require('fs');
-var mkdirp = require('mkdirp');
+//var fs = require('fs');
+//var mkdirp = require('mkdirp');
 var multer = require('multer');
 
 var UPLOAD_PATH = 'server/static/uploads'
@@ -9,6 +9,7 @@ var upload = multer({
     dest: UPLOAD_PATH
 });
 
+/*
 var mkdir = function(path, callback) {
 
     fs.stat(path, function(err) {
@@ -19,6 +20,9 @@ var mkdir = function(path, callback) {
         } else {
             throw err;
         }
+
+
+
     });
 
 };
@@ -48,6 +52,7 @@ var mkDirUploads = function(path, callback) {
     mkdir(UPLOAD_PATH + path, callback);
 };
 exports.mkDirUploads = mkDirUploads;
+*/
 
 var getUpload = function() {
     return upload;

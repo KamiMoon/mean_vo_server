@@ -9,7 +9,14 @@ angular.module('meanVoServerApp')
     .directive('bInput', function($compile) {
 
         function getNameFromModelString(modelString) {
-            return modelString.substr(modelString.indexOf('.') + 1);
+            var index = modelString.indexOf('.');
+
+            if (index !== -1) {
+                return modelString.substr(index + 1);
+            }
+
+            //there was no '.' so just use directly
+            return modelString;
         }
 
         function capitalizeFirstLetter(string) {
@@ -41,6 +48,21 @@ angular.module('meanVoServerApp')
 
             if (attrs.type === 'submit') {
                 html += '<button type="submit" class="btn btn-primary">' + attrs.label + '</button>';
+            } else if (attrs.type === 'file') {
+                html += '<div class="form-group">';
+                html += '<label class="col-lg-2 control-label">' + attrs.label + '</label>';
+                html += '<div class="col-lg-10">';
+                html += '<input type="file" ngf-select ';
+                html += ' class="form-control"';
+                if (attrs.model) {
+                    html += ' ng-model="' + attrs.model + '"';
+                }
+
+                if (attrs.name) {
+                    html += ' name="' + attrs.name + '" ';
+                }
+                html += ' accept="image/*" ngf-max-size="2MB" />';
+                html += '</div></div>';
             } else {
 
                 html += '<div class="form-group';
