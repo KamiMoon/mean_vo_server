@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var fileUtil = require('./fileUtil');
 
 var getHostFromRequest = function(req) {
     var host = '';
@@ -37,7 +38,7 @@ exports.redirect = function(req, res, url) {
 
 //Take req.query and return a cleaned object used for query purposes
 //Also remove any key that has a value of empty string because that was an empty field
-exports.getQuery = function(req) {
+var getQuery = function(req) {
     var queryObj = {};
 
     if (req.query) {
@@ -54,7 +55,9 @@ exports.getQuery = function(req) {
     return queryObj;
 };
 
-exports.update = function(req, res, modelObj, uploadField) {
+exports.getQuery = getQuery;
+
+exports.update = function(req, res, modelObj) {
 
     if (req.body._id) {
         delete req.body._id;
@@ -81,12 +84,8 @@ exports.update = function(req, res, modelObj, uploadField) {
             postedUser = req.body;
         }
 
-        if (uploadField) {
-            //photo upload
-            var file = req.file;
-            if (file) {
-                postedUser[uploadField] = file.path;
-            }
+        if (req.file) {
+            postedUser.photo = req.file.path;
         }
 
         var merged = _.merge(user, postedUser);
@@ -95,6 +94,7 @@ exports.update = function(req, res, modelObj, uploadField) {
             if (err) {
                 return handleError(res, err);
             }
+
             return res.status(200).json(merged);
         });
     });
@@ -105,4 +105,36 @@ exports.findByIdAndRemove = function(req, res, modelObj) {
         if (err) return res.status(500).send(err);
         return res.status(204).send('No Content');
     });
-}
+};
+
+exports.find = function(req, res, modelObj, projection) {
+    var query = getQuery(req);
+
+    projection = projection || {};
+
+    modelObj.find(query, projection, function(err, data) {
+        if (err) {
+            return handleError(res, err);
+        }
+        return res.status(200).json(data);
+    });
+};
+
+exports.findById = function(req, res, modelObj, populateString) {
+
+    var findById = modelObj.findById(req.params.id);
+
+    if (populateString) {
+        findById.populate('events');
+    }
+
+    findById.exec(function(err, result) {
+        if (err) {
+            return handleError(res, err);
+        }
+        if (!result) {
+            return res.status(404).send('Not Found');
+        }
+        return res.json(result);
+    });
+};

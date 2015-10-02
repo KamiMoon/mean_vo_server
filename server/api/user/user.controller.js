@@ -1,10 +1,8 @@
 'use strict';
 
 var User = require('./user.model');
-var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
-var _ = require('lodash');
 var ControllerUtil = require('../../components/controllerUtil');
 
 
@@ -25,12 +23,10 @@ var createConfirmationEmail = function(req, user) {
             html: body // html body
         };
 
-        config.transporter.sendMail(mailOptions, function(error, info) {
+        config.transporter.sendMail(mailOptions, function(error) {
             if (error) {
                 return console.log(error);
             }
-            console.log('Message sent: ' + info.response);
-
         });
     }
 
@@ -154,7 +150,6 @@ exports.activate = function(req, res) {
         //read his activationHash
         var userActivationHash = user.activationHash;
 
-        console.log("Comparing hashes: " + activationHash + " , " + userActivationHash);
         if (activationHash === userActivationHash) {
             //if they are the same then flag him as activated
             user.activated = true;

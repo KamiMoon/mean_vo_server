@@ -2,10 +2,10 @@
 
 var express = require('express');
 var controller = require('./user.controller');
-var config = require('../../config/environment');
+var fileUtil = require('../../components/fileUtil');
 var auth = require('../../auth/auth.service');
 
-var upload = config.createUpload('users');
+var upload = fileUtil.getUpload();
 
 var router = express.Router();
 

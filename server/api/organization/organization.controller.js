@@ -1,81 +1,45 @@
 'use strict';
 
-var _ = require('lodash');
 var Organization = require('./organization.model');
 var ControllerUtil = require('../../components/controllerUtil');
 
-// Get list of organizations
 exports.index = function(req, res) {
+    ControllerUtil.find(req, res, Organization);
+};
 
-    //return everything
-    var projection = {};
-    var query = ControllerUtil.getQuery(req);
+exports.show = function(req, res) {
+    ControllerUtil.findById(req, res, Organization, 'events');
+};
 
-    Organization.find(query, projection, function(err, organizations) {
+exports.create = function(req, res) {
+    var postedObj;
+
+    if (req.body.data) {
+        //isDataMode = true;
+        postedObj = JSON.parse(req.body.data);
+    } else {
+        postedObj = req.body;
+    }
+
+    if (req.file) {
+        postedObj.photo = req.file.path;
+    }
+
+
+    Organization.create(postedObj, function(err, organization) {
+
         if (err) {
             return ControllerUtil.handleError(res, err);
         }
-        return res.status(200).json(organizations);
-    });
-};
 
-// Get a single organization
-exports.show = function(req, res) {
-
-    console.log('Organization show');
-
-    Organization.findById(req.params.id).populate('events').exec(function(err, organization) {
-        if (err) {
-            return handleError(res, err);
-        }
-        if (!organization) {
-            return res.status(404).send('Not Found');
-        }
-        return res.json(organization);
-    });
-};
-
-// Creates a new organization in the DB.
-exports.create = function(req, res) {
-    Organization.create(req.body, function(err, organization) {
-
-        var img = req.img;
-        if (img) {
-            organization.photo = img.path;
-        }
-
-        if (err) {
-            return handleError(res, err);
-        }
         return res.status(201).json(organization);
     });
 };
 
-// Updates an existing organization in the DB.
 exports.update = function(req, res) {
-    console.log('update');
-
     ControllerUtil.update(req, res, Organization, 'photo');
 };
 
-// Deletes a organization from the DB.
 exports.destroy = function(req, res) {
-    Organization.findById(req.params.id, function(err, organization) {
-        if (err) {
-            return handleError(res, err);
-        }
-        if (!organization) {
-            return res.status(404).send('Not Found');
-        }
-        organization.remove(function(err) {
-            if (err) {
-                return handleError(res, err);
-            }
-            return res.status(204).send('No Content');
-        });
-    });
+    ControllerUtil.findByIdAndRemove(req, res, Organization);
 };
-
-function handleError(res, err) {
-    return res.status(500).send(err);
-}

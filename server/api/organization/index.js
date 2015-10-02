@@ -2,16 +2,18 @@
 
 var express = require('express');
 var controller = require('./organization.controller');
-var config = require('../../config/environment');
+var fileUtil = require('../../components/fileUtil');
 
-var upload = config.createUpload('organizations');
+var upload = fileUtil.getUpload();
 
 
 var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);
-router.post('/', controller.create);
+
+router.post('/', upload.single('file'), controller.create);
+
 router.put('/:id', upload.single('file'), controller.update);
 router.delete('/:id', controller.destroy);
 
