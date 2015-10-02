@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-    .service('ControllerUtil', function(Upload, ValidationService) {
+    .service('ControllerUtil', function(Upload, ValidationService, $q, $http, $localStorage) {
 
         this.upload = function(uploadObj) {
             return Upload.upload(uploadObj);
@@ -22,5 +22,26 @@ angular.module('meanVoServerApp')
 
             return form.$valid;
         };
+
+        this.getStates = function() {
+            var states = $localStorage.states;
+            var deferred = $q.defer();
+
+            console.log(states);
+
+            if (states) {
+                console.log('using localstorage');
+                deferred.resolve(states);
+            } else {
+                var request = $http.get('/api/states');
+                request.success(function(states) {
+                    $localStorage.states = states;
+                    deferred.resolve(states);
+                });
+            }
+
+            return deferred.promise;
+        };
+
 
     });

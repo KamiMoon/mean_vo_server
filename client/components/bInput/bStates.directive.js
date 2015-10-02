@@ -6,7 +6,7 @@ Wrapper directive over angular and bootstrap form elements because they are way 
 */
 
 angular.module('meanVoServerApp')
-    .directive('bInput', function($compile, InputService) {
+    .directive('bInput', function($compile) {
 
         function getNameFromModelString(modelString) {
             var index = modelString.indexOf('.');
@@ -72,20 +72,6 @@ angular.module('meanVoServerApp')
                     html += ' name="' + attrs.name + '" ';
                 }
                 html += ' accept="image/*" ngf-max-size="2MB" />';
-
-                html = wrapInBoostrapForm(attrs, html);
-            } else if (attrs.type === 'select') {
-                html += '<select ';
-                if (attrs.model) {
-                    html += ' ng-model="' + attrs.model + '"';
-                }
-                if (attrs.name) {
-                    html += ' name="' + attrs.name + '" ';
-                }
-                if (attrs.options) {
-                    html += ' ng-options="' + attrs.options + '" ';
-                }
-                html += "></select>";
 
                 html = wrapInBoostrapForm(attrs, html);
             } else {
@@ -190,23 +176,6 @@ angular.module('meanVoServerApp')
                 //default label for submit buttons
                 if (attrs.type === 'submit' && !attrs.label) {
                     attrs.label = 'Submit';
-                }
-
-                //lookup Data based on source if needed
-                if (attrs.type === 'select' && attrs.source) {
-
-                    switch (attrs.source) {
-                        case 'state':
-                            scope.states = [];
-
-                            InputService.getStates().then(function(states) {
-                                scope.states = states;
-                            });
-
-                            attrs.options = "state._id as state.abbrev for state in states";
-                            break;
-                    }
-
                 }
 
                 element.html(getTemplate(attrs));

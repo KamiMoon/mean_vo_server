@@ -6,7 +6,8 @@ angular.module('meanVoServerApp', [
         'ngSanitize',
         'ui.router',
         'ngTouch',
-        'ngFileUpload'
+        'ngFileUpload',
+        'ngStorage'
     ])
     .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
         $urlRouterProvider

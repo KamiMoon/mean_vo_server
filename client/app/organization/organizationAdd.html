@@ -33,7 +33,8 @@
             <div class="form-horizontal">
                 <b-input model="organization.address"></b-input>
                 <b-input model="organization.city"></b-input>
-                <!--<b-input model="organization.abbrev"></b-input>-->
+                <b-input type="select" source="state" label="State" model="organization.state_id">
+                </b-input>
                 <b-input model="organization.zip"></b-input>
             </div>
         </div>
