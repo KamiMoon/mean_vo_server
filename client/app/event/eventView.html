@@ -3,10 +3,7 @@
     <!-- Event Image -->
     <div class="col-md-7">
         <div align="center" style="max-height:350px;overflow:auto;">
-            <a>
-                <!--                 <?php if(isset($event['Event']['photo'])){?><img src="/volunteeromaha/files/event/photo/<?php echo $event['Event']['id']?>/<?php echo $event['Event']['photo']?>" alt="Event Profile Image" style="max-width:600px; max-height:350px" />
-                    <?php }?> -->
-            </a>
+            <img ng-src="{{event.photo}}" alt="Event Profile Image" style="max-width:600px; max-height:350px">
         </div>
         <br>
     </div>
@@ -96,7 +93,7 @@
         <div class="panel panel-warning">
             <div class="panel-heading"><span class="glyphicon glyphicon-th-list"></span><strong> Event Description</strong></div>
             <div class="panel-body">
-                <pre style="height: 390px"><?php echo $event['Event']['description']; ?></pre>
+                <pre style="height: 390px" ng-bind="event.description"></pre>
             </div>
         </div>
     </div>

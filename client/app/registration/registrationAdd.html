@@ -1,0 +1,30 @@
+<!-- <h1>Register for <?php echo $event['Event']['name'];?></h1>
+<?php
+echo $this->Form->create('Registration');
+echo $this->Form->input('user_id', array('type' => 'hidden','value' => $user_id));
+echo $this->Form->input('event_id', array('type' => 'hidden','value' => $event_id));
+echo $this->Form->datePicker('start_time');
+echo $this->Form->datePicker('end_time');
+echo $this->Form->input('comment', array('type' => 'textarea', 'rows' => '5', 'cols' => '5'));
+
+/* TODO - notifications */
+echo $this->Form->end('Save');
+?> -->
+<h1>Register for TODO</h1>
+<form name="form" ng-submit="save(form)" novalidate>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <b-input model="registration.comment"></b-input>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div align="right">
+                <b-input type="submit"></b-input>
+            </div>
+        </div>
+    </div>
+</form>
