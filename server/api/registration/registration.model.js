@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var relationship = require("mongoose-relationship");
+var relationship = require('mongoose-relationship');
 var validate = require('mongoose-validator');
 
 var RegistrationSchema = new Schema({
@@ -15,6 +15,10 @@ var RegistrationSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Event',
         childPath: 'registrations'
+    },
+    hour_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Hour'
     },
     status_id: {
         type: Number,

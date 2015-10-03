@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var timestamps = require('mongoose-timestamp');
+var relationship = require('mongoose-relationship');
 
 var HourSchema = new Schema({
     status_id: {
@@ -12,9 +13,13 @@ var HourSchema = new Schema({
     },
     user_id: {
         type: Schema.Types.ObjectId,
+        ref: 'User',
+        childPath: 'hours'
     },
     registration_id: {
         type: Schema.Types.ObjectId,
+        ref: 'Event',
+        childPath: 'hour_id'
     },
     hours: {
         type: Number
@@ -22,6 +27,10 @@ var HourSchema = new Schema({
     school_status: {
         type: Number
     }
+});
+
+HourSchema.plugin(relationship, {
+    relationshipPathName: ['user_id', 'registration_id']
 });
 
 HourSchema.plugin(timestamps);

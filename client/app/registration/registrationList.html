@@ -1,25 +1,68 @@
+<!--
 <?php $user = $this->Session->read('Auth.User');?>
     <?php $hour = $this->Session->read('Auth.User')?>
-        <div>
-            <ul id="crumbs">
-                <li><a href="/volunteeromaha/"><span class="glyphicon glyphicon-home"></span>
-				Home</a></li>
-                <li><a href="/volunteeromaha/users/profile/<?php echo $user['id'];?>"><span> 
-				<?php if(isset($user['photo']))
-						{
-							echo "<li><a href='/volunteeromaha/users/profile/" . $user['id'] . "'><img src='/volunteeromaha/files/user/photo/".$user['id']. "/thumb_".$user['photo']."' width='20px' height='20px' class='img-circle'> " . $user['username'] . "</a></li>"; } ?>
-                <li><a href="/volunteeromaha/registrations/"><span
-							class="glyphicon glyphicon-list"></span> Registration List</a></li>
-            </ul>
+    -->
+<!-- Two tabs  containing a section for approving registrant for events and for decision making for approving hours -->
+<div class="row">
+    <div class="col-md-12">
+        <!-- Approve Registrant for Events -->
+        <div class="tab-pane active" id="registrants">
             <br>
         </div>
-        <!-- Two tabs  containing a section for approving registrant for events and for decision making for approving hours -->
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Approve Registrant for Events -->
-                <div class="tab-pane active" id="registrants">
-                    <br>
-                    <?php echo $this->element('registrations_list'); ?>
-                </div>
-            </div>
-        </div>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th style="width:100px">User</th>
+        <th style="width:200px">Event</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Comment</th>
+        <th>Action</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="registration in registrations">
+        <td>
+            <a href="/#/user/profile/{{registration.user_id}}">TODO - user name  </a>
+        </td>
+        <td>
+            <a href="/#/event/view/{{registration.event_id}}">TODO - event name  </a>
+        </td>
+        <td ng-bind="registration.start_time">
+        </td>
+        <td ng-bind="registration.end_time">
+        </td>
+        <td ng-bind="registration.comment"></td>
+        <td>
+            <!--   <?php if($this->Auth->isMine($registration['Registration']['user_id']) || $this->Auth->isOrgAdminFor($registration['Event']['organization_id'])){ ?>
+         -->
+            <a href="/#/registration/edit/{{registration._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+            <a href="/#/registration/view/{{registration._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-eye-open"></span>View</a>
+            <!--
+            <?php if($registration['Registration']['status_id'] == 2 || $this->Auth->isOrgAdminFor($registration['Event']['organization_id'])){?>
+                <?php 
+
+                if(isset($registration['Hour']['hours'])) { ?>
+
+                -->
+            <a ng-if="registration.hours" href="/hour/edit/{{registration.hour_id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit hours</a>
+            <a ng-if="!registration.hours" href="/hour/add/{{registration._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Log hours</a>
+            <!--  <?php }?>
+                
+                <?php }?>
+                                
+            <?php } ?> -->
+        </td>
+        <td>
+            <!--             <?php if($this->Auth->isOrgAdminFor($registration['Event']['organization_id'])){ ?>
+                <?php echo $this->element('update_status', 
+                    array(
+                        'orgId' => $registration['Event']['organization_id'],
+                        'statusId' => $registration['Status']['id'], 
+                        'updateId' => $registration['Registration']['id'], 
+                        'defaultAction' => 'updateRegistrationStatus'
+                    ));?>
+                    <?php }?> -->
+        </td>
+    </tr>
+</table>
