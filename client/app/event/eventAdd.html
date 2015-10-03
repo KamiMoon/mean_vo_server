@@ -44,7 +44,8 @@
             <div class="form-horizontal">
                 <b-input model="event.address"></b-input>
                 <b-input model="event.city"></b-input>
-                <!-- <b-input label="State:" name="abbrev" ng-model="event.abbrev"></b-input> -->
+                <b-input type="select" source="state" label="State" model="event.state_id">
+                </b-input>
                 <b-input model="event.zip"></b-input>
             </div>
         </div>

@@ -8,7 +8,8 @@
             <div class="form-horizontal">
                 <b-input model="organization.name"></b-input>
                 <b-input type="file" model="photo"></b-input>
-                <b-input label="Category:"></b-input>
+                <b-input type="select" source="category" label="Category" model="organization.category_id">
+                </b-input>
                 <b-input label="Short Description" model="organization.short_description" required="true"></b-input>
                 <!-- TODO: long_description -->
             </div>

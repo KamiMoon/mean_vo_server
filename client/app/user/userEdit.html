@@ -54,18 +54,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel-heading">
-                <h3><span class="glyphicon glyphicon-home"></span> Address:</h3></div>
-            <!--             <?php 
-            echo $this->Form->input('address');
-            echo $this->Form->input('city');
-            echo $this->Form->input('state_id', array('empty' => ''));
-            echo $this->Form->input('zip');
-            ?>
- -->
+                <h3><span class="glyphicon glyphicon-home"></span> Address:</h3>
+            </div>
             <div class="form-horizontal">
                 <b-input model="user.address"></b-input>
                 <b-input model="user.city"></b-input>
-                <!--<b-input label="State:" name="" ng-model="user.abbrev"></b-input>-->
+                <b-input type="select" source="state" label="State" model="user.state_id">
+                </b-input>
                 <b-input model="user.zip"></b-input>
             </div>
         </div>

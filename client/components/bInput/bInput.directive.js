@@ -46,11 +46,61 @@ angular.module('meanVoServerApp')
         function wrapInBoostrapForm(attrs, inputHtml) {
             var html = '';
 
-            html += '<div class="form-group">';
+            html += '<div class="form-group';
+            if (attrs.required) {
+                html += ' required';
+            }
+            html += '"';
+            if (attrs.name) {
+                var someClass = "";
+                someClass += "{ 'has-success': form." + attrs.name + ".$valid && submitted,";
+                someClass += " 'has-error': (form." + attrs.name + ".$invalid && submitted) || errors." + attrs.name + " }";
+
+                html += ' ng-class="' + someClass + '"';
+            }
+            html += '>';
             html += '<label class="col-lg-2 control-label">' + attrs.label + '</label>';
             html += '<div class="col-lg-10">';
             html += inputHtml;
+            html += getErrorHandlingHTML(attrs);
             html += '</div></div>';
+
+            return html;
+        }
+
+        function getErrorHandlingHTML(attrs) {
+            var html = '';
+
+            if (attrs.name) {
+
+                if (attrs.required) {
+                    html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.required && submitted">';
+                    html += getDefaultRequiredMessage(attrs.label) + '</p>';
+                }
+
+                if (attrs.minlength && !attrs.maxlength) {
+                    html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.minlength && submitted">';
+                    html += getDefaultMinLengthMessage(attrs.label, attrs.minlength) + '</p>';
+                }
+
+                if (attrs.maxlength && !attrs.minlength) {
+                    html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.maxlength && submitted">';
+                    html += getDefaultMaxLengthMessage(attrs.label, attrs.maxlength) + '</p>';
+                }
+
+                if (attrs.maxlength && attrs.minlength) {
+                    html += '<p class="help-block" ng-show="(form.' + attrs.name + '.$error.maxlength || form.' + attrs.name + '.$error.minlength) && submitted">';
+                    html += getDefaultMinAndMaxLengthMessage(attrs.label, attrs.minlength, attrs.maxlength) + '</p>';
+                }
+
+                if (attrs.type === 'email') {
+                    html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.email && submitted">';
+                    html += getDefaultEmailFormatMessage() + '</p>';
+                }
+
+                html += '<p class="help-block" ng-if="errors.' + attrs.name + '">';
+                html += '{{errors.' + attrs.name + '}}</p>';
+            }
 
             return html;
         }
@@ -89,22 +139,6 @@ angular.module('meanVoServerApp')
 
                 html = wrapInBoostrapForm(attrs, html);
             } else {
-
-                html += '<div class="form-group';
-                if (attrs.required) {
-                    html += ' required';
-                }
-                html += '"';
-                if (attrs.name) {
-                    var someClass = "";
-                    someClass += "{ 'has-success': form." + attrs.name + ".$valid && submitted,";
-                    someClass += " 'has-error': (form." + attrs.name + ".$invalid && submitted) || errors." + attrs.name + " }";
-
-                    html += ' ng-class="' + someClass + '"';
-                }
-                html += '>';
-                html += '<label class="col-lg-2 control-label">' + attrs.label + '</label>';
-                html += '<div class="col-lg-10">';
                 html += '<input type="' + attrs.type + '"';
                 if (attrs.model) {
                     html += ' ng-model="' + attrs.model + '"';
@@ -122,41 +156,9 @@ angular.module('meanVoServerApp')
                 if (attrs.maxlength) {
                     html += ' ng-maxlength="' + attrs.maxlength + '" ';
                 }
-
                 html += '/>';
 
-                if (attrs.name) {
-
-                    if (attrs.required) {
-                        html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.required && submitted">';
-                        html += getDefaultRequiredMessage(attrs.label) + '</p>';
-                    }
-
-                    if (attrs.minlength && !attrs.maxlength) {
-                        html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.minlength && submitted">';
-                        html += getDefaultMinLengthMessage(attrs.label, attrs.minlength) + '</p>';
-                    }
-
-                    if (attrs.maxlength && !attrs.minlength) {
-                        html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.maxlength && submitted">';
-                        html += getDefaultMaxLengthMessage(attrs.label, attrs.maxlength) + '</p>';
-                    }
-
-                    if (attrs.maxlength && attrs.minlength) {
-                        html += '<p class="help-block" ng-show="(form.' + attrs.name + '.$error.maxlength || form.' + attrs.name + '.$error.minlength) && submitted">';
-                        html += getDefaultMinAndMaxLengthMessage(attrs.label, attrs.minlength, attrs.maxlength) + '</p>';
-                    }
-
-                    if (attrs.type === 'email') {
-                        html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.email && submitted">';
-                        html += getDefaultEmailFormatMessage() + '</p>';
-                    }
-
-                    html += '<p class="help-block" ng-if="errors.' + attrs.name + '">';
-                    html += '{{errors.' + attrs.name + '}}</p>';
-                }
-                html += '</div>';
-                html += '</div>';
+                html = wrapInBoostrapForm(attrs, html);
             }
 
             return html;
@@ -204,6 +206,16 @@ angular.module('meanVoServerApp')
                             });
 
                             attrs.options = "state._id as state.abbrev for state in states";
+                            break;
+
+                        case 'category':
+                            scope.categories = [];
+
+                            InputService.getCategories().then(function(categories) {
+                                scope.categories = categories;
+                            });
+
+                            attrs.options = "category._id as category.name for category in categories";
                             break;
                     }
 
