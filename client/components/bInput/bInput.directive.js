@@ -105,6 +105,10 @@ angular.module('meanVoServerApp')
             return html;
         }
 
+        var getAttribute = function(name, value) {
+            return ' ' + name + '="' + value + '" ';
+        };
+
         var getBasicAttributes = function(attrs) {
             var html = '';
 
@@ -113,11 +117,11 @@ angular.module('meanVoServerApp')
             }
 
             if (attrs.model) {
-                html += ' ng-model="' + attrs.model + '" ';
+                html += getAttribute('ng-model', attrs.model);
             }
 
             if (attrs.name) {
-                html += ' name="' + attrs.name + '" ';
+                html += getAttribute('name', attrs.name);
             }
 
             if (attrs.class) {
@@ -127,7 +131,7 @@ angular.module('meanVoServerApp')
             }
 
             if (attrs.style) {
-                html += ' style="' + attrs.style + '" ';
+                html += getAttribute('style', attrs.style);
             }
 
             return html;
@@ -154,7 +158,7 @@ angular.module('meanVoServerApp')
                 html += getBasicAttributes(attrs);
 
                 if (attrs.options) {
-                    html += ' ng-options="' + attrs.options + '" ';
+                    html += getAttribute('ng-options', attrs.options);
                 }
                 html += "></select>";
 
@@ -163,6 +167,13 @@ angular.module('meanVoServerApp')
                 html += '<textarea ';
 
                 html += getBasicAttributes(attrs);
+
+                if (attrs.rows) {
+                    html += getAttribute('rows', attrs.rows);
+                }
+                if (attrs.cols) {
+                    html += getAttribute('cols', attrs.cols);
+                }
 
                 html += "></textarea>";
 
@@ -173,10 +184,10 @@ angular.module('meanVoServerApp')
                 html += getBasicAttributes(attrs);
 
                 if (attrs.minlength) {
-                    html += ' ng-minlength="' + attrs.minlength + '" ';
+                    html += getAttribute('ng-minlength', attrs.minlength);
                 }
                 if (attrs.maxlength) {
-                    html += ' ng-maxlength="' + attrs.maxlength + '" ';
+                    html += getAttribute('ng-maxlength', attrs.maxlength);
                 }
                 html += '/>';
 
