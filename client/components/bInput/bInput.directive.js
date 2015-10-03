@@ -126,6 +126,9 @@ angular.module('meanVoServerApp')
                 html = wrapInBoostrapForm(attrs, html);
             } else if (attrs.type === 'select') {
                 html += '<select ';
+                if (attrs.multiple) {
+                    html += ' multiple="true" ';
+                }
                 if (attrs.model) {
                     html += ' ng-model="' + attrs.model + '"';
                 }
@@ -205,6 +208,7 @@ angular.module('meanVoServerApp')
                     attrs.options = "interest._id as interest.name for interest in interests";
                     break;
             }
+
         };
 
         return {

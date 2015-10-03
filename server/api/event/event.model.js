@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
-var relationship = require("mongoose-relationship");
+var relationship = require('mongoose-relationship');
 
 var EventSchema = new Schema({
     organization_id: {
