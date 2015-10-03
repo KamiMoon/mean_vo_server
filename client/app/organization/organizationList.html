@@ -13,7 +13,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+        <a data-toggle="collapse" target="_self" data-parent="#accordion" href="#collapseOne">
            <span class="glyphicon glyphicon-globe"></span> 
             Search for Organizations / Schools 
            <span class =" spangglyph glyphicon glyphicon-chevron-down"></span>
@@ -47,8 +47,13 @@
     ?> -->
                 <div class="form-horizontal">
                     <b-input model="searchParams.name"></b-input>
+                    <b-input type="select" source="categories" label="Category" model="searchParams.category_id"></b-input>
                     <b-input model="searchParams.address"></b-input>
                     <b-input model="searchParams.city"></b-input>
+                    <b-input type="select" source="states" label="State" model="searchParams.state_id"></b-input>
+                    <b-input model="searchParams.zip"></b-input>
+                    <b-input type="email" model="searchParams.email"></b-input>
+                    <b-input model="searchParams.fax"></b-input>
                 </div>
                 <br />
                 <button class="btn btn-primary" ng-click="search()">Search</button>
