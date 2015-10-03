@@ -1,10 +1,14 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./state.controller');
-
 var router = express.Router();
 
-router.get('/', controller.index);
+var State = require('./state.model');
+var ControllerUtil = require('../../components/controllerUtil');
+
+
+router.get('/', function(req, res) {
+    ControllerUtil.find(req, res, State);
+});
 
 module.exports = router;

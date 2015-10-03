@@ -8,7 +8,7 @@
             <div class="form-horizontal">
                 <b-input model="organization.name"></b-input>
                 <b-input type="file" model="photo"></b-input>
-                <b-input type="select" source="category" label="Category" model="organization.category_id">
+                <b-input type="select" source="categories" label="Category" model="organization.category_id">
                 </b-input>
                 <b-input label="Short Description" model="organization.short_description" required="true"></b-input>
                 <!-- TODO: long_description -->
@@ -34,7 +34,7 @@
             <div class="form-horizontal">
                 <b-input model="organization.address"></b-input>
                 <b-input model="organization.city"></b-input>
-                <b-input type="select" source="state" label="State" model="organization.state_id">
+                <b-input type="select" source="states" label="State" model="organization.state_id">
                 </b-input>
                 <b-input model="organization.zip"></b-input>
             </div>

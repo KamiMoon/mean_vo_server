@@ -165,6 +165,48 @@ angular.module('meanVoServerApp')
         };
 
 
+        var populateDefault = function(key, scope) {
+            scope[key] = [];
+
+            InputService.get(key, 'api/' + key).then(function(objs) {
+                scope[key] = objs;
+            });
+
+            //TODO - this would be cool - but plurals
+            // if (attrs) {
+            //     attrs.options = key + "._id as " + key + ".name for " + key + "in " + key + "s";
+            // }
+        };
+
+        var populateSelect = function(attrs, scope) {
+            switch (attrs.source) {
+                case 'states':
+                    populateDefault(attrs.source, scope);
+                    attrs.options = "state._id as state.abbrev for state in states";
+                    break;
+                case 'categories':
+                    populateDefault(attrs.source, scope);
+                    attrs.options = "category._id as category.name for category in categories";
+                    break;
+                case 'statuses':
+                    populateDefault(attrs.source, scope);
+                    attrs.options = "status._id as status.name for status in statuses";
+                    break;
+                case 'schools':
+                    populateDefault(attrs.source, scope);
+                    attrs.options = "school._id as school.name for school in schools";
+                    break;
+                case 'roles':
+                    populateDefault(attrs.source, scope);
+                    attrs.options = "role._id as role.name for role in roles";
+                    break;
+                case 'interests':
+                    populateDefault(attrs.source, scope);
+                    attrs.options = "interest._id as interest.name for interest in interests";
+                    break;
+            }
+        };
+
         return {
             restrict: 'E',
             replace: true,
@@ -196,29 +238,7 @@ angular.module('meanVoServerApp')
 
                 //lookup Data based on source if needed
                 if (attrs.type === 'select' && attrs.source) {
-
-                    switch (attrs.source) {
-                        case 'state':
-                            scope.states = [];
-
-                            InputService.getStates().then(function(states) {
-                                scope.states = states;
-                            });
-
-                            attrs.options = "state._id as state.abbrev for state in states";
-                            break;
-
-                        case 'category':
-                            scope.categories = [];
-
-                            InputService.getCategories().then(function(categories) {
-                                scope.categories = categories;
-                            });
-
-                            attrs.options = "category._id as category.name for category in categories";
-                            break;
-                    }
-
+                    populateSelect(attrs, scope);
                 }
 
                 element.html(getTemplate(attrs));

@@ -3,7 +3,7 @@
 angular.module('meanVoServerApp')
     .service('InputService', function($q, $http, $localStorage) {
 
-        var get = function(key, url) {
+        this.get = function(key, url) {
             var objs = $localStorage[key];
             var deferred = $q.defer();
 
@@ -19,14 +19,5 @@ angular.module('meanVoServerApp')
 
             return deferred.promise;
         };
-
-        this.getStates = function() {
-            return get('states', '/api/states');
-        };
-
-        this.getCategories = function() {
-            return get('categories', 'api/categories');
-        };
-
 
     });

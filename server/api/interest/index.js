@@ -3,12 +3,12 @@
 var express = require('express');
 var router = express.Router();
 
-var School = require('./school.model');
+var Interest = require('./interest.model');
 var ControllerUtil = require('../../components/controllerUtil');
 
 
 router.get('/', function(req, res) {
-    ControllerUtil.find(req, res, School);
+    ControllerUtil.find(req, res, Interest);
 });
 
 module.exports = router;
