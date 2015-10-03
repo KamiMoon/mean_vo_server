@@ -105,6 +105,34 @@ angular.module('meanVoServerApp')
             return html;
         }
 
+        var getBasicAttributes = function(attrs) {
+            var html = '';
+
+            if (attrs.required) {
+                html += ' required="true" ';
+            }
+
+            if (attrs.model) {
+                html += ' ng-model="' + attrs.model + '" ';
+            }
+
+            if (attrs.name) {
+                html += ' name="' + attrs.name + '" ';
+            }
+
+            if (attrs.class) {
+                html += ' class="form-control ' + attrs.class + '" ';
+            } else {
+                html += ' class="form-control" ';
+            }
+
+            if (attrs.style) {
+                html += ' style="' + attrs.style + '" ';
+            }
+
+            return html;
+        };
+
         var getTemplate = function(attrs) {
             var html = '';
 
@@ -113,14 +141,7 @@ angular.module('meanVoServerApp')
             } else if (attrs.type === 'file') {
 
                 html += '<input type="file" ngf-select ';
-                html += ' class="form-control"';
-                if (attrs.model) {
-                    html += ' ng-model="' + attrs.model + '"';
-                }
-
-                if (attrs.name) {
-                    html += ' name="' + attrs.name + '" ';
-                }
+                html += getBasicAttributes(attrs);
                 html += ' accept="image/*" ngf-max-size="2MB" />';
 
                 html = wrapInBoostrapForm(attrs, html);
@@ -129,30 +150,28 @@ angular.module('meanVoServerApp')
                 if (attrs.multiple) {
                     html += ' multiple="true" ';
                 }
-                if (attrs.model) {
-                    html += ' ng-model="' + attrs.model + '"';
-                }
-                if (attrs.name) {
-                    html += ' name="' + attrs.name + '" ';
-                }
+
+                html += getBasicAttributes(attrs);
+
                 if (attrs.options) {
                     html += ' ng-options="' + attrs.options + '" ';
                 }
                 html += "></select>";
 
                 html = wrapInBoostrapForm(attrs, html);
+            } else if (attrs.type === 'textarea') {
+                html += '<textarea ';
+
+                html += getBasicAttributes(attrs);
+
+                html += "></textarea>";
+
+                html = wrapInBoostrapForm(attrs, html);
             } else {
-                html += '<input type="' + attrs.type + '"';
-                if (attrs.model) {
-                    html += ' ng-model="' + attrs.model + '"';
-                }
-                html += ' class="form-control"';
-                if (attrs.required) {
-                    html += ' required="true" ';
-                }
-                if (attrs.name) {
-                    html += ' name="' + attrs.name + '" ';
-                }
+                html += '<input type="' + attrs.type + '" ';
+
+                html += getBasicAttributes(attrs);
+
                 if (attrs.minlength) {
                     html += ' ng-minlength="' + attrs.minlength + '" ';
                 }
