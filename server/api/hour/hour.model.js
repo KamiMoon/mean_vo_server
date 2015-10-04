@@ -7,9 +7,8 @@ var relationship = require('mongoose-relationship');
 
 var HourSchema = new Schema({
     status_id: {
-        type: Number,
-        ref: 'Status',
-        default: 1
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
     },
     user_id: {
         type: Schema.Types.ObjectId,

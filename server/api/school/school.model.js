@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var SchoolSchema = new Schema({
-    _id: Number,
     name: String
 });
 

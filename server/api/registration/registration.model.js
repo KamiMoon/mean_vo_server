@@ -21,9 +21,8 @@ var RegistrationSchema = new Schema({
         ref: 'Hour'
     },
     status_id: {
-        type: Number,
-        ref: 'Status',
-        default: 1
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
     },
     start_time: Date,
     end_time: Date,

@@ -8,21 +8,19 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 var OrganizationSchema = new Schema({
     status_id: {
-        type: Number,
-        ref: 'Status',
-        default: 1
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
     },
     category_id: {
-        type: Number,
-        ref: 'Category',
-        default: 1
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
     },
     events: [{
         type: Schema.Types.ObjectId,
         ref: 'Event'
     }],
     interests: [{
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'Interest'
     }],
     name: {
@@ -106,7 +104,7 @@ var OrganizationSchema = new Schema({
         ]
     },
     state_id: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'State'
     },
     zip: {

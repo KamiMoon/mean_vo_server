@@ -1,0 +1,70 @@
+<h1>Interest List</h1>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" target="_self">
+         <span class="glyphicon glyphicon-tasks"></span> 
+          Search for Events
+        <span class =" spangglyph glyphicon glyphicon-chevron-down"></span>
+          
+        </a>
+      </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+                <!--
+                <?php 
+    echo $this->Form->create('Event', array('type' => 'get', 
+            'novalidate' => true
+    ));
+    echo $this->Form->input('name');
+    echo $this->Form->input('address');
+    echo $this->Form->input('city');
+    echo $this->Form->input('state_id', array(
+            'options' => $states,
+            'empty' => ''
+        ));
+    echo $this->Form->input('zip');
+    echo $this->Form->input('phone');
+    echo $this->Form->input('email');
+    echo $this->Form->input('Interest', array(
+            'label' => 'Interests',
+            'type' => 'select',
+            'multiple' => true, // or 'checkbox' if you want a set of checkboxes
+            'options' => $interests
+    ));
+    echo $this->Form->end('Search');
+    ?>
+-->
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="interest in interests">
+            <td ng-bind="interest.name">
+            </td>
+            <td>
+                <!-- <?php if($this->Auth->isOrgAdminFor($interest['Event']['organization_id']) ){ ?> -->
+                <a target="_self" ng-click="delete(interest._id)" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-trash"></span>Delete</a>
+                <!-- <?php }?> -->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" ng-model="newInterest.name" size="10">
+            </td>
+            <td>
+                <button ng-click="add()" class="btn btn-primary">Add</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

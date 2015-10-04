@@ -138,3 +138,15 @@ exports.findById = function(req, res, modelObj, populateString) {
         return res.json(result);
     });
 };
+
+exports.create = function(req, res, modelObj) {
+
+    console.log(req.body);
+
+    modelObj.create(req.body, function(err, obj) {
+        if (err) {
+            return handleError(res, err);
+        }
+        return res.status(201).json(obj);
+    });
+};

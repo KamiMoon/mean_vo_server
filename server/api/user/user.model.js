@@ -10,7 +10,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new Schema({
     interests: [{
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'Interest'
     }],
     registrations: [{
@@ -88,7 +88,7 @@ var UserSchema = new Schema({
         ]
     },
     state_id: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'State'
     },
     zip: {

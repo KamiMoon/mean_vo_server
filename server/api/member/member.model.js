@@ -13,13 +13,12 @@ var MemberSchema = new Schema({
         ref: 'Organization'
     },
     role_id: {
-        type: Number,
+        type: Schema.Types.ObjectId,
         ref: 'Role'
     },
     status_id: {
-        type: Number,
-        ref: 'Status',
-        default: 1
+        type: Schema.Types.ObjectId,
+        ref: 'Status'
     }
 });
 
