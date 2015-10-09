@@ -89,6 +89,8 @@ angular.module('meanVoServerApp')
             $scope.registration = registration;
             //convenience
             $scope.event = registration.event_id;
+            $scope.user = registration.user_id
+;
         });
 
 

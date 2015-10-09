@@ -20,7 +20,8 @@
                                 <label>Name:</label>
                             </td>
                             <td>
-                                <a href="/#/user/profile/{{registration.user_id._id}}" ng-bind="{{registration.user_id.name}}">
+                                <a href="/#/user/profile/{{user._id}}">
+                                    {{user.name}}
                                 </a>
                             </td>
                         </tr>
@@ -28,7 +29,8 @@
                             <td>
                                 <label>User id: </label>
                             </td>
-                            <td ng-bind="registration.user_id.email">
+                            <td>
+                                {{user.email}}
                             </td>
                         </tr>
                         <tr>

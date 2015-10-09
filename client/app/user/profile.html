@@ -166,26 +166,16 @@
                                 </div>
                                 <div class="col-md-8" style="vertical-align: top;">
                                     {{user.address}}
-                                    <br /> {{user.city}} , {{user.abbrev}} {{user.zip}}
+                                    <br /> {{user.city}} , {{user.state_id.abbrev}} {{user.zip}}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Phone:</label>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-8" ng-bind="user.phone">
                                     <!-- TODO: formatting -->
                                     {{user.phone}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>
-                                        Fax
-                                    </label>
-                                </div>
-                                <div class="col-md-8">
-                                    {{user.fax}}
                                 </div>
                             </div>
                             <div class="row">
@@ -194,7 +184,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <!-- TODO: formatting -->
-                                    {{user.created}}
+                                    {{user.createdAt}}
                                 </div>
                             </div>
                             <!-- <?php if($this->Auth->isMine($user['User']['id'])){ ?> -->
@@ -215,12 +205,10 @@
                                     <label>Interests:</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <!--                                         <?php 
-                    $interests = $user['Interest'];
-                    foreach ($interests as $interest){
-                    echo $interest['interests'].'<br>';
-                    }
-                    ?> -->
+                                    <span ng-repeat="interest in user.interests">
+                                    {{interest.name}}
+                                    <br>
+                                </span>
                                 </div>
                             </div>
                             <div class="row">

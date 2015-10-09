@@ -15,7 +15,7 @@ exports.index = function(req, res) {
 
 // Get a single registration
 exports.show = function(req, res) {
-    Registration.findById(req.params.id).populate('event_id').exec(function(err, registration) {
+    Registration.findById(req.params.id).populate('event_id user_id').exec(function(err, registration) {
         if (err) {
             return handleError(res, err);
         }

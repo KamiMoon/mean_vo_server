@@ -38,6 +38,10 @@ var RegistrationSchema = new Schema({
     }
 });
 
+RegistrationSchema.statics.getPopulateFields = function() {
+    return 'user_id event_id hour_id';
+};
+
 RegistrationSchema.plugin(relationship, {
     relationshipPathName: ['user_id', 'event_id']
 });

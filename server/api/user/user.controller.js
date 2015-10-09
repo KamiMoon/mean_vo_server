@@ -38,7 +38,7 @@ var createConfirmationEmail = function(req, user) {
  * restriction: 'admin'
  */
 exports.index = function(req, res) {
-    User.find({}, '-salt -hashedPassword', function(err, users) {
+    User.find({}, '-salt -hashedPassword -activationHash', function(err, users) {
         if (err) return res.status(500).send(err);
         res.status(200).json(users);
     });
@@ -119,7 +119,7 @@ exports.me = function(req, res, next) {
     var userId = req.user._id;
     User.findOne({
         _id: userId
-    }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+    }, '-salt -hashedPassword -activationHash').populate('interests state_id registrations').exec(function(err, user) { // don't ever give out the password or salt
         if (err) return next(err);
         if (!user) return res.status(401).send('Unauthorized');
         res.json(user);
@@ -170,6 +170,19 @@ exports.activate = function(req, res) {
             res.status(403).send('Forbidden');
         }
 
+
+    });
+};
+
+exports.registrations = function(req, res, next) {
+    var userId = req.params.id;
+
+    User.findById(userId, function(err, user) {
+        if (err) return next(err);
+
+        var result = user.getRegistrationsView();
+
+        res.json(result);
 
     });
 };

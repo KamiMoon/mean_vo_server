@@ -23,4 +23,7 @@ router.post('/:id', upload.single('file'), controller.update);
 
 router.get('/activate/:id/:activationHash', controller.activate);
 
+router.get('/registrations/:id', controller.registrations);
+
+
 module.exports = router;

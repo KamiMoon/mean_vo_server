@@ -17,7 +17,7 @@ var HourSchema = new Schema({
     },
     registration_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Event',
+        ref: 'Registration',
         childPath: 'hour_id'
     },
     hours: {
