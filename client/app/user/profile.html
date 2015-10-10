@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="col-md-8" style="vertical-align: top;">
                                     {{user.address}}
-                                    <br /> {{user.city}} , {{user.state_id.abbrev}} {{user.zip}}
+                                    <br /> {{user.city}}, {{user.state}} {{user.zip}}
                                 </div>
                             </div>
                             <div class="row">
@@ -206,7 +206,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <span ng-repeat="interest in user.interests">
-                                    {{interest.name}}
+                                    {{interest}}
                                     <br>
                                 </span>
                                 </div>

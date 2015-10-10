@@ -12,13 +12,12 @@ var MemberSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Organization'
     },
-    role_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Role'
+    role: {
+        type: String
     },
-    status_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Status'
+    status: {
+        type: String,
+        default: 'Pending'
     }
 });
 

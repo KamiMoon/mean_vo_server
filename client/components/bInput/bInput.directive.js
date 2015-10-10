@@ -201,7 +201,7 @@ angular.module('meanVoServerApp')
         var populateDefault = function(key, scope) {
             scope[key] = [];
 
-            InputService.get(key, 'api/' + key).then(function(objs) {
+            InputService.get(key, 'api/constants/' + key).then(function(objs) {
                 scope[key] = objs;
             });
 
@@ -215,27 +215,27 @@ angular.module('meanVoServerApp')
             switch (attrs.source) {
                 case 'states':
                     populateDefault(attrs.source, scope);
-                    attrs.options = "state._id as state.abbrev for state in states";
+                    attrs.options = "state.abbrev as state.abbrev for state in states";
                     break;
                 case 'categories':
                     populateDefault(attrs.source, scope);
-                    attrs.options = "category._id as category.name for category in categories";
+                    attrs.options = "category.name as category.name for category in categories";
                     break;
                 case 'statuses':
                     populateDefault(attrs.source, scope);
-                    attrs.options = "status._id as status.name for status in statuses";
+                    attrs.options = "status.name as status.name for status in statuses";
                     break;
                 case 'schools':
                     populateDefault(attrs.source, scope);
-                    attrs.options = "school._id as school.name for school in schools";
+                    attrs.options = "school.name as school.name for school in schools";
                     break;
                 case 'roles':
                     populateDefault(attrs.source, scope);
-                    attrs.options = "role._id as role.name for role in roles";
+                    attrs.options = "role.name as role.name for role in roles";
                     break;
                 case 'interests':
                     populateDefault(attrs.source, scope);
-                    attrs.options = "interest._id as interest.name for interest in interests";
+                    attrs.options = "interest.name as interest.name for interest in interests";
                     break;
             }
 

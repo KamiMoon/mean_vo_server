@@ -7,21 +7,20 @@ var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
 
 var OrganizationSchema = new Schema({
-    status_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Status'
+    status: {
+        type: String,
+        default: 'Pending'
     },
-    category_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Category'
+    category: {
+        type: String,
+        default: 'Non-Profit'
     },
     events: [{
         type: Schema.Types.ObjectId,
         ref: 'Event'
     }],
     interests: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Interest'
+        type: String
     }],
     name: {
         type: String,
@@ -103,9 +102,8 @@ var OrganizationSchema = new Schema({
             })
         ]
     },
-    state_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'State'
+    state: {
+        type: String
     },
     zip: {
         type: String,

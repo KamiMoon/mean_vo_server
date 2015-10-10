@@ -29,7 +29,7 @@
     echo $this->Form->input('category_id', array ('options' => $categories, 'empty' => ''));
     echo $this->Form->input('address');
     echo $this->Form->input('city');
-    echo $this->Form->input('state_id', array(
+    echo $this->Form->input('state', array(
             'options' => $states,
             'empty' => ''
         ));
@@ -50,7 +50,7 @@
                     <b-input type="select" source="categories" label="Category" model="searchParams.category_id"></b-input>
                     <b-input model="searchParams.address"></b-input>
                     <b-input model="searchParams.city"></b-input>
-                    <b-input type="select" source="states" label="State" model="searchParams.state_id"></b-input>
+                    <b-input type="select" source="states" label="State" model="searchParams.state"></b-input>
                     <b-input model="searchParams.zip"></b-input>
                     <b-input type="email" model="searchParams.email"></b-input>
                     <b-input model="searchParams.fax"></b-input>

@@ -10,13 +10,8 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new Schema({
     interests: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Interest'
+        type: String
     }],
-    /*registrations: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Registration'
-    }],*/
     role: {
         type: String,
         default: 'user'
@@ -87,9 +82,8 @@ var UserSchema = new Schema({
             })
         ]
     },
-    state_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'State'
+    state: {
+        type: String
     },
     zip: {
         type: String,

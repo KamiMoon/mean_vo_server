@@ -14,13 +14,12 @@ var EventSchema = new Schema({
         ref: 'Organization',
         childPath: 'events'
     },
-    status_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Status'
+    status: {
+        type: 'String',
+        default: 'Pending'
     },
     interests: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Interest'
+        type: String
     }],
     registrations: [RegistrationSchema],
     name: {
@@ -90,9 +89,8 @@ var EventSchema = new Schema({
             })
         ]
     },
-    state_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'State'
+    state: {
+        type: String
     },
     zip: {
         type: String,

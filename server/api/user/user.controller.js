@@ -119,7 +119,7 @@ exports.me = function(req, res, next) {
     var userId = req.user._id;
     User.findOne({
         _id: userId
-    }, '-salt -hashedPassword -activationHash').populate('interests state_id registrations').exec(function(err, user) { // don't ever give out the password or salt
+    }, '-salt -hashedPassword -activationHash').exec(function(err, user) { // don't ever give out the password or salt
         if (err) return next(err);
         if (!user) return res.status(401).send('Unauthorized');
         res.json(user);
