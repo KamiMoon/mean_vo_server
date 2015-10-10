@@ -7,6 +7,18 @@ angular.module('meanVoServerApp')
         }, {
             update: {
                 method: 'PUT'
+            },
+            register: {
+                method: 'PUT',
+                url: 'api/events/:id/register'
+            },
+            unregister: {
+                method: 'PUT',
+                url: 'api/events/:id/unregister'
+            },
+            updateregistration: {
+                method: 'PUT',
+                url: 'api/events/:id/updateregistration'
             }
         });
     });

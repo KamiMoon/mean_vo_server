@@ -60,6 +60,14 @@ angular.module('meanVoServerApp')
         $scope.currentRegistration = null;
         $scope.registration = null;
 
+        var setupRegistration = function() {
+            $scope.currentRegistration = null;
+            $scope.registration = {
+                user_id: user._id,
+                comment: ''
+            };
+        };
+
         EventService.get({
             id: id
         }).$promise.then(function(event) {
@@ -75,10 +83,7 @@ angular.module('meanVoServerApp')
             }
 
             if (!$scope.currentRegistration) {
-                $scope.registration = {
-                    user_id: user._id,
-                    comment: ''
-                };
+                setupRegistration();
             }
 
         });
@@ -95,19 +100,32 @@ angular.module('meanVoServerApp')
                     return;
                 }
 
-                $scope.event.registrations.push($scope.registration);
-
-                console.log($scope.event.registrations);
-
-
-                EventService.update({
+                EventService.register({
                     id: $scope.event._id
-                }, $scope.event).$promise.then(function() {
+                }, $scope.registration).$promise.then(function() {
                     ValidationService.displaySuccess();
+
+                    $scope.currentRegistration = angular.copy($scope.registration);
+                    $scope.registration = null;
+
                 }, function(err) {
                     ValidationService.displayErrors(form, err);
                 });
             }
+        };
+
+        $scope.unregister = function() {
+            console.log('unregister');
+
+            EventService.unregister({
+                id: $scope.event._id
+            }, $scope.currentRegistration).$promise.then(function() {
+                ValidationService.displaySuccess();
+
+                setupRegistration();
+            }, function(err) {
+                ValidationService.displayErrors(form, err);
+            });
         };
 
         //saveCurrentRegistration
@@ -116,34 +134,9 @@ angular.module('meanVoServerApp')
 
             console.log('saveCurrentRegistration');
 
-            console.log($scope.event.registrations);
-
-            // $scope.submitted = true;
-
-            // if (form.$valid) {
-
-            //     if (!$scope.registration.user_id) {
-            //         alert('No user id');
-            //         return;
-            //     }
-
-            //     $scope.event.registrations.push($scope.registration);
-
-            //     console.log($scope.event.registrations);
-
-
-            //     EventService.update({
-            //         id: $scope.event._id
-            //     }, $scope.event).$promise.then(function() {
-            //         ValidationService.displaySuccess();
-            //     }, function(err) {
-            //         ValidationService.displayErrors(form, err);
-            //     });
-            // }
-
-            EventService.update({
+            EventService.updateregistration({
                 id: $scope.event._id
-            }, $scope.event).$promise.then(function() {
+            }, $scope.currentRegistration).$promise.then(function() {
                 ValidationService.displaySuccess();
             }, function(err) {
                 ValidationService.displayErrors(form, err);
