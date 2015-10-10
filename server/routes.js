@@ -17,8 +17,6 @@ module.exports = function(app) {
     app.use('/api/categories', require('./api/category'));
     app.use('/api/states', require('./api/state'));
     app.use('/api/members', require('./api/member'));
-    app.use('/api/hours', require('./api/hour'));
-    app.use('/api/registrations', require('./api/registration'));
     app.use('/api/events', require('./api/event'));
     app.use('/api/organizations', require('./api/organization'));
     app.use('/api/users', require('./api/user'));

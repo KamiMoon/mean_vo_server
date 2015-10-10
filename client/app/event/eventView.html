@@ -51,14 +51,15 @@
                         </td>
                     </tr>
                     <!-- <?php if($this->Auth->isLoggedIn()){ ?> -->
-                    <tr>
-                        <td>
-                            <label>Register:</label>
-                        </td>
-                        <td>
-                            <a href="/#/registration/add/{{event._id}}"> Volunteer NOW!!!</a>
-                        </td>
-                    </tr>
+                    <!-- <tr>
+    <td>
+        <label>Register:</label>
+    </td>
+    <td>
+        <a href="/#/registration/add/{{event._id}}"> Volunteer NOW!!!</a>
+    </td>
+</tr>
+ -->
                     <?php }?>
                         <tr>
                             <td>
@@ -99,27 +100,21 @@
     </div>
     <!-- Registration portlet -->
     <div class="col-md-5">
-        <?php 
-                if($this->Auth->isLoggedIn()){
-                                
-                if($registration_mode){ 
-                    
-                ?>
-            <div class="panel panel-warning">
-                <div class="panel-heading"><span class="glyphicon glyphicon-registration-mark"></span>
-                    <b><?php 
-                                if($registration_mode == "ADD"){
-                                    echo "Register for ".$event['Event']['name'];   
-                                }else{
-                                    echo "Current Registration for ".$event['Event']['name'];
-                                }
-                            ?>
-                            </b>
-                </div>
-                <div class="panel-body" style="height: 425px">
-                    <br>
-                    <br>
-                    <?php 
+        <div ng-if="user" class="panel panel-warning">
+            <div class="panel-heading"><span class="glyphicon glyphicon-registration-mark"></span>
+                <strong>
+                    <span ng-if="registration">
+                        Register for {{event.name}}
+                    </span>
+                    <span ng-if="currentRegistration">
+                        Current registration for {{event.name}}
+                    </span>
+                </strong>
+            </div>
+            <div class="panel-body" style="height: 425px">
+                <br>
+                <br>
+                <!-- <?php 
                         if($registration_mode == "ADD"){
                             echo $this->Form->create('Registration', array(
                                     'url' => array('controller' => 'registrations', 'action' => 'add', $event['Event']['id'])
@@ -137,9 +132,42 @@
                             echo '<label>End Time: &nbsp;</label>' . $registration['Registration']['end_time'] . '<br /><br />';
                             echo '<label>Comment: &nbsp;</label>' . $registration['Registration']['comment'] . '<br /><br />';
                         }?>
-                </div>
-            </div>
-            <?php }}
+ -->
+                <form ng-if="registration" name="form" ng-submit="register(form)" novalidate>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <b-input type="textarea" model="registration.comment" rows="5" cols="5"></b-input>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div align="right">
+                                <b-input type="submit"></b-input>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form ng-if="currentRegistration" name="form" ng-submit="saveCurrentRegistration(form)" novalidate>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <b-input type="number" model="currentRegistration.hours"></b-input>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div align="right">
+                                <b-input type="submit"></b-input>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--             <?php }}
                     else {?>
                 <div class="panel panel-warning">
                     <div class="panel-heading"><span class="glyphicon glyphicon-registration-mark"></span><b> Register for <?php echo $event['Event']['name']; ?></b>
@@ -159,34 +187,34 @@
                         </p>
                     </div>
                 </div>
-                <?php } ?>
-    </div>
-</div>
-<hr>
-<!-- Third row: last row: Consists of MAp and Registration protlet -->
-<div class="row">
-    <!-- Make this possibly long description as the map col is a fixed set -->
-    <!-- ORGANIZATION information use 'short_description' -->
-    <!-- ??What if there are multiple organizations sponsoring? soln- include only the primary??-->
-    <div class="col-md-7">
-        <div class="panel panel-default">
-            <div class="panel-heading"><span class="glyphicon glyphicon-star"></span> Sponsor Organization: <strong><a href="/#/organization/view/{{event.organization_id._id}}">{{event.organization_id.name}}</a></strong>
-            </div>
-            <div class="panel-body" align="center" style="word-wrap:normal; vertical-align:center">
-                <pre style="height: 390px"><?php echo $event['Organization']['long_description']; ?></pre>
+                <?php } ?> -->
             </div>
         </div>
-    </div>
-    <!--  MAP -->
-    <div class="col-md-5">
-        <div class="panel panel-warning">
-            <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> MAP</div>
-            <div class="panel-body">
-                <?php if(isset($mapAddress)) {?>
-                    <input id="mapAddress" type="hidden" value="<?php echo $mapAddress; ?>" />
-                    <div id="map-canvas" style="height: 390px; box-shadow: rgb(190, 190, 190) 0px 0px 5px 1px;"></div>
-                    <?php }?>
+        <hr>
+        <!-- Third row: last row: Consists of MAp and Registration protlet -->
+        <div class="row">
+            <!-- Make this possibly long description as the map col is a fixed set -->
+            <!-- ORGANIZATION information use 'short_description' -->
+            <!-- ??What if there are multiple organizations sponsoring? soln- include only the primary??-->
+            <div class="col-md-7">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-star"></span> Sponsor Organization: <strong><a href="/#/organization/view/{{event.organization_id._id}}">{{event.organization_id.name}}</a></strong>
+                    </div>
+                    <div class="panel-body" align="center" style="word-wrap:normal; vertical-align:center">
+                        <pre style="height: 390px"><?php echo $event['Organization']['long_description']; ?></pre>
+                    </div>
+                </div>
+            </div>
+            <!--  MAP -->
+            <div class="col-md-5">
+                <div class="panel panel-warning">
+                    <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> MAP</div>
+                    <div class="panel-body">
+                        <?php if(isset($mapAddress)) {?>
+                            <input id="mapAddress" type="hidden" value="<?php echo $mapAddress; ?>" />
+                            <div id="map-canvas" style="height: 390px; box-shadow: rgb(190, 190, 190) 0px 0px 5px 1px;"></div>
+                            <?php }?>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>

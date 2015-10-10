@@ -8,17 +8,15 @@ var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
 
-var RegistrationsView = require('../../query/registrationsView')
-
 var UserSchema = new Schema({
     interests: [{
         type: Schema.Types.ObjectId,
         ref: 'Interest'
     }],
-    registrations: [{
+    /*registrations: [{
         type: Schema.Types.ObjectId,
         ref: 'Registration'
-    }],
+    }],*/
     role: {
         type: String,
         default: 'user'
@@ -256,34 +254,6 @@ UserSchema.methods = {
         if (!password || !this.salt) return '';
         var salt = new Buffer(this.salt, 'base64');
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
-    },
-
-    getRegistrationsView: function() {
-        var result = {
-            'hi': 'what'
-        };
-
-
-        // for (var i = 0; i < this.registrations.length; i++) {
-        //     var reg = this.registrations[i];
-
-        //get the registration
-        //get the event
-        //get the organization
-
-        // }
-
-        //this.registrations.forEach(function(registrationId) {
-
-        //var registration = User.collection
-        //});
-
-        RegistrationsView.findRegistrationView(this._id, this.registrations, function(err, results) {
-            console.log(results);
-        });
-
-
-        return result;
     }
 };
 

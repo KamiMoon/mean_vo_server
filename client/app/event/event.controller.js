@@ -50,12 +50,104 @@ angular.module('meanVoServerApp')
             }
         };
 
-    }).controller('EventViewCtrl', function($scope, $stateParams, EventService) {
+    }).controller('EventViewCtrl', function($scope, $stateParams, Auth, EventService, ValidationService) {
 
         var id = $stateParams.id;
+        var user = Auth.getCurrentUser();
+        $scope.user = user;
 
-        $scope.event = EventService.get({
+        //either show the current registration or a form for new registration
+        $scope.currentRegistration = null;
+        $scope.registration = null;
+
+        EventService.get({
             id: id
+        }).$promise.then(function(event) {
+            $scope.event = event;
+
+            if (user && user._id) {
+                for (var i = 0; i < $scope.event.registrations.length; i++) {
+                    if ($scope.event.registrations[i].user_id === user._id) {
+                        $scope.currentRegistration = $scope.event.registrations[i];
+                        break;
+                    }
+                }
+            }
+
+            if (!$scope.currentRegistration) {
+                $scope.registration = {
+                    user_id: user._id,
+                    comment: ''
+                };
+            }
+
         });
+
+        $scope.register = function(form) {
+
+            console.log('register');
+            $scope.submitted = true;
+
+            if (form.$valid) {
+
+                if (!$scope.registration.user_id) {
+                    alert('No user id');
+                    return;
+                }
+
+                $scope.event.registrations.push($scope.registration);
+
+                console.log($scope.event.registrations);
+
+
+                EventService.update({
+                    id: $scope.event._id
+                }, $scope.event).$promise.then(function() {
+                    ValidationService.displaySuccess();
+                }, function(err) {
+                    ValidationService.displayErrors(form, err);
+                });
+            }
+        };
+
+        //saveCurrentRegistration
+
+        $scope.saveCurrentRegistration = function(form) {
+
+            console.log('saveCurrentRegistration');
+
+            console.log($scope.event.registrations);
+
+            // $scope.submitted = true;
+
+            // if (form.$valid) {
+
+            //     if (!$scope.registration.user_id) {
+            //         alert('No user id');
+            //         return;
+            //     }
+
+            //     $scope.event.registrations.push($scope.registration);
+
+            //     console.log($scope.event.registrations);
+
+
+            //     EventService.update({
+            //         id: $scope.event._id
+            //     }, $scope.event).$promise.then(function() {
+            //         ValidationService.displaySuccess();
+            //     }, function(err) {
+            //         ValidationService.displayErrors(form, err);
+            //     });
+            // }
+
+            EventService.update({
+                id: $scope.event._id
+            }, $scope.event).$promise.then(function() {
+                ValidationService.displaySuccess();
+            }, function(err) {
+                ValidationService.displayErrors(form, err);
+            });
+        };
 
     });

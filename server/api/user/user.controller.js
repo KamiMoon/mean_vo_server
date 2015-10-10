@@ -177,14 +177,8 @@ exports.activate = function(req, res) {
 exports.registrations = function(req, res, next) {
     var userId = req.params.id;
 
-    User.findById(userId, function(err, user) {
-        if (err) return next(err);
-
-        var result = user.getRegistrationsView();
-
-        res.json(result);
-
-    });
+    //TODO
+    res.json([]);
 };
 
 /**

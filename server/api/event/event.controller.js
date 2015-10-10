@@ -38,31 +38,46 @@ exports.create = function(req, res) {
 
 // Updates an existing event in the DB.
 exports.update = function(req, res) {
-    if (req.body._id) {
-        delete req.body._id;
-    }
-    Event.findById(req.params.id, function(err, event) {
+
+    console.log('event update on the server');
+
+    // if (req.body._id) {
+    //     delete req.body._id;
+    // }
+    // Event.findById(req.params.id, function(err, event) {
+    //     if (err) {
+    //         return handleError(res, err);
+    //     }
+    //     if (!event) {
+    //         return res.status(404).send('Not Found');
+    //     }
+
+    //     _.merge(event, req.body);
+
+    //     console.log(event);
+
+    //     event.interests = req.body.interests;
+
+    //     event.save(function(err) {
+    //         if (err) {
+    //             return handleError(res, err);
+    //         }
+    //         return res.status(200).json(event);
+    //     });
+
+    // });
+
+    console.log(req.body);
+
+    Event.update({
+        _id: req.body._id
+    }, req.body, function(err, event) {
         if (err) {
             return handleError(res, err);
         }
-        if (!event) {
-            return res.status(404).send('Not Found');
-        }
-
-        _.merge(event, req.body);
-
-        console.log(event);
-
-        event.interests = req.body.interests;
-
-        event.save(function(err) {
-            if (err) {
-                return handleError(res, err);
-            }
-            return res.status(200).json(event);
-        });
-
+        return res.status(200).json(event);
     });
+
 };
 
 // Deletes a event from the DB.
