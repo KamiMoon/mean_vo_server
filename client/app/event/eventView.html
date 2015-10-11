@@ -191,31 +191,33 @@
                 <?php } ?> -->
             </div>
         </div>
-        <hr>
-        <!-- Third row: last row: Consists of MAp and Registration protlet -->
-        <div class="row">
-            <!-- Make this possibly long description as the map col is a fixed set -->
-            <!-- ORGANIZATION information use 'short_description' -->
-            <!-- ??What if there are multiple organizations sponsoring? soln- include only the primary??-->
-            <div class="col-md-7">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-star"></span> Sponsor Organization: <strong><a href="/#/organization/view/{{event.organization_id._id}}">{{event.organization_id.name}}</a></strong>
-                    </div>
-                    <div class="panel-body" align="center" style="word-wrap:normal; vertical-align:center">
-                        <pre style="height: 390px"><?php echo $event['Organization']['long_description']; ?></pre>
-                    </div>
-                </div>
+    </div>
+</div>
+<hr>
+<!-- Third row: last row: Consists of MAp and Registration protlet -->
+<div class="row">
+    <!-- Make this possibly long description as the map col is a fixed set -->
+    <!-- ORGANIZATION information use 'short_description' -->
+    <!-- ??What if there are multiple organizations sponsoring? soln- include only the primary??-->
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-star"></span> Sponsor Organization: <strong><a href="/#/organization/view/{{event.organization_id._id}}">{{event.organization_id.name}}</a></strong>
             </div>
-            <!--  MAP -->
-            <div class="col-md-5">
-                <div class="panel panel-warning">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> MAP</div>
-                    <div class="panel-body">
-                        <?php if(isset($mapAddress)) {?>
-                            <input id="mapAddress" type="hidden" value="<?php echo $mapAddress; ?>" />
-                            <div id="map-canvas" style="height: 390px; box-shadow: rgb(190, 190, 190) 0px 0px 5px 1px;"></div>
-                            <?php }?>
-                    </div>
-                </div>
+            <div class="panel-body" align="center" style="word-wrap:normal; vertical-align:center">
+                <pre style="height: 390px"><?php echo $event['Organization']['long_description']; ?></pre>
             </div>
         </div>
+    </div>
+    <!--  MAP -->
+    <div class="col-md-5">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><span class="glyphicon glyphicon-map-marker"></span> MAP</div>
+            <div class="panel-body">
+                <?php if(isset($mapAddress)) {?>
+                    <input id="mapAddress" type="hidden" value="<?php echo $mapAddress; ?>" />
+                    <div id="map-canvas" style="height: 390px; box-shadow: rgb(190, 190, 190) 0px 0px 5px 1px;"></div>
+                    <?php }?>
+            </div>
+        </div>
+    </div>
+</div>
