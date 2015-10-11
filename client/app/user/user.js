@@ -12,7 +12,7 @@ angular.module('meanVoServerApp')
                 templateUrl: 'app/user/userEdit.html',
                 controller: 'UserEditCtrl'
             }).state('userView', {
-                url: '/profile',
+                url: '/profile/:id',
                 templateUrl: 'app/user/profile.html',
                 controller: 'UserProfileCtrl'
             });

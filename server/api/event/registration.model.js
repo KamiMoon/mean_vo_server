@@ -36,6 +36,7 @@ var RegistrationSchema = new Schema({
         type: Number
     }
 });
+
 // RegistrationSchema.plugin(relationship, {
 //     relationshipPathName: ['user_id']
 // });

@@ -103,6 +103,52 @@ var EventSchema = new Schema({
     }
 });
 
+
+EventSchema.statics.getEventsRegisteredByUser = function(user_id, cb) {
+    return this.find({
+        'registrations.user_id': user_id
+    }).lean().exec(cb);
+};
+/*
+
+EventSchema.statics = {
+
+    getEventsRegisteredByUser: function(user_id, cb) {
+        return this.find({
+            'registrations.user_id': user_id
+        }, cb);
+    },
+
+    getEventsCreatedByOrganization: function(organization_id, cb) {
+        return this.find({
+            'organization_id': organization_id
+        }, cb);
+    },
+
+    getHoursForUser: function(user_id, cb) {
+        return this.aggregate([{
+            $match: {
+                'registrations.user_id': user_id
+            }
+        }, {
+            $unwind: '$registrations'
+        }, {
+            $match: {
+                'registrations.user_id': user_id
+            }
+        }], cb);
+    }
+
+};
+
+
+*/
+
+
+
+
+
+
 //TODO - refactor - this is becoming repetitive
 EventSchema.plugin(timestamps);
 EventSchema.plugin(uniqueValidator, {

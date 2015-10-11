@@ -25,5 +25,8 @@ router.get('/activate/:id/:activationHash', controller.activate);
 
 router.get('/registrations/:id', controller.registrations);
 
+router.get('/:id/profile', controller.profile);
+
+
 
 module.exports = router;

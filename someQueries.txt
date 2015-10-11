@@ -1,0 +1,101 @@
+
+db.events.update({_id: ObjectId("5618488421adfb9a529c3f79")}, {$set: {registrations: [{user_id: ObjectId("5618479e21adfb9a529c3f77"), hours: 2},{user_id: ObjectId("5618491021adfb9a529c3f80"), hours: 1} ]}})
+
+
+Events registered by user
+
+db.events.find({"registrations.user_id": ObjectId("5618479e21adfb9a529c3f77”)});
+
+Events owned by org
+
+db.events.find({org_id: ObjectId("561848bc21adfb9a529c3f7c")})
+
+Hours for user
+
+db.events.aggregate(
+    [ 
+    { $match : { "registrations.user_id" : ObjectId("5618479e21adfb9a529c3f77") } }, 
+    {$unwind: "$registrations"},
+    { $match : { "registrations.user_id" : ObjectId("5618479e21adfb9a529c3f77") } }
+    ]
+);
+
+Hours for org
+
+db.events.find({org_id: ObjectId("561848bc21adfb9a529c3f7c")})
+
+
+Top 5 Students By Hours
+
+db.events.aggregate(
+    [ 
+    {$unwind: "$registrations"},
+    {$group: 
+      {_id: "$registrations.user_id", 
+        total_hours: {$sum: "$registrations.hours"}
+      } 
+    },
+    {$sort: {"total_hours": -1}},
+    {$limit: 5}
+    ]
+);
+
+Top 5 Orgs by Hours
+
+db.events.aggregate(
+    [ 
+    {$unwind: "$registrations"},
+    {$group: 
+      {_id: "$org_id", 
+        total_hours: {$sum: "$registrations.hours"}
+      } 
+    },
+    {$sort: {"total_hours": -1}},
+    {$limit: 5}
+    ]
+);
+
+Top 5 Events by Hours
+
+db.events.aggregate(
+    [ 
+    {$unwind: "$registrations"},
+    {$group: 
+      {_id: "$_id", 
+        total_hours: {$sum: "$registrations.hours"}
+      } 
+    },
+    {$sort: {"total_hours": -1}},
+    {$limit: 5}
+    ]
+);
+
+
+Total hours for an org by its members
+
+db.events.aggregate(
+    [ 
+    
+    {$unwind: "$registrations"},
+    {$match: {"registrations.user_id": {$in: [ObjectId("5618491021adfb9a529c3f80"), ObjectId("5618479e21adfb9a529c3f77")]}}
+    },
+    {$group: 
+      {_id: "$registrations.user_id", 
+        total_hours: {$sum: "$registrations.hours"}
+      } 
+    },
+    {$sort: {"total_hours": -1}},
+    {$limit: 5}
+    ]
+);
+
+Update a nested document
+
+db.events.update({_id: ObjectId("56194ee1bd491e32b1d2faaa"), "registrations._id": ObjectId("561951ba2f8915b8b1661d12")}, {$set: {"registrations.$.hours": 3} } )
+		
+		
+
+
+
+
+	

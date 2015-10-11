@@ -52,13 +52,16 @@ angular.module('meanVoServerApp')
                 });
 
                 ControllerUtil.handle(request, form).then(function() {
-                    $location.path('/profile');
+                    $location.path('/profile/' + $scope.user._id);
                 });
             }
 
         };
 
-    }).controller('UserProfileCtrl', function($scope, User) {
+    }).controller('UserProfileCtrl', function($scope, $stateParams, User) {
+        var id = $stateParams.id;
 
-        $scope.user = User.get();
+        $scope.user = User.profile({
+            id: id
+        });
     });

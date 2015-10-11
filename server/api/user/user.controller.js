@@ -1,6 +1,8 @@
 'use strict';
 
 var User = require('./user.model');
+var Event = require('../event/event.model');
+
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var ControllerUtil = require('../../components/controllerUtil');
@@ -179,6 +181,31 @@ exports.registrations = function(req, res, next) {
 
     //TODO
     res.json([]);
+};
+
+exports.profile = function(req, res, next) {
+    console.log('profile');
+
+    var userId = req.params.id;
+
+    User.findOne({
+        _id: userId
+    }, '-salt -hashedPassword -activationHash').lean().exec(function(err, user) { // don't ever give out the password or salt
+        if (err) return next(err);
+        if (!user) return res.status(401).send('Unauthorized');
+
+        //get the registrations
+
+        Event.getEventsRegisteredByUser(userId, function(err, events) {
+            if (err) return next(err);
+
+            console.log(events);
+
+            user.events = events;
+
+            res.json(user);
+        });
+    });
 };
 
 /**

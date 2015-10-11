@@ -19,6 +19,10 @@ angular.module('meanVoServerApp')
                 params: {
                     id: 'me'
                 }
+            },
+            profile: {
+                method: 'GET',
+                url: 'api/users/:id/profile'
             }
         });
     });

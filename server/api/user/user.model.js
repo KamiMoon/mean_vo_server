@@ -139,8 +139,9 @@ UserSchema
             phone: this.phone,
             address: this.address,
             city: this.city,
-            abbrev: this.abbrev,
+            state: this.state,
             zip: this.zip
+
         };
     });
 
@@ -248,6 +249,7 @@ UserSchema.methods = {
         return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
     }
 };
+
 
 UserSchema.plugin(timestamps);
 UserSchema.plugin(uniqueValidator, {
