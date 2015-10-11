@@ -109,6 +109,10 @@ EventSchema.statics.getEventsRegisteredByUser = function(user_id, cb) {
         'registrations.user_id': user_id
     }).lean().exec(cb);
 };
+
+
+
+
 /*
 
 EventSchema.statics = {

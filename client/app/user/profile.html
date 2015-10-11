@@ -302,30 +302,29 @@
                                 <th> Hour </th>
                                 <th>Status</th>
                             </tr>
-                            <!--                                     <?php foreach ($registrations as $registration): ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $this->Html->link($registration['Event']['name'], array('controller' => 'events', 'action' => 'view', $registration['Event']['id']));?>
-                                            </td>
-                                            <td>
-                                                <?php echo $this->Html->link($registration['Organization']['name'], array('controller' => 'organizations', 'action' => 'view', $registration['Organization']['id']));?>
-                                            </td>
-                                            <td>
-                                                <?php echo $registration['Registration']['start_time']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $registration['Registration']['end_time']; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $registration['0']['total'];?>
-                                            </td>
-                                            <td>
-                                                <?php echo $registration['Status']['status'];?>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach; ?> -->
+                            <tr ng-repeat="event in user.events">
+                                <td>
+                                    <a href="/#/event/view/{{event._id}}" ng-bind="event.name"></a>
+                                </td>
+                                <td>
+                                    <a href="/#/organization/view/{{event.organization_id}}" ng-bind="event.organization_id"></a>
+                                </td>
+                                <td>
+                                    <!-- <?php echo $registration['Registration']['start_time']; ?>
+ -->
+                                </td>
+                                <td>
+<!--                                     <?php echo $registration['Registration']['end_time']; ?>
+ -->                                    
+                                </td>
+                                <td ng-bind="event.registrations[0].hours">
+                                </td>
+                                <td>
+<!-- <?php echo $registration['Status']['status'];?>
+ -->                                    
+                                </td>
+                            </tr>
                         </table>
-                        <!-- End -->
                     </div>
                 </div>
             </div>
