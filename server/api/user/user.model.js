@@ -9,9 +9,7 @@ var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new Schema({
-    interests: [{
-        type: String
-    }],
+    interests: [String],
     role: {
         type: String,
         default: 'user'

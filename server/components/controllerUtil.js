@@ -1,6 +1,3 @@
-var _ = require('lodash');
-var fileUtil = require('./fileUtil');
-
 var getHostFromRequest = function(req) {
     var host = '';
 
@@ -57,6 +54,21 @@ var getQuery = function(req) {
 
 exports.getQuery = getQuery;
 
+
+var merge = function(modelObj, savedData) {
+
+    for (var property in savedData) {
+        var value = savedData[property];
+
+        if (value instanceof Array || value instanceof Date) {
+            modelObj.markModified(property);
+        }
+
+        modelObj[property] = value;
+
+    }
+};
+
 exports.update = function(req, res, modelObj) {
 
     if (req.body._id) {
@@ -88,14 +100,14 @@ exports.update = function(req, res, modelObj) {
             postedUser.photo = req.file.path;
         }
 
-        var merged = _.merge(user, postedUser);
+        merge(user, postedUser);
 
-        merged.save(function(err) {
+        user.save(function(err) {
             if (err) {
                 return handleError(res, err);
             }
 
-            return res.status(200).json(merged);
+            return res.status(200).json(user);
         });
     });
 };
