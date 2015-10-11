@@ -107,7 +107,7 @@ var EventSchema = new Schema({
 EventSchema.statics.getEventsRegisteredByUser = function(user_id, cb) {
     return this.find({
         'registrations.user_id': user_id
-    }).lean().exec(cb);
+    }).populate('organization_id', 'name').lean().exec(cb);
 };
 
 

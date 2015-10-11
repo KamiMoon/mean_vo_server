@@ -307,21 +307,21 @@
                                     <a href="/#/event/view/{{event._id}}" ng-bind="event.name"></a>
                                 </td>
                                 <td>
-                                    <a href="/#/organization/view/{{event.organization_id}}" ng-bind="event.organization_id"></a>
+                                    <a href="/#/organization/view/{{event.organization_id._id}}" ng-bind="event.organization_id.name"></a>
                                 </td>
                                 <td>
                                     <!-- <?php echo $registration['Registration']['start_time']; ?>
  -->
                                 </td>
                                 <td>
-<!--                                     <?php echo $registration['Registration']['end_time']; ?>
- -->                                    
+                                    <!--                                     <?php echo $registration['Registration']['end_time']; ?>
+ -->
                                 </td>
                                 <td ng-bind="event.registrations[0].hours">
                                 </td>
                                 <td>
-<!-- <?php echo $registration['Status']['status'];?>
- -->                                    
+                                    <!-- <?php echo $registration['Status']['status'];?>
+ -->
                                 </td>
                             </tr>
                         </table>
