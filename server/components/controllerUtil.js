@@ -68,6 +68,7 @@ var merge = function(modelObj, savedData) {
 
     }
 };
+exports.merge = merge;
 
 exports.update = function(req, res, modelObj) {
 

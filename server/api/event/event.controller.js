@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Event = require('./event.model');
+var ControllerUtil = require('../../components/controllerUtil');
 
 // Get list of events
 exports.index = function(req, res) {
@@ -38,31 +39,7 @@ exports.create = function(req, res) {
 
 // Updates an existing event in the DB.
 exports.update = function(req, res) {
-    if (req.body._id) {
-        delete req.body._id;
-    }
-    Event.findById(req.params.id, function(err, event) {
-        if (err) {
-            return handleError(res, err);
-        }
-        if (!event) {
-            return res.status(404).send('Not Found');
-        }
-
-        _.merge(event, req.body);
-
-        console.log(event);
-
-        event.interests = req.body.interests;
-
-        event.save(function(err) {
-            if (err) {
-                return handleError(res, err);
-            }
-            return res.status(200).json(event);
-        });
-
-    });
+    ControllerUtil.update(req, res, Event, 'photo');
 };
 
 // Deletes a event from the DB.
@@ -180,7 +157,7 @@ exports.updateregistration = function(req, res) {
 
             if (req.body.user_id === userId) {
 
-                event.registrations[i] = _.merge(event.registrations[i], req.body);
+                ControllerUtil.merge(event.registrations[i], req.body);
 
                 break;
             }
