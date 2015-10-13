@@ -166,12 +166,12 @@ angular.module('meanVoServerApp')
                 }
 
                 return hadAny;
-            }
+            },
 
             /**
              * Get auth token
              */
-                getToken: function() {
+            getToken: function() {
                 return $cookieStore.get('token');
             }
         };
