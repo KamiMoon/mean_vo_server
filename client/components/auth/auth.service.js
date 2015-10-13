@@ -143,10 +143,35 @@ angular.module('meanVoServerApp')
                 return currentUser.roles.indexOf('admin') !== -1;
             },
 
+            hasRole: function(role) {
+                if (!currentUser.roles) {
+                    return false;
+                }
+
+                return currentUser.roles.indexOf(role) !== -1;
+            },
+
+            hasRoles: function(roles) {
+                var hadAny = false;
+
+                if (!currentUser.roles) {
+                    return false;
+                }
+
+                for (var i = 0; i < roles.length; i++) {
+                    if (currentUser.roles.indexOf(roles[i]) !== -1) {
+                        hadAny = true;
+                        break;
+                    }
+                }
+
+                return hadAny;
+            }
+
             /**
              * Get auth token
              */
-            getToken: function() {
+                getToken: function() {
                 return $cookieStore.get('token');
             }
         };
