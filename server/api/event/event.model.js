@@ -110,7 +110,28 @@ EventSchema.statics.getEventsRegisteredByUser = function(user_id, cb) {
     }).populate('organization_id', 'name').lean().exec(cb);
 };
 
+//how can we do opt out? - Can't really or any kind of join
+//the user data would have to be repeated and duplicated into the collection - or very inefficient query runs to start
+EventSchema.statics.getTopUsers = function(limit, cb) {
+    return this.aggregate(
+        [{
+            $unwind: '$registrations'
+        }, {
+            $group: {
+                _id: '$registrations.user_id',
+                total_hours: {
+                    $sum: '$registrations.hours'
+                }
+            }
+        }, {
+            $sort: {
+                'total_hours': -1
+            }
+        }, {
+            $limit: limit
+        }], cb);
 
+};
 
 
 /*

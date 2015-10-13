@@ -52,7 +52,6 @@ exports.index = function(req, res) {
 exports.create = function(req, res, next) {
     var newUser = new User(req.body);
     newUser.provider = 'local';
-    newUser.role = 'user';
     newUser.save(function(err, user) {
         if (err) return ControllerUtil.validationError(res, err);
         var token = jwt.sign({
@@ -61,10 +60,8 @@ exports.create = function(req, res, next) {
             expiresInMinutes: 60 * 5
         });
 
-
         //create an email with the activation hash in it
         createConfirmationEmail(req, user);
-
 
         res.json({
             token: token
@@ -206,6 +203,18 @@ exports.profile = function(req, res, next) {
             res.json(user);
         });
     });
+};
+
+exports.leaderboard = function(req, res, next) {
+
+    console.log('leaderboard');
+
+    Event.getTopUsers(5, function(err, result) {
+        if (err) return next(err);
+
+        res.json(result);
+    });
+    //TODO
 };
 
 /**

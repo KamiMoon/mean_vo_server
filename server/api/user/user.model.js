@@ -10,10 +10,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 var UserSchema = new Schema({
     interests: [String],
-    role: {
-        type: String,
-        default: 'user'
-    },
+    roles: [String],
     name: {
         type: String,
         required: true
@@ -131,7 +128,7 @@ UserSchema
         return {
             _id: this._id,
             'name': this.name,
-            'role': this.role,
+            'roles': this.roles,
             'email': this.email,
             first_name: this.first_name,
             last_name: this.last_name,
@@ -151,7 +148,7 @@ UserSchema
     .get(function() {
         return {
             '_id': this._id,
-            'role': this.role
+            'roles': this.roles
         };
     });
 
@@ -206,6 +203,12 @@ UserSchema
         if (!validatePresenceOf(this.hashedPassword) && authTypes.indexOf(this.provider) === -1) {
             next(new Error('Invalid password'));
         } else {
+
+            //default the user roles
+            if (this.roles.indexOf('user') === -1) {
+                this.roles.push('user');
+            }
+
             next();
         }
 

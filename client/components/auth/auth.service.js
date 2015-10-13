@@ -110,7 +110,7 @@ angular.module('meanVoServerApp')
              * @return {Boolean}
              */
             isLoggedIn: function() {
-                return currentUser.hasOwnProperty('role');
+                return currentUser.hasOwnProperty('roles');
             },
 
             /**
@@ -123,7 +123,7 @@ angular.module('meanVoServerApp')
                     }).catch(function() {
                         cb(false);
                     });
-                } else if (currentUser.hasOwnProperty('role')) {
+                } else if (currentUser.hasOwnProperty('roles')) {
                     cb(true);
                 } else {
                     cb(false);
@@ -136,7 +136,11 @@ angular.module('meanVoServerApp')
              * @return {Boolean}
              */
             isAdmin: function() {
-                return currentUser.role === 'admin';
+                if (!currentUser.roles) {
+                    return false;
+                }
+
+                return currentUser.roles.indexOf('admin') !== -1;
             },
 
             /**

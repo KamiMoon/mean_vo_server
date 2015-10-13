@@ -27,6 +27,7 @@ router.get('/registrations/:id', controller.registrations);
 
 router.get('/:id/profile', controller.profile);
 
+router.get('/leaderboard', controller.leaderboard);
 
 
 module.exports = router;

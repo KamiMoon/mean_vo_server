@@ -20,7 +20,7 @@ mongoose.connection.collections['users'].drop(function() {
         activated: true
     }, {
         provider: 'local',
-        role: 'admin',
+        roles: ['admin'],
         name: 'Admin',
         email: 'admin@admin.com',
         password: 'admin',

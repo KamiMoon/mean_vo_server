@@ -85,17 +85,17 @@
                                 <div class="panel-body">
                                     <ul>
                                         <!-- <?php if ($this->Auth->isVoAdmin()){?> -->
-                                        <li>
+                                        <li ng-if="Auth.isAdmin()">
                                             <a href="/#/user">Search for Users</a>
                                             <br />
                                             <br />
                                         </li>
-                                        <li>
+                                        <li ng-if="Auth.isAdmin()">
                                             <a href="/#/interest">Administer Interests</a>
                                             <br />
                                             <br />
                                         </li>
-                                        <li>
+                                        <li ng-if="Auth.isAdmin()">
                                             <a href="/#/organization">Administer Organizations</a>
                                             <br />
                                             <br />

@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
         console.log('Running local authenticate on user');
         console.log(user);
 
-        var token = auth.signToken(user._id, user.role);
+        var token = auth.signToken(user._id, user.roles);
         res.json({
             token: token
         });

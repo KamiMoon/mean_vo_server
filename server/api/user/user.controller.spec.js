@@ -18,7 +18,6 @@ describe('User Controller', function() {
     xit('should create confirmation email', function(done) {
 
         newUser.provider = 'local';
-        newUser.role = 'user';
         newUser.save(function(err, user) {
 
             //create an email with the activation hash in it
