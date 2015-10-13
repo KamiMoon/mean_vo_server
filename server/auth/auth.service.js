@@ -54,6 +54,30 @@ function hasRole(roleRequired) {
         });
 }
 
+function hasRoles(rolesRequired) {
+    if (!rolesRequired) throw new Error('Required role needs to be set');
+
+    return compose()
+        .use(isAuthenticated())
+        .use(function meetsRequirements(req, res, next) {
+
+            var hadAny = false;
+
+            for (var i = 0; i < rolesRequired.length; i++) {
+                if (req.user.roles.indexOf(rolesRequired[i]) !== -1) {
+                    hadAny = true;
+                    break;
+                }
+            }
+
+            if (hadAny) {
+                next();
+            } else {
+                res.status(403).send('Forbidden');
+            }
+        });
+}
+
 /**
  * Returns a jwt token signed by the app secret
  */
@@ -78,6 +102,7 @@ function setTokenCookie(req, res) {
 }
 
 exports.isAuthenticated = isAuthenticated;
+exports.hasRoles = hasRoles;
 exports.hasRole = hasRole;
 exports.signToken = signToken;
 exports.setTokenCookie = setTokenCookie;

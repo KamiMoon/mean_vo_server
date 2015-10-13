@@ -19,7 +19,6 @@ exports.setup = function(User, config) {
                         user = new User({
                             name: profile.displayName,
                             email: profile.emails[0].value,
-                            roles: ['user'],
                             username: profile.username,
                             provider: 'facebook',
                             facebook: profile._json

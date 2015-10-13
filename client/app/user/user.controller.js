@@ -58,8 +58,10 @@ angular.module('meanVoServerApp')
 
         };
 
-    }).controller('UserProfileCtrl', function($scope, $stateParams, User) {
+    }).controller('UserProfileCtrl', function($scope, $stateParams, User, $http) {
         var id = $stateParams.id;
+
+        $http.get('api/users/leaderboard');
 
         $scope.user = User.profile({
             id: id
