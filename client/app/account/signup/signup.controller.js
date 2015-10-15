@@ -19,7 +19,7 @@ angular.module('meanVoServerApp')
                             password: $scope.user.password
                         })
                         .then(function() {
-                            ValidationService.displaySuccess('You have been registered. Check your email to verify.');
+                            ValidationService.success('You have been registered. Check your email to verify.');
                             // Account created, redirect to home
                             $location.path('/thanks');
                         }, function(err) {

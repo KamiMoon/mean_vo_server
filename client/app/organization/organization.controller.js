@@ -21,7 +21,7 @@ angular.module('meanVoServerApp')
                     OrganizationService.delete({
                         id: id
                     }).$promise.then(function() {
-                        ValidationService.displaySuccess();
+                        ValidationService.success();
 
                         angular.forEach($scope.organizations, function(org, i) {
                             if (org._id === id) {
@@ -59,7 +59,7 @@ angular.module('meanVoServerApp')
 
 
                 // OrganizationService.save($scope.organization).$promise.then(function(organization) {
-                //     ValidationService.displaySuccess();
+                //     ValidationService.success();
                 //     $location.path('/organization/view/' + organization._id);
                 // }, function(err) {
                 //     ValidationService.displayErrors(form, err);

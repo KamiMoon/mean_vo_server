@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-    .service('ValidationService', function($rootScope) {
+    .service('ValidationService', function($rootScope, $timeout) {
 
         //used as callback for validation errors
         this.displayErrors = function(form, err) {
@@ -19,17 +19,31 @@ angular.module('meanVoServerApp')
             });
         };
 
-        this.error = function(errorText) {
-            //TODO - display these better
-            alert(errorText);
-        };
-
-        this.displaySuccess = function(successMessage) {
-            //clear errors
+        var displayBootsrapFeedback = function(text, clasz) {
             $rootScope.errors = {};
 
-            $rootScope.successMessage = successMessage || 'Success!';
+            $rootScope.bFeedbackMessageClass = clasz;
+            $rootScope.bFeedbackMessage = text;
 
+            $timeout(function() {
+                $rootScope.bFeedbackMessage = '';
+            }, 5000);
+        };
+
+        this.info = function(text) {
+            displayBootsrapFeedback(text || 'Info:', 'info');
+        };
+
+        this.warn = function(text) {
+            displayBootsrapFeedback(text || 'Warning:', 'warning');
+        };
+
+        this.error = function(text) {
+            displayBootsrapFeedback(text || 'Error!', 'danger');
+        };
+
+        this.success = function(text) {
+            displayBootsrapFeedback(text || 'Success!', 'success');
         };
 
     });

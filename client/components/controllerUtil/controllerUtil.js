@@ -9,7 +9,7 @@ angular.module('meanVoServerApp')
 
         this.handle = function(promise, form, successMessage) {
             promise.then(function() {
-                ValidationService.displaySuccess(successMessage);
+                ValidationService.success(successMessage);
             }, function(err) {
                 ValidationService.displayErrors(form, err);
             });

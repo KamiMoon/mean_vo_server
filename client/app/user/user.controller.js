@@ -21,7 +21,7 @@ angular.module('meanVoServerApp')
                     User.delete({
                         id: id
                     }).$promise.then(function() {
-                        ValidationService.displaySuccess();
+                        ValidationService.success();
 
                         angular.forEach($scope.users, function(obj, i) {
                             if (obj._id === id) {
@@ -58,10 +58,12 @@ angular.module('meanVoServerApp')
 
         };
 
-    }).controller('UserProfileCtrl', function($scope, $stateParams, User, $http) {
+    }).controller('UserProfileCtrl', function($scope, $stateParams, User, $http, ValidationService) {
         var id = $stateParams.id;
 
-        $http.get('api/users/leaderboard');
+        //$http.get('api/users/leaderboard');
+
+        ValidationService.info();
 
         $scope.user = User.profile({
             id: id

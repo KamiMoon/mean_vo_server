@@ -18,7 +18,7 @@ angular.module('meanVoServerApp')
 
             if (form.$valid) {
                 EventService.save($scope.event).$promise.then(function(event) {
-                    ValidationService.displaySuccess();
+                    ValidationService.success();
                     $location.path('/event/view/' + event._id);
                 }, function(err) {
                     ValidationService.displayErrors(form, err);
@@ -42,7 +42,7 @@ angular.module('meanVoServerApp')
                 EventService.update({
                     id: $scope.event._id
                 }, $scope.event).$promise.then(function() {
-                    ValidationService.displaySuccess();
+                    ValidationService.success();
                     $location.path('/event/view/' + id);
                 }, function(err) {
                     ValidationService.displayErrors(form, err);
@@ -103,7 +103,7 @@ angular.module('meanVoServerApp')
                 EventService.register({
                     id: $scope.event._id
                 }, $scope.registration).$promise.then(function() {
-                    ValidationService.displaySuccess();
+                    ValidationService.success();
 
                     $scope.currentRegistration = angular.copy($scope.registration);
                     $scope.registration = null;
@@ -120,7 +120,7 @@ angular.module('meanVoServerApp')
             EventService.unregister({
                 id: $scope.event._id
             }, $scope.currentRegistration).$promise.then(function() {
-                ValidationService.displaySuccess();
+                ValidationService.success();
 
                 setupRegistration();
             }, function(err) {
@@ -137,7 +137,7 @@ angular.module('meanVoServerApp')
             EventService.updateregistration({
                 id: $scope.event._id
             }, $scope.currentRegistration).$promise.then(function() {
-                ValidationService.displaySuccess();
+                ValidationService.success();
             }, function(err) {
                 ValidationService.displayErrors(form, err);
             });

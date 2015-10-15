@@ -13,7 +13,7 @@ angular.module('meanVoServerApp')
                         password: $scope.user.password
                     })
                     .then(function() {
-                        ValidationService.displaySuccess('Logged In');
+                        ValidationService.success('Logged In');
                         // Logged in, redirect to home
                         var user = Auth.getCurrentUser();
 
