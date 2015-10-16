@@ -178,6 +178,21 @@ angular.module('meanVoServerApp')
                 html += "></textarea>";
 
                 html = wrapInBoostrapForm(attrs, html);
+            } else if (attrs.type === 'datetime') {
+                html += '<div class="input-group date">';
+                html += '<input type="text" datetimepicker ';
+
+                attrs.class += ' input-sm';
+                html += getBasicAttributes(attrs);
+
+                html += " />";
+
+                html += '<span class="input-group-addon">';
+                html += '<span class="glyphicon glyphicon-calendar"></span>';
+                html += '</span></div>';
+
+                html = wrapInBoostrapForm(attrs, html);
+
             } else {
                 html += '<input type="' + attrs.type + '" ';
 
