@@ -32,7 +32,6 @@
                             <label>When:</label>
                         </td>
                         <td>
-                            <!--                             <?php echo "From -> ".date("l, F d, Y - g:i A", strtotime($event['Event']['start_time']))."<br>To ->  ".date("l, F d, Y - g:i A", strtotime($event['Event']['end_time']));?> -->
                             {{event.start_time | date:"EEEE, MMM d, y h:mm a"}} to
                             <br>{{event.end_time | date:"EEEE, MMM d, y h:mm a"}}
                         </td>
@@ -47,41 +46,27 @@
                             <a href="mailto:{{event.email}}">
                                 {{event.email}}
                             </a>
-                            <br>
-                            <!-- TODO: format -->
-                            {{event.phone}}
+                            <br> {{event.phone | tel}}
                         </td>
                     </tr>
-                    <!-- <?php if($this->Auth->isLoggedIn()){ ?> -->
-                    <!-- <tr>
-    <td>
-        <label>Register:</label>
-    </td>
-    <td>
-        <a href="/#/registration/add/{{event._id}}"> Volunteer NOW!!!</a>
-    </td>
-</tr>
- -->
-                    <?php }?>
-                        <tr>
-                            <td>
-                                <label><small>Posted on:</small></label>
-                            </td>
-                            <td>
-                                <!-- TODO: format -->
-                                {{event.created}}
-                            </td>
-                        </tr>
-                        <!-- <?php if($this->Auth->isOrgAdminFor($event['Event']['organization_id']) ){ ?> -->
-                        <tr>
-                            <td>
-                                <a href="/event/edit/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-                            </td>
-                            <td>
-                                <a href="/event/admin/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
-                            </td>
-                        </tr>
-                        <!-- <?php ;}?> -->
+                    <tr>
+                        <td>
+                            <label><small>Posted on:</small></label>
+                        </td>
+                        <td>
+                            {{event.createdAt | date:"EEEE, MMM d, y h:mm a"}}
+                        </td>
+                    </tr>
+                    <!-- <?php if($this->Auth->isOrgAdminFor($event['Event']['organization_id']) ){ ?> -->
+                    <tr>
+                        <td>
+                            <a href="/event/edit/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                        </td>
+                        <td>
+                            <a href="/event/admin/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
+                        </td>
+                    </tr>
+                    <!-- <?php ;}?> -->
                 </table>
             </div>
         </div>

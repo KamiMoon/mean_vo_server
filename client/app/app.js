@@ -5,6 +5,7 @@ angular.module('meanVoServerApp', [
         'ngResource',
         'ngSanitize',
         'ui.router',
+        'ui.mask',
         'ngTouch',
         'ngFileUpload',
         'ngStorage'

@@ -58,12 +58,8 @@ angular.module('meanVoServerApp')
 
         };
 
-    }).controller('UserProfileCtrl', function($scope, $stateParams, User, $http, ValidationService) {
+    }).controller('UserProfileCtrl', function($scope, $stateParams, User) {
         var id = $stateParams.id;
-
-        //$http.get('api/users/leaderboard');
-
-        ValidationService.info();
 
         $scope.user = User.profile({
             id: id

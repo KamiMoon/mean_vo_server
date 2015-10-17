@@ -178,6 +178,14 @@ angular.module('meanVoServerApp')
                 html += "></textarea>";
 
                 html = wrapInBoostrapForm(attrs, html);
+            } else if (attrs.type === 'tel') {
+                html += '<input type="tel" ui-mask="(999) 999-9999" ';
+
+                html += getBasicAttributes(attrs);
+
+                html += '/>';
+
+                html = wrapInBoostrapForm(attrs, html);
             } else {
                 html += '<input type="' + attrs.type + '" ';
 
