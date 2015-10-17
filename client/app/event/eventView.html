@@ -33,6 +33,8 @@
                         </td>
                         <td>
                             <!--                             <?php echo "From -> ".date("l, F d, Y - g:i A", strtotime($event['Event']['start_time']))."<br>To ->  ".date("l, F d, Y - g:i A", strtotime($event['Event']['end_time']));?> -->
+                            {{event.start_time | date:"EEEE, MMM d, y h:mm a"}} to
+                            <br>{{event.end_time | date:"EEEE, MMM d, y h:mm a"}}
                         </td>
                     </tr>
                     <tr>
