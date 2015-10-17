@@ -86,7 +86,7 @@
         </div>
     </div>
     <!-- Registration portlet -->
-    <div class="col-md-5">
+    <div class="col-md-5" ng-if="Auth.isLoggedIn()">
         <div ng-if="user" class="panel panel-warning">
             <div class="panel-heading"><span class="glyphicon glyphicon-registration-mark"></span>
                 <strong>
@@ -101,25 +101,6 @@
             <div class="panel-body" style="height: 425px">
                 <br>
                 <br>
-                <!-- <?php 
-                        if($registration_mode == "ADD"){
-                            echo $this->Form->create('Registration', array(
-                                    'url' => array('controller' => 'registrations', 'action' => 'add', $event['Event']['id'])
-                            ));
-                            echo $this->Form->input('user_id', array('type' => 'hidden','value' => $user_id));
-                            echo $this->Form->input('event_id', array('type' => 'hidden','value' => $event['Event']['id']));
-                            echo $this->Form->datePicker('start_time');
-                            echo $this->Form->datePicker('end_time');
-                            echo $this->Form->input('comment', array('type' => 'textarea', 'rows' => '5', 'cols' => '5'));
-                            echo $this->Form->end('Save');
-                        }
-                        else{
-    
-                            echo '<label>Start Time: &nbsp;</label>' . date ("l F d, Y", strtotime($registration['Registration']['start_time'])); '<br /><br />';
-                            echo '<label>End Time: &nbsp;</label>' . $registration['Registration']['end_time'] . '<br /><br />';
-                            echo '<label>Comment: &nbsp;</label>' . $registration['Registration']['comment'] . '<br /><br />';
-                        }?>
- -->
                 <form ng-if="registration" name="form" ng-submit="register(form)" novalidate>
                     <div class="row">
                         <div class="col-md-12">
@@ -155,27 +136,25 @@
                     </div>
                 </form>
                 <button ng-if="currentRegistration" ng-click="unregister()">Unregister</button>
-                <!--             <?php }}
-                    else {?>
-                <div class="panel panel-warning">
-                    <div class="panel-heading"><span class="glyphicon glyphicon-registration-mark"></span><b> Register for <?php echo $event['Event']['name']; ?></b>
-                    </div>
-                    <div class="panel-body" style="height: 425px">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <p align="center" style="font-size:24px">Please
-                            <b><a href="/volunteeromaha/login">Login</a></b> or
-                            <b><a href="/volunteeromaha/register">Sign up</a></b>
-                            <br> to Participate in this event.
-                        </p>
-                    </div>
-                </div>
-                <?php } ?> -->
+            </div>
+        </div>
+    </div>
+    <!-- Warning telling them to login before registering -->
+    <div class="col-md-5" ng-if="!Auth.isLoggedIn()">
+        <div class="panel panel-warning">
+            <div class="panel-heading"><span class="glyphicon glyphicon-registration-mark"></span><b>Register for {{event.name}}</b>
+            </div>
+            <div class="panel-body" style="height: 425px">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p align="center" style="font-size:24px">Please
+                    <strong><a href="/#/login">Login</a></strong> to Participate in this event.
+                </p>
             </div>
         </div>
     </div>
