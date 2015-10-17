@@ -34,9 +34,6 @@ angular.module('meanVoServerApp')
         EventService.get({
             id: id
         }).$promise.then(function(event) {
-            //$scope.event = event;
-            //$scope.event.start_time = new Date(event_)
-
             if (event.start_time) {
                 event.start_time = new Date(event.start_time);
             }
