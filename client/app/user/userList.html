@@ -40,14 +40,24 @@
         echo $this->Form->end('Search');
         ?>
     -->
+                <div class="form-horizontal">
+                    <b-input model="searchParams.name"></b-input>
+                    <b-input type="select" source="interests" label="Interest" model="searchParams.interest_id"></b-input>
+                    <b-input model="searchParams.address"></b-input>
+                    <b-input model="searchParams.city"></b-input>
+                    <b-input type="select" source="states" label="State" model="searchParams.state"></b-input>
+                    <b-input model="searchParams.zip"></b-input>
+                    <b-input type="email" model="searchParams.email"></b-input>
+                    <b-input type="tel" model="searchParams.phone"></b-input>
+                </div>
+                <br />
+                <button class="btn btn-primary" ng-click="search()">Search</button>
             </div>
         </div>
     </div>
 </div>
-<table class="table">
+<table class="table" ng-if="Auth.isAdmin()">
     <tr>
-        <th>Id</th>
-        <th>User Id</th>
         <th>Name</th>
         <th>Created</th>
         <th>Address</th>
@@ -59,13 +69,11 @@
         <th>Actions</th>
     </tr>
     <tr ng-repeat="user in users">
-        <td><a href="/#/profile/{{::user._id}}">{{::user._id}}</a></td>
-        <td>{{user.username}}</td>
-        <td>{{user.first_name}} {{user.last_name}}</td>
-        <td>{{::user.createdAt | date:'MMM d, y}}</td>
+        <td><a href="/#/profile/{{::user._id}}">{{::user.name}}</a></td>
+        <td>{{::user.createdAt | date:'MMM d, y'}}</td>
         <td>{{::user.address}}</td>
         <td>{{::user.city}}</td>
-        <td>{{::user.abbrev}}</td>
+        <td>{{::user.state}}</td>
         <td>{{::user.zip}}</td>
         <td>{{::user.email}}</td>
         <td>{{::user.phone | tel}}</td>

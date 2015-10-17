@@ -52,8 +52,6 @@
                     <b-input model="searchParams.city"></b-input>
                     <b-input type="select" source="states" label="State" model="searchParams.state"></b-input>
                     <b-input model="searchParams.zip"></b-input>
-                    <b-input type="email" model="searchParams.email"></b-input>
-                    <b-input model="searchParams.fax"></b-input>
                 </div>
                 <br />
                 <button class="btn btn-primary" ng-click="search()">Search</button>
@@ -87,13 +85,13 @@
             ?> -->
             </td>
             <td>
-                <a href="/#/organization/view/{{organization._id}}">{{organization.name}}</a>
+                <a href="/#/organization/view/{{organization._id}}">{{::organization.name}}</a>
             </td>
-            <td>
+            <td ng-bind="organization.category">
                 <!-- <?php echo $organization['Category']['name']; ?> -->
             </td>
             <td>
-                {{organization.created}}
+                {{::organization.createdAt | date: "MM/dd/y"}}
             </td>
             <td>
                 <div class="row">
