@@ -31,8 +31,21 @@ angular.module('meanVoServerApp')
 
         var id = $stateParams.id;
 
-        $scope.event = EventService.get({
+        EventService.get({
             id: id
+        }).$promise.then(function(event) {
+            //$scope.event = event;
+            //$scope.event.start_time = new Date(event_)
+
+            if (event.start_time) {
+                event.start_time = new Date(event.start_time);
+            }
+
+            if (event.end_time) {
+                event.end_time = new Date(event.end_time);
+            }
+
+            $scope.event = event;
         });
 
         $scope.save = function(form) {
