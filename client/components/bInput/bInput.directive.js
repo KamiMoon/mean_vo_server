@@ -275,6 +275,27 @@ angular.module('meanVoServerApp')
                     populateSelect(attrs, scope);
                 }
 
+                //Server date strings convert them to date objects since that is required by angular
+                if (attrs.type === 'datetime-local' && attrs.model) {
+                    var unregister = scope.$watch(attrs.model, function() {
+                        var modelStrs = attrs.model.split('.');
+                        var first = modelStrs[0];
+
+                        //TODO won't support nested well - only goes one property deep
+                        if (scope[first]) {
+
+                            var supposedDate = new Date(scope[first][modelStrs[1]]);
+
+                            if (!isNaN(supposedDate)) {
+                                scope[first][modelStrs[1]] = supposedDate;
+                                unregister();
+                            }
+
+                        }
+
+                    });
+                }
+
                 element.html(getTemplate(attrs));
 
                 $compile(element.contents())(scope);
