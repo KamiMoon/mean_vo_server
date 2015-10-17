@@ -7,19 +7,15 @@ angular.module('meanVoServerApp', [
         'ui.router',
         'ngTouch',
         'ngFileUpload',
-        'ngStorage',
-        'datetimepicker'
+        'ngStorage'
     ])
-    .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, datetimepickerProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
         $urlRouterProvider
             .otherwise('/');
 
         $locationProvider.html5Mode(true);
         $httpProvider.interceptors.push('authInterceptor');
 
-        datetimepickerProvider.setOptions({
-            locale: 'en'
-        });
     })
 
 .factory('authInterceptor', function($rootScope, $q, $cookieStore, $location) {
