@@ -93,15 +93,9 @@ var UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    leaderboardopt: {
-        type: Boolean,
-        default: false
-    },
     photo: {
         type: String
     }
-
-
 });
 
 /**

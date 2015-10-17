@@ -32,8 +32,8 @@
                             <label>When:</label>
                         </td>
                         <td>
-                            {{event.start_time | date:"EEEE, MMM d, y h:mm a"}} to
-                            <br>{{event.end_time | date:"EEEE, MMM d, y h:mm a"}}
+                            {{::event.start_time | date:"EEEE, MMM d, y h:mm a"}} to
+                            <br>{{::event.end_time | date:"EEEE, MMM d, y h:mm a"}}
                         </td>
                     </tr>
                     <tr>
@@ -43,10 +43,9 @@
                         <td>
                             {{event.contact_first_name}} {{event.contact_last_name}}
                             <br>
-                            <a href="mailto:{{event.email}}">
-                                {{event.email}}
+                            <a href="mailto:{{event.email}}" ng-bind="event.email">
                             </a>
-                            <br> {{event.phone | tel}}
+                            <br> {{::event.phone | tel}}
                         </td>
                     </tr>
                     <tr>

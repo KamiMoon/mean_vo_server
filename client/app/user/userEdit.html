@@ -14,39 +14,11 @@
         <div class="panel-heading">
             <h3><span class="glyphicon glyphicon-globe"></span> Basic Info:</h3></div>
         <div class="col-md-12">
-            <!--             <?php  
-            echo $this->Form->create('User', array('type' => 'file'));
-            echo $this->Form->input('first_name');
-            echo $this->Form->input('last_name');
-            echo $this->Form->input('id', array('type' => 'hidden'));
-            echo $this->Form->input('terms', array('type' => 'hidden', 'value' => '1'));
-            echo $this->Form->input('photo', array('type' => 'file', 'label'=>'Photo*'));
-            echo $this->Form->input('photo_dir', array('type' => 'hidden'));
-            echo $this->Form->input('phone');
-            echo $this->Form->input('email');
-            echo $this->Form->input('fax', array('placeholder' => ''));
-            echo $this->Form->input('Interest', array(
-                'label' => 'Interests',
-                'type' => 'select',
-                'multiple' => true, // or 'checkbox' if you want a set of checkboxes
-                'options' => $interests
-            ));
-            
-          
-            echo $this->Form->input('leaderboardopt', 
-                array('type' => 'select', 
-                      'label' => 'Include in leaderboard:', 
-                      'div' => false, 
-                      'placeholder' => 'Color Name', 'class' => 'input-medium',  
-                      'options'=>array('0'=>'YES', '1'=>'NO')
-                ));?> -->
             <div class="form-horizontal">
                 <b-input model="user.name"></b-input>
                 <b-input type="file" model="photo"></b-input>
-                <b-input model="user.phone"></b-input>
-                <!-- TODO - Interests -->
+                <b-input type="tel" model="user.phone"></b-input>
                 <b-input type="select" multiple="true" source="interests" label="Interests" model="user.interests">
-                    <!-- TODO - Include in leaderboard -->
             </div>
         </div>
     </div>

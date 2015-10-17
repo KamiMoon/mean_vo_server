@@ -43,6 +43,10 @@ angular.module('meanVoServerApp')
             return 'Invalid email.';
         }
 
+        function getDefaultUrlFormatMessage() {
+            return 'Invalid url.';
+        }
+
         function wrapInBoostrapForm(attrs, inputHtml) {
             var html = '';
 
@@ -96,6 +100,11 @@ angular.module('meanVoServerApp')
                 if (attrs.type === 'email') {
                     html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.email && submitted">';
                     html += getDefaultEmailFormatMessage() + '</p>';
+                }
+
+                if (attrs.type === 'url') {
+                    html += '<p class="help-block" ng-show="form.' + attrs.name + '.$error.url && submitted">';
+                    html += getDefaultUrlFormatMessage() + '</p>';
                 }
 
                 html += '<p class="help-block" ng-if="errors.' + attrs.name + '">';

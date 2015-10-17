@@ -10,7 +10,7 @@
                     <img src="assets/img/Default.png" width="100px" height="100px" class="img-thumbnail" />
                 </span>
         <br>
-        <br> {{organization.short_description}}
+        <br> {{::organization.short_description}}
     </div>
     <div class="col-md-5">
         <div class="panel panel-info">
@@ -18,11 +18,6 @@
             </div>
             <div class="panel-footer">
                 <div class="row">
-                    <div class="col-md-1">
-                        <p>
-                            ' '
-                        </p>
-                    </div>
                     <div class="col-md-11">
                         <table style="border-spacing: 5px; border-collapse: separate">
                             <tr>
@@ -46,11 +41,7 @@
                                     <label>Phone:</label>
                                 </td>
                                 <td>
-                                    <!-- TODO: formatting -->
-                                    <!--                                     <?php $phone_number= $organization['Organization']['phone']; 
-                            echo substr($phone_number, 0,3)."-".substr($phone_number,3,3)."-".substr($phone_number,-4);
-                        ?> -->
-                                    {{organization.phone}}
+                                    {{::organization.phone | tel}}
                                 </td>
                             </tr>
                             <tr>
@@ -66,16 +57,7 @@
                                     <label>Joined:</label>
                                 </td>
                                 <td>
-                                    <!-- TODO: formatting -->
-                                    <!-- <?php echo date ("F d, Y", strtotime($organization['Organization']['created']));?> -->
-                                    {{organization.created}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Fax:</label>
-                                </td>
-                                <td ng-bind="organization.fax">
+                                    {{::organization.createdAt | date:"MM/dd/yyyy"}}
                                 </td>
                             </tr>
                             <tr>
@@ -83,15 +65,10 @@
                                     <label>Interests:</label>
                                 </td>
                                 <td>
-                                    <!--                                     <?php 
-                    $interests = $organization['Interest'];
-                    
-                    foreach ($interests as $interest){
-                    
-
-                    echo $interest['interests'].'<br>';
-                    }
-                    ?> -->
+                                    <span ng-repeat="interest in organization.interests">
+                                        {{::interest}}
+                                        <br>
+                                    </span>
                                 </td>
                             </tr>
                         </table>
@@ -139,39 +116,15 @@
             </div>
             <div class="panel-body">
                 <div ng-repeat="event in organization.events">
-                    <!-- <h4 ng-bind="event.name"></h4> -->
-                    <!-- 
-                <?php 
-                            echo date ("l F d, Y", strtotime($event['Event']['created']));?> -->
-                    <!-- <p> -->
-                    <!--                         <?php 
-                            echo substr($event['Event']['description'], 0,200);
-                        ?>... -->
-                    <!-- </p> -->
                     <p>
-                        <a href="/event/view/{{event._id}}" class="btn btn-link btn-sm">
-                            {{event.name}}
-                        </a>
+                        <strong><a href="/event/view/{{event._id}}" ng-bind="event.name">
+                        </a></strong>
+                        <span style="padding-left: 20px;">{{event.start_time | date:"MM/dd/yyyy h:mm a"}}</span>
+                        <span style="padding-left: 20px;">{{event.description | limitTo: 20}}...</span>
                     </p>
                     <hr>
                 </div>
-                <!-- <?php foreach ($events as $event): ?> -->
-                <!--
-                <h4><?php echo $event['Event']['name'];?> </h4>
-                <?php 
-                            echo date ("l F d, Y", strtotime($event['Event']['created']));?>
-                    <p>
-                        <?php 
-                            echo substr($event['Event']['description'], 0,200);
-                        ?>...
-                    </p>
-                    <p>
-                        <a href="/volunteeromaha/events/view/<?php echo $event['Event']['id'];?>">
-                            <button type="button" class="btn btn-link btn-sm"><span class="glyphicon glyphicon-plus"></span> More</button>
-                        </a>
-                    </p>
-                    <hr>
-                    <?php endforeach; ?>
+                <!-- 
                         <?php if($organization['Organization']['status_id']  == 2 &&  ($this->Auth->isOrgAdminFor($organization['Organization']['id']))) { ?>
                             <a align="left" href="/volunteeromaha/events/add/<?php echo $organization['Organization']['id']; ?>">
                                 <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Add Event</button>
@@ -181,7 +134,7 @@
                                     <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-tasks"></span> View All Events</button>
                                 </a>
                             -->
-                <a align="left" href="/event/add/{{organization._id}}">
+                <a ng-if="Auth.isAdmin()" align="left" href="/event/add/{{organization._id}}">
                     <button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus-sign"></span> Add Event</button>
                 </a>
             </div>
