@@ -61,7 +61,13 @@ angular.module('meanVoServerApp')
     }).controller('UserProfileCtrl', function($scope, $stateParams, User) {
         var id = $stateParams.id;
 
-        $scope.user = User.profile({
-            id: id
-        });
+        if (!id) {
+            $scope.user = User.get();
+        } else {
+            $scope.user = User.profile({
+                id: id
+            });
+        }
+
+
     });

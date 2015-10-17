@@ -15,9 +15,9 @@ angular.module('meanVoServerApp')
                     .then(function() {
                         ValidationService.success('Logged In');
                         // Logged in, redirect to home
-                        var user = Auth.getCurrentUser();
+                        //var user = Auth.getCurrentUser();
 
-                        $location.path('/profile/' + user._id);
+                        $location.path('/profile/');
                     })
                     .catch(function(err) {
                         ValidationService.error(err.message);

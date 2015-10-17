@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                     '<%= yeoman.client %>/uploads/**/*'
                 ],
                 options: {
-                    livereload: 35780
+                    livereload: true
                 }
             },
             express: {
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                 tasks: ['express:dev', 'wait'],
                 options: {
                     bases: ['server/static'],
-                    livereload: 35781,
+                    livereload: true,
                     nospawn: true //Without this option specified express won't be reloaded
                 }
             }
