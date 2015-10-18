@@ -56,8 +56,7 @@
                             {{event.createdAt | date:"EEEE, MMM d, y h:mm a"}}
                         </td>
                     </tr>
-                    <!-- <?php if($this->Auth->isOrgAdminFor($event['Event']['organization_id']) ){ ?> -->
-                    <tr>
+                    <tr ng-if="Auth.isOrgAdminFor(event.organization_id)">
                         <td>
                             <a href="/event/edit/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
                         </td>
@@ -65,7 +64,6 @@
                             <a href="/event/admin/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
                         </td>
                     </tr>
-                    <!-- <?php ;}?> -->
                 </table>
             </div>
         </div>

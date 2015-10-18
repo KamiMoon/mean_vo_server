@@ -57,7 +57,7 @@
                 <a href="/#/event/view/{{event._id}}" ng-bind="event.name"></a>
             </td>
             <td>
-                <!-- <b><?php echo $this->Html->link($event['Organization']['name'], array('controller' => 'organizations',  'action' => 'view', $event['Organization']['id'])); ?></b> -->
+                <a href="/#/organization/view/{{event.organization_id}}">TODO</a>
             </td>
             <td>
                 <div class="row" align="justify">
@@ -74,9 +74,9 @@
                 </a>
             </td>
             <td>
-                <!-- <?php if($this->Auth->isOrgAdminFor($event['Event']['organization_id']) ){ ?> -->
-                <a href="/event/edit/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-                <!-- <?php }?> -->
+                <span ng-if="Auth.isOrgAdminFor(event.organization_id)">
+                    <a href="/event/edit/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                </span>
             </td>
         </tr>
     </tbody>
