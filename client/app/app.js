@@ -54,6 +54,12 @@ angular.module('meanVoServerApp', [
                 event.preventDefault();
                 $location.path('/login');
             }
+
+            if (next.roles && !Auth.hasRoles(next.roles)) {
+                event.preventDefault();
+                $location.path('/notAuthorized');
+            }
+
         });
     });
 });

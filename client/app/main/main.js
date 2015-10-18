@@ -19,5 +19,8 @@ angular.module('meanVoServerApp')
             }).state('thanks', {
                 url: '/thanks',
                 templateUrl: 'app/main/thanks.html'
+            }).state('notAuthorized', {
+                url: '/notAuthorized',
+                templateUrl: 'app/main/notAuthorized.html'
             });
     });
