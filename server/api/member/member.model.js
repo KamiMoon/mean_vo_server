@@ -4,10 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var MemberSchema = new Schema({
-    user_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
     organization_id: {
         type: Schema.Types.ObjectId,
         ref: 'Organization'
@@ -21,4 +17,4 @@ var MemberSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Member', MemberSchema);
+module.exports = MemberSchema;

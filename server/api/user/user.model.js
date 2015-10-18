@@ -7,10 +7,12 @@ var authTypes = ['github', 'twitter', 'facebook', 'google'];
 var validate = require('mongoose-validator');
 var timestamps = require('mongoose-timestamp');
 var uniqueValidator = require('mongoose-unique-validator');
+var MemberSchema = require('../member/member.model');
+
 
 var UserSchema = new Schema({
     interests: [String],
-    roles: [String],
+    roles: [MemberSchema],
     name: {
         type: String,
         required: true
@@ -199,8 +201,14 @@ UserSchema
         } else {
 
             //default the user roles
-            if (this.roles.indexOf('user') === -1) {
-                this.roles.push('user');
+            var pos = this.roles.map(function(e) {
+                return e.role;
+            }).indexOf('user');
+
+            if (pos === -1) {
+                this.roles.push({
+                    role: 'user'
+                });
             }
 
             next();

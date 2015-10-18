@@ -140,7 +140,11 @@ angular.module('meanVoServerApp')
                     return false;
                 }
 
-                return currentUser.roles.indexOf('admin') !== -1;
+                var pos = currentUser.roles.map(function(e) {
+                    return e.role;
+                }).indexOf('admin');
+
+                return pos !== -1;
             },
 
             hasRole: function(role) {
@@ -148,7 +152,11 @@ angular.module('meanVoServerApp')
                     return false;
                 }
 
-                return currentUser.roles.indexOf(role) !== -1;
+                var pos = currentUser.roles.map(function(e) {
+                    return e.role;
+                }).indexOf(role);
+
+                return pos !== -1;
             },
 
             hasRoles: function(roles) {
@@ -159,13 +167,36 @@ angular.module('meanVoServerApp')
                 }
 
                 for (var i = 0; i < roles.length; i++) {
-                    if (currentUser.roles.indexOf(roles[i]) !== -1) {
+
+                    var pos = currentUser.roles.map(function(e) {
+                        return e.role;
+                    }).indexOf(roles[i]);
+
+                    if (pos !== -1) {
                         hadAny = true;
                         break;
                     }
                 }
 
                 return hadAny;
+            },
+
+            isOrgAdminFor: function(organizationId) {
+                if (!currentUser.roles) {
+                    return false;
+                }
+
+                var hasCorrectRole = false;
+
+                for (var i = 0; i < currentUser.roles.length; i++) {
+                    var currentRole = currentUser.roles[i];
+                    if (currentRole.role === 'Organization Admin Primary' && currentRole.organization_id === organizationId) {
+                        hasCorrectRole = true;
+                        break;
+                    }
+                }
+
+                return hasCorrectRole;
             },
 
             /**

@@ -46,7 +46,12 @@ function hasRole(roleRequired) {
     return compose()
         .use(isAuthenticated())
         .use(function meetsRequirements(req, res, next) {
-            if (req.user.roles.indexOf(roleRequired) !== -1) {
+
+            var pos = req.user.roles.map(function(e) {
+                return e.role;
+            }).indexOf(roleRequired);
+
+            if (pos !== -1) {
                 next();
             } else {
                 res.status(403).send('Forbidden');
@@ -64,7 +69,12 @@ function hasRoles(rolesRequired) {
             var hadAny = false;
 
             for (var i = 0; i < rolesRequired.length; i++) {
-                if (req.user.roles.indexOf(rolesRequired[i]) !== -1) {
+
+                var pos = req.user.roles.map(function(e) {
+                    return e.role;
+                }).indexOf(rolesRequired[i]);
+
+                if (pos !== -1) {
                     hadAny = true;
                     break;
                 }

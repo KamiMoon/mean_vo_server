@@ -82,7 +82,7 @@
                         <!-- <?php }?> -->
                         <!-- <?php if($this->Auth->isOrgAdminFor($organization['Organization']['id']) ){ ?> -->
                         <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-                        <a href="/organization/admin/{{organization._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
+                        <a ng-if="Auth.isOrgAdminFor(organization._id)" href="/organization/admin/{{organization._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
                         <!-- <?php ;}?> -->
                         <br />
                         <br />

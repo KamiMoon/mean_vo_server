@@ -37,9 +37,13 @@ angular.module('meanVoServerApp')
             }
         };
 
-    }).controller('OrganizationAddCtrl', function($scope, $location, OrganizationService, ControllerUtil) {
+    }).controller('OrganizationAddCtrl', function($scope, $location, OrganizationService, ControllerUtil, Auth) {
 
-        $scope.organization = {};
+        var user = Auth.getCurrentUser();
+
+        $scope.organization = {
+            user_id: user._id
+        };
 
         $scope.save = function(form) {
 

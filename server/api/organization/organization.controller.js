@@ -1,6 +1,8 @@
 'use strict';
 
 var Organization = require('./organization.model');
+var User = require('../user/user.model');
+
 var ControllerUtil = require('../../components/controllerUtil');
 
 exports.index = function(req, res) {
@@ -25,14 +27,32 @@ exports.create = function(req, res) {
         postedObj.photo = req.file.path;
     }
 
+    var user_id = postedObj.user_id;
 
     Organization.create(postedObj, function(err, organization) {
-
         if (err) {
             return ControllerUtil.handleError(res, err);
         }
 
-        return res.status(201).json(organization);
+        User.findById(user_id, function(err, user) {
+            if (err) {
+                return ControllerUtil.handleError(res, err);
+            }
+
+            user.roles.push({
+                role: 'Organization Admin Primary',
+                organization_id: organization._id
+            })
+
+            user.save(function(err, user) {
+                if (err) {
+                    return ControllerUtil.handleError(res, err);
+                }
+
+                return res.status(201).json(organization);
+            });
+        });
+
     });
 };
 
