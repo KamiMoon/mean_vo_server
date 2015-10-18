@@ -9,9 +9,9 @@ var RegistrationSchema = new Schema({
     user_id: {
         type: Schema.Types.ObjectId
     },
-    status_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Status'
+    status: {
+        type: String,
+        default: 'Pending'
     },
     start_time: Date,
     end_time: Date,
@@ -25,14 +25,11 @@ var RegistrationSchema = new Schema({
             })
         ]
     },
-    hour_status_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'Status'
+    hour_status: {
+        type: String,
+        default: 'Pending'
     },
     hours: {
-        type: Number
-    },
-    school_status: {
         type: Number
     }
 });

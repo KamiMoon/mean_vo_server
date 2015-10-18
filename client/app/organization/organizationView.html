@@ -73,17 +73,15 @@
                             </tr>
                         </table>
                         <!-- Join Now button TODO Add conditions so to verify a user is already a member or not-->
-                        <!-- <?php if($this->Auth->isLoggedIn()){ ?> -->
-                        <button type="button" class="btn btn-default btn-sm" id="buttonlink">
+                        <button ng-if="Auth.isLoggedIn()" type="button" class="btn btn-default btn-sm" id="buttonlink">
                             <span class="glyphicon glyphicon-plus-sign"></span>
                             <a href="/member/add/{{organization._id}}">
                                     Request Admin Rights for {{organization.name}} Now</a>
                         </button>
-                        <!-- <?php }?> -->
-                        <!-- <?php if($this->Auth->isOrgAdminFor($organization['Organization']['id']) ){ ?> -->
-                        <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-                        <a ng-if="Auth.isOrgAdminFor(organization._id)" href="/organization/admin/{{organization._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
-                        <!-- <?php ;}?> -->
+                        <span ng-if="Auth.isOrgAdminFor(organization._id)">
+                            <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                        <a href="/organization/admin/{{organization._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>
+                        </span>
                         <br />
                         <br />
                     </div>

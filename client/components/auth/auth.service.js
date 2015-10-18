@@ -190,13 +190,39 @@ angular.module('meanVoServerApp')
 
                 for (var i = 0; i < currentUser.roles.length; i++) {
                     var currentRole = currentUser.roles[i];
-                    if (currentRole.role === 'Organization Admin Primary' && currentRole.organization_id === organizationId) {
+                    if ((currentRole.role === 'Organization Admin Primary' || currentRole.role === 'Organization Admin Secondary') && currentRole.organization_id === organizationId) {
                         hasCorrectRole = true;
                         break;
                     }
                 }
 
                 return hasCorrectRole;
+            },
+
+            isOrgAdmin: function() {
+                if (!currentUser.roles) {
+                    return false;
+                }
+
+                var hasCorrectRole = false;
+
+                for (var i = 0; i < currentUser.roles.length; i++) {
+                    var currentRole = currentUser.roles[i];
+                    if ((currentRole.role === 'Organization Admin Primary' || currentRole.role === 'Organization Admin Secondary')) {
+                        hasCorrectRole = true;
+                        break;
+                    }
+                }
+
+                return hasCorrectRole;
+            },
+
+            isMine: function(userId) {
+                if (!currentUser || !userId) {
+                    return false;
+                }
+
+                return currentUser._id === userId;
             },
 
             /**

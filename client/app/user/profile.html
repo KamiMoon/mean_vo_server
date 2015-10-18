@@ -69,8 +69,7 @@
                         </div>
                     </div>
                     <hr>
-                    <!--<?php if($this->Auth->isOrgAdmin()){ ?> -->
-                    <div class="row">
+                    <div ng-if="Auth.isOrgAdmin()" class="row">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -119,7 +118,6 @@
                         </div>
                     </div>
                     <hr>
-                    <!-- <?php  }?> -->
                 </div>
                 <!-- Second Col : Profile Information -->
                 <div class="col-md-8">
@@ -212,8 +210,7 @@
             <!-- <?php }?> -->
         </div>
         <!-- Second Col : Role and Registration Lists -->
-        <!-- <?php if($this->Auth->isMine($user['User']['id'])){ ?> -->
-        <div class="col-md-6">
+        <div ng-if="Auth.isMine(user._id) || Auth.isAdmin()" class="col-md-6">
             <!-- Roles section -->
             <div class="row">
                 <div class="panel panel-warning">
@@ -228,30 +225,16 @@
                                 <th>Organization</th>
                                 <th>Organization Status</th>
                             </tr>
-                            <!-- <?php foreach ($roles as $member): ?> -->
-                            <tr>
+                            <tr ng-repeat="role in user.roles">
+                                <td ng-bind="role.role"></td>
+                                <td ng-bind="role.status"></td>
                                 <td>
-                                    <!-- <?php echo $member['Role']['name']; ?> -->
-                                </td>
-                                <td>
-                                    <!-- <?php echo $member['Status']['status']; ?> -->
-                                </td>
-                                <td>
-                                    <!--                                             <?php 
-                                        if(!isset($member['Organization']['name'])){
-                                            echo "<a href='/volunteeromaha/organizations/index'>All</a>";
-                                        }
-                                        else{
-                                            echo $this->Html->link($member['Organization']['name'], array('controller' => 'organizations', 'action' => 'view', $member['Organization']['id']));
-                                        }
-                                    
-                                    ?> -->
+                                    <a ng-if="role.organization_id" href="/#/organization/view/{{role.organization_id}}">TODO</a>
                                 </td>
                                 <td>
                                     <!-- <?php echo $member['ORG_Status']['status']; ?> -->
                                 </td>
                             </tr>
-                            <!-- <?php endforeach; ?> -->
                         </table>
                     </div>
                 </div>
@@ -289,9 +272,7 @@
                                 </td>
                                 <td ng-bind="event.registrations[0].hours">
                                 </td>
-                                <td>
-                                    <!-- <?php echo $registration['Status']['status'];?>
- -->
+                                <td ng-bind="event.registrations[0].status">
                                 </td>
                             </tr>
                         </table>
