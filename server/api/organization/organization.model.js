@@ -19,9 +19,7 @@ var OrganizationSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Event'
     }],
-    interests: [{
-        type: String
-    }],
+    interests: [String],
     name: {
         type: String,
         required: 'An organization name is required!',

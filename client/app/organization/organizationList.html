@@ -22,32 +22,10 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
-                <!--<?php 
-    echo $this->Form->create('Organization', array('type' => 'get', 
-            'novalidate' => true ));
-    echo $this->Form->input('name');
-    echo $this->Form->input('category_id', array ('options' => $categories, 'empty' => ''));
-    echo $this->Form->input('address');
-    echo $this->Form->input('city');
-    echo $this->Form->input('state', array(
-            'options' => $states,
-            'empty' => ''
-        ));
-    echo $this->Form->input('zip');
-    echo $this->Form->input('phone');
-    echo $this->Form->input('email');
-    echo $this->Form->input('fax');
-    echo $this->Form->input('Interest', array(
-            'label' => 'Interests',
-            'type' => 'select',
-            'multiple' => true, // or 'checkbox' if you want a set of checkboxes
-            'options' => $interests
-    ));
-    echo $this->Form->end('Search');
-    ?> -->
                 <div class="form-horizontal">
                     <b-input model="searchParams.name"></b-input>
                     <b-input type="select" source="categories" label="Category" model="searchParams.category_id"></b-input>
+                    <b-input type="select" source="interests" label="Interest" model="searchParams.interest_id"></b-input>
                     <b-input model="searchParams.address"></b-input>
                     <b-input model="searchParams.city"></b-input>
                     <b-input type="select" source="states" label="State" model="searchParams.state"></b-input>
@@ -74,21 +52,17 @@
     <tbody>
         <tr ng-repeat="organization in organizations">
             <td>
-                <!--                         <?php
-            if(isset($organization['Organization']['photo']))
-                        {
-                            echo "<img src='/volunteeromaha/files/organization/photo/".$organization['Organization']['id']. "/".$organization['Organization']['photo']."' width='60px' height='60px' class='img-thumbnail'> ";
-                        } 
-                    else{
-                            echo "<img src='/volunteeromaha/img/Default.png' width='60px' height='60px' class='img-thumbnail'>";
-                        } 
-            ?> -->
+                <span ng-if="organization.photo">
+                    <img ng-src="{{organization.photo}}" width="60px" height="60px" class="img-thumbnail">
+                 </span>
+                <span ng-if="!organization.photo">
+                    <img src="/assets/img/Default.png" width="60px" height="60px" class="img-thumbnail">
+                 </span>
             </td>
             <td>
                 <a href="/#/organization/view/{{organization._id}}">{{::organization.name}}</a>
             </td>
             <td ng-bind="organization.category">
-                <!-- <?php echo $organization['Category']['name']; ?> -->
             </td>
             <td>
                 {{::organization.createdAt | date: "MM/dd/y"}}
@@ -96,10 +70,10 @@
             <td>
                 <div class="row">
                     <div class="col-md-3">
-                        <!-- <?php if($this->Auth->isOrgAdminFor($organization['Organization']['id']) ){ ?> -->
-                        <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                        <span ng-if="Auth.isOrgAdminFor(organization._id)">
+                            <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
                         <a target="_self" ng-click="delete(organization._id)" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-trash"></span>Delete</a>
-                        <!-- <?php }?> -->
+                        </span>
                     </div>
                     <div class="col-md-9" align="center">
                         <!--  <?php

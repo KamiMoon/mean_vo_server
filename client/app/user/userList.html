@@ -10,36 +10,6 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse">
             <div class="panel-body">
-                <!--
-                <?php 
-        echo $this->Form->create('User', array('type' => 'get', 
-                'novalidate' => true
-        ));
-        echo $this->Form->input('first_name');
-        echo $this->Form->input('last_name');
-        /*echo $this->Form->input('role_id', array(
-            'options' => $roles,
-            'empty' => '(choose one)'
-        ));*/
-        echo $this->Form->input('address');
-        echo $this->Form->input('city');
-        echo $this->Form->input('state', array(
-            'options' => $states,
-            'empty' => ''
-        ));
-        echo $this->Form->input('zip');
-        echo $this->Form->input('phone');
-        echo $this->Form->input('email');
-        echo $this->Form->input('Interest', array(
-                'label' => 'Interests',
-                'type' => 'select',
-                'multiple' => true, // or 'checkbox' if you want a set of checkboxes
-                'options' => $interests,
-                'empty' => ''
-            ));
-        echo $this->Form->end('Search');
-        ?>
-    -->
                 <div class="form-horizontal">
                     <b-input model="searchParams.name"></b-input>
                     <b-input type="select" source="interests" label="Interest" model="searchParams.interest_id"></b-input>
