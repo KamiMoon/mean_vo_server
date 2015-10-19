@@ -14,7 +14,8 @@ angular.module('meanVoServerApp')
             }).state('organizationEdit', {
                 url: '/organization/edit/:id',
                 templateUrl: 'app/organization/organizationAdd.html',
-                controller: 'OrganizationEditCtrl'
+                controller: 'OrganizationEditCtrl',
+                isOrgAdminFor: 'id'
             }).state('organizationView', {
                 url: '/organization/view/:id',
                 templateUrl: 'app/organization/organizationView.html',
