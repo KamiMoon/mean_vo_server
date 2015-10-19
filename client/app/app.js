@@ -50,14 +50,14 @@ angular.module('meanVoServerApp', [
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function(event, next) {
         Auth.isLoggedInAsync(function(loggedIn) {
-            if (next.authenticate && !loggedIn) {
+            if (next.authenticate || next.roles && !loggedIn) {
                 event.preventDefault();
-                $location.path('/login');
+                return $location.path('/login');
             }
 
             if (next.roles && !Auth.hasRoles(next.roles)) {
                 event.preventDefault();
-                $location.path('/notAuthorized');
+                return $location.path('/notAuthorized').replace();
             }
 
         });
