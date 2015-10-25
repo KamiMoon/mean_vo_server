@@ -11,7 +11,7 @@ module.exports = function(app) {
 
     // Insert routes below
     app.use('/api/pay', require('./api/pay'));
-
+    app.use('/api/status', require('./api/status'));
     app.use('/api/constants', require('./api/constant'));
     app.use('/api/members', require('./api/member'));
     app.use('/api/events', require('./api/event'));
