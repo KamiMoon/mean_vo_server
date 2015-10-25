@@ -75,7 +75,8 @@
             </td>
             <td>
                 <span ng-if="Auth.isOrgAdminFor(event.organization_id)">
-                    <a href="/event/edit/{{event._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                    <a href="/event/edit/{{event._id}}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                <update-status update-id="{{event._id}}" status="{{event.status}}" model-obj="Event"></update-status>
                 </span>
             </td>
         </tr>

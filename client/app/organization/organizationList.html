@@ -68,29 +68,11 @@
                 {{::organization.createdAt | date: "MM/dd/y"}}
             </td>
             <td>
-                <div class="row">
-                    <div class="col-md-3">
-                        <span ng-if="Auth.isOrgAdminFor(organization._id)">
-                            <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-                        <a target="_self" ng-click="delete(organization._id)" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-trash"></span>Delete</a>
-                        </span>
-                    </div>
-                    <div class="col-md-9" align="center">
-                        <!--  <?php
-            
-                if($this->Auth->isVoAdmin()){
-                    echo $this->element('update_status', 
-                        array(
-                            'orgId' => $organization['Organization']['id'],
-                            'statusId' => $organization['Status']['id'], 
-                            'updateId' => $organization['Organization']['id'],
-                            'defaultAction' => 'updateOrganizationStatus'
-                        ));
-                }
-            ?> -->
-                        <update-status update-id="{{organization._id}}" status="{{organization.status}}" model-obj="Organization"></update-status>
-                    </div>
-                </div>
+                <span ng-if="Auth.isOrgAdminFor(organization._id)">
+                            <a href="/organization/edit/{{organization._id}}" class="btn btn-default" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                <a target="_self" ng-click="delete(organization._id)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-trash"></span>Delete</a>
+                </span>
+                <update-status update-id="{{organization._id}}" status="{{organization.status}}" model-obj="Organization"></update-status>
             </td>
         </tr>
     </tbody>
