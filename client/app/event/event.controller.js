@@ -1,9 +1,41 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-    .controller('EventCtrl', function($scope, EventService) {
+    .controller('EventCtrl', function($scope, EventService, ValidationService) {
 
         $scope.events = EventService.query();
+
+        $scope.searchParams = {};
+
+        $scope.search = function() {
+
+            $scope.events = EventService.query($scope.searchParams);
+
+        };
+
+        $scope.delete = function(id) {
+            if (id) {
+
+                var r = confirm('Are you sure you want to delete?');
+                if (r == true) {
+                    EventService.delete({
+                        id: id
+                    }).$promise.then(function() {
+                        ValidationService.success();
+
+                        angular.forEach($scope.events, function(obj, i) {
+                            if (obj._id === id) {
+                                $scope.events.splice(i, 1);
+                            }
+                        });
+
+                    }, function() {
+                        alert('Delete Failed');
+                    });
+                }
+
+            }
+        };
 
     }).controller('EventAddCtrl', function($scope, $stateParams, $location, EventService, ValidationService) {
 

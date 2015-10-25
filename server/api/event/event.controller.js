@@ -1,17 +1,11 @@
 'use strict';
 
-var _ = require('lodash');
 var Event = require('./event.model');
 var ControllerUtil = require('../../components/controllerUtil');
 
 // Get list of events
 exports.index = function(req, res) {
-    Event.find(function(err, events) {
-        if (err) {
-            return handleError(res, err);
-        }
-        return res.status(200).json(events);
-    });
+    ControllerUtil.find(req, res, Event);
 };
 
 // Get a single event
