@@ -2,14 +2,26 @@
 
 var express = require('express');
 var router = express.Router();
-var User = require('../user/user.model');
-var Organization = require('../organization/organization.model');
-var Event = require('../event/event.model');
+var mongoose = require('mongoose');
+var ControllerUtil = require('../../components/controllerUtil');
+
 
 router.put('/update', function(req, res) {
     var updateObj = req.body;
 
-    res.status(200).json(updateObj);
+    mongoose.models[updateObj.modelObj].findOneAndUpdate({
+        _id: updateObj.id
+    }, {
+        status: updateObj.status
+    }, function(err, result) {
+        if (err) {
+            ControllerUtil.handleError(err);
+        }
+
+        res.status(200).json(result);
+
+    });
+
 });
 
 module.exports = router;
