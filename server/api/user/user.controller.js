@@ -35,15 +35,8 @@ var createConfirmationEmail = function(req, user) {
 
 };
 
-/**
- * Get list of users
- * restriction: 'admin'
- */
 exports.index = function(req, res) {
-    User.find({}, '-salt -hashedPassword -activationHash', function(err, users) {
-        if (err) return res.status(500).send(err);
-        res.status(200).json(users);
-    });
+    ControllerUtil.find(req, res, User, '-salt -hashedPassword -activationHash')
 };
 
 /**

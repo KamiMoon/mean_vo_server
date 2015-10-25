@@ -6,7 +6,8 @@ angular.module('meanVoServerApp')
             .state('userList', {
                 url: '/user',
                 templateUrl: 'app/user/userList.html',
-                controller: 'UserCtrl'
+                controller: 'UserCtrl',
+                roles: ['admin']
             }).state('userEdit', {
                 url: '/user/edit',
                 templateUrl: 'app/user/userEdit.html',

@@ -19,6 +19,7 @@ router.post('/once', function(request, res) {
     // Get the credit card details submitted by the form
     var stripeToken = request.body.stripeToken;
 
+    /*
     var charge = stripe.charges.create({
         amount: 1000, // amount in cents, again
         currency: 'usd',
@@ -31,6 +32,53 @@ router.post('/once', function(request, res) {
         }
 
         return res.status(201).json('success');
+    });
+*/
+
+    //Request
+    //stripeToken
+    //userId
+    //productId
+
+    //Process
+    //lookup product by ID -> is this a valid product?
+    //lookup user by ID -> is this an existing user?
+    //is this user an existing customer?
+    //if not create new stripe customer
+    //create charge to stripe via customer
+    //using price for the product
+    //create invoice - save transaction history
+    //save invoice data in metadata
+    //send email to user
+
+    //Response
+    //redirect
+
+
+    stripe.customers.create({
+        source: stripeToken,
+        description: 'payinguser@example.com'
+    }).then(function(customer) {
+        stripe.charges.create({
+            amount: 1000, // amount in cents, again
+            currency: 'usd',
+            customer: customer.id,
+            description: 'Example Charge',
+            metadata: {
+                'order_id': '6735'
+            }
+        }, function(err, charge) {
+            if (err && err.type === 'StripeCardError') {
+                // The card has been declined
+                ControllerUtil.handleError(err);
+            }
+            console.log('customer:');
+            console.log(customer);
+            console.log('charge:');
+            console.log(charge);
+
+            return res.status(201).json('success');
+        });
     });
 });
 

@@ -25,5 +25,8 @@ angular.module('meanVoServerApp')
             }).state('payTest', {
                 url: '/payTest',
                 templateUrl: 'app/main/payTest.html'
+            }).state('payTest2', {
+                url: '/payTest2',
+                templateUrl: 'app/main/payTest2.html'
             });
     });
