@@ -95,7 +95,9 @@ db.events.update({_id: ObjectId("56194ee1bd491e32b1d2faaa"), "registrations._id"
 		
 		
 
+Members View:
 
+db.users.aggregate([{$match: {"roles.organization_id":ObjectId("5619a8ec68195570be675c13") }}, {$unwind: "$roles"}, {$match: {"roles.organization_id":ObjectId("5619a8ec68195570be675c13") }}, {$group: {_id: "$_id", roles: {$push: "$roles"}, name: {$first: "$name"}}}]).pretty();
 
 
 	
