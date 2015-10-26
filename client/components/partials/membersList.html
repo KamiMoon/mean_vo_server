@@ -20,7 +20,7 @@
             {{::user.roles.status}}
         </td>
         <td>
-            <update-status update-id="{{organization._id}}" status="{{organization.status}}" model-obj="Organization"></update-status>
+            <update-status update-id="{{user.roles._id}}" status="{{user.roles.status}}" model-obj="Role" user-id="{{user._id}}"></update-status>
         </td>
         <!-- <?php
             

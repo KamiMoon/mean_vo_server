@@ -100,4 +100,8 @@ Members View:
 db.users.aggregate([{$match: {"roles.organization_id":ObjectId("5619a8ec68195570be675c13") }}, {$unwind: "$roles"}, {$match: {"roles.organization_id":ObjectId("5619a8ec68195570be675c13") }}, {$group: {_id: "$_id", roles: {$push: "$roles"}, name: {$first: "$name"}}}]).pretty();
 
 
+Update a user role
+
+db.users.update({_id: ObjectId("5622f12ea9e98a1a0982ef0e"), "roles._id": ObjectId("562e8f7818da512a308e9ecf")}, {$set: {"roles.$.status": "Approved"}})
+
 	
