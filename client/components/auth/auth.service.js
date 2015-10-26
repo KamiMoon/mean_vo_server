@@ -181,7 +181,7 @@ angular.module('meanVoServerApp')
                 return hadAny;
             },
 
-            isOrgAdminFor: function(organizationId) {
+            isOrgAdminFor: function(organizationId, primaryOnly) {
                 if (!currentUser.roles) {
                     return false;
                 }
@@ -196,7 +196,12 @@ angular.module('meanVoServerApp')
                         break;
                     }
 
-                    if ((currentRole.role === 'Organization Admin Primary' || currentRole.role === 'Organization Admin Secondary') && currentRole.organization_id === organizationId) {
+                    if (!primaryOnly && (currentRole.role === 'Organization Admin Primary' || currentRole.role === 'Organization Admin Secondary') && currentRole.organization_id === organizationId) {
+                        hasCorrectRole = true;
+                        break;
+                    }
+
+                    if (primaryOnly && (currentRole.role === 'Organization Admin Primary') && currentRole.organization_id === organizationId) {
                         hasCorrectRole = true;
                         break;
                     }

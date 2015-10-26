@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-    .directive('membersList', function($http, $timeout) {
+    .directive('membersList', function($http, Auth) {
 
         return {
             restrict: 'E',
@@ -22,6 +22,10 @@ angular.module('meanVoServerApp')
                     }
                 });
 
+                //if they are Member, primary and secondary can approve. if the user is a secondary org admin, only primary org admin can approve 
+                scope.canUpdate = function(userRole, organizationId) {
+                    return (userRole === 'Member' && Auth.isOrgAdminFor(organizationId)) || (userRole === 'Organization Admin Secondary' && Auth.isOrgAdminFor(organizationId, true));
+                };
             }
         };
     });

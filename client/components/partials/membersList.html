@@ -20,36 +20,9 @@
             {{::user.roles.status}}
         </td>
         <td>
-            <update-status update-id="{{user.roles._id}}" status="{{user.roles.status}}" model-obj="Role" user-id="{{user._id}}"></update-status>
+            <span ng-if="canUpdate(user.roles.role, user.roles.organization_id)">
+                <update-status update-id="{{user.roles._id}}" status="{{user.roles.status}}" model-obj="Role" user-id="{{user._id}}"></update-status>
+            </span>
         </td>
-        <!-- <?php
-            
-                $temp_role_id = $member['Member']['role_id'];
-                $temp_org_id = $member['Member']['organization_id'];
-            
-                //if they are a secondary org admin, only primary org admins can approve or dissaprove
-                if( ($temp_role_id == 3) && $this->Auth->isOrgAdmin($temp_org_id, 2)){
-                    echo $this->element('update_status', 
-                        array(
-                            'orgId' => $temp_org_id,
-                            'statusId' => $member['Status']['id'], 
-                            'updateId' => $member['Member']['id'], 
-                            'defaultAction' => 'updateMemberStatus'
-                    ));
-                }
-                
-                //if they are a student - any org admin can approve
-                else if( ($temp_role_id == 4) && ($this->Auth->isOrgAdminFor($temp_org_id))){
-                    echo $this->element('update_status',
-                         array(
-                            'orgId' => $temp_org_id,
-                            'statusId' => $member['Status']['id'], 
-                            'updateId' => $member['Member']['id'], 
-                            'defaultAction' => 'updateMemberStatus'
-                    ));
-                }
-            
-            ?>
- -->
     </tr>
 </table>
