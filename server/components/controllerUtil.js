@@ -11,6 +11,8 @@ var getHostFromRequest = function(req) {
 exports.getHostFromRequest = getHostFromRequest;
 
 var handleError = function(res, err) {
+    console.log(err);
+
     return res.status(500).send(err);
 };
 

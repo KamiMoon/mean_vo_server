@@ -6,7 +6,12 @@ angular.module('meanVoServerApp')
             id: '@_id'
         }, {
             update: {
-                method: 'PUT'
+                method: 'PUT',
+                url: 'api/organizations/update/:id'
+            },
+            join: {
+                method: 'PUT',
+                url: 'api/organizations/join'
             }
         });
     });

@@ -86,7 +86,7 @@ angular.module('meanVoServerApp')
             if (ControllerUtil.validate($scope, form)) {
 
                 var request = ControllerUtil.upload({
-                    url: '/api/organizations/' + id,
+                    url: '/api/organizations/update/' + id,
                     method: 'PUT',
                     file: $scope.photo,
                     data: $scope.organization
@@ -100,12 +100,39 @@ angular.module('meanVoServerApp')
 
         };
 
-    }).controller('OrganizationViewCtrl', function($scope, $stateParams, OrganizationService) {
+    }).controller('OrganizationViewCtrl', function($scope, $location, $stateParams, Auth, OrganizationService, ValidationService) {
+
+        var id = $stateParams.id;
+        var user = Auth.getCurrentUser();
+
+        $scope.organization = OrganizationService.get({
+            id: id
+        });
+
+        $scope.join = function() {
+
+            if (user._id) {
+                OrganizationService.join({
+                    id: id,
+                    user_id: user._id
+                }).$promise.then(function() {
+                    ValidationService.success('Joined.');
+                });
+            } else {
+                ValidationService.error('Not logged in.');
+                $location.path('/login');
+            }
+
+        };
+
+    }).controller('OrganizationAdminCtrl', function($scope, $stateParams, OrganizationService) {
 
         var id = $stateParams.id;
 
         $scope.organization = OrganizationService.get({
             id: id
         });
+
+
 
     });

@@ -2,6 +2,7 @@
 
 var Organization = require('./organization.model');
 var User = require('../user/user.model');
+var mongoose = require('mongoose');
 
 var ControllerUtil = require('../../components/controllerUtil');
 
@@ -42,7 +43,7 @@ exports.create = function(req, res) {
             user.roles.push({
                 role: 'Organization Admin Primary',
                 organization_id: organization._id
-            })
+            });
 
             user.save(function(err, user) {
                 if (err) {
@@ -62,4 +63,45 @@ exports.update = function(req, res) {
 
 exports.destroy = function(req, res) {
     ControllerUtil.findByIdAndRemove(req, res, Organization);
+};
+
+
+exports.join = function(req, res) {
+    var user_id = req.body.user_id;
+    var organization_id = req.body.id;
+
+    User.findById(user_id, function(err, user) {
+        if (err) {
+            return ControllerUtil.handleError(res, err);
+        }
+
+        var alreadyHasRole = false;
+        for (var i = 0; i < user.roles.length; i++) {
+            var currentRole = user.roles[i];
+
+            if (currentRole.organization_id && currentRole.organization_id.toString() === organization_id.toString() && currentRole.role === 'Member') {
+                alreadyHasRole = true;
+                break;
+            }
+        }
+
+        if (!alreadyHasRole) {
+            user.roles.push({
+                role: 'Member',
+                organization_id: mongoose.Types.ObjectId(organization_id)
+            });
+
+            user.save(function(err, user) {
+                if (err) {
+                    return ControllerUtil.handleError(res, err);
+                }
+
+                return res.status(201).json(user);
+            });
+        } else {
+            return res.status(201).json('Already has Role');
+        }
+
+    });
+
 };

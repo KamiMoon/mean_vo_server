@@ -20,6 +20,11 @@ angular.module('meanVoServerApp')
                 url: '/organization/view/:id',
                 templateUrl: 'app/organization/organizationView.html',
                 controller: 'OrganizationViewCtrl'
+            }).state('organizationAdmin', {
+                url: '/organization/admin/:id',
+                templateUrl: 'app/organization/organizationAdmin.html',
+                controller: 'OrganizationAdminCtrl',
+                isOrgAdminFor: 'id'
             });
 
     });

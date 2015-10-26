@@ -1,10 +1,5 @@
 'use strict';
 
-/**
-Wrapper directive over angular and bootstrap form elements because they are way too verbose
-
-*/
-
 angular.module('meanVoServerApp')
     .directive('updateStatus', function($http, ValidationService) {
 
