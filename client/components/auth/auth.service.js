@@ -205,6 +205,25 @@ angular.module('meanVoServerApp')
                 return hasCorrectRole;
             },
 
+            isMemberOf: function(organizationId) {
+                if (!currentUser.roles) {
+                    return false;
+                }
+
+                var hasCorrectRole = false;
+
+                for (var i = 0; i < currentUser.roles.length; i++) {
+                    var currentRole = currentUser.roles[i];
+
+                    if ((currentRole.role === 'Organization Admin Primary' || currentRole.role === 'Organization Admin Secondary' || currentRole.role === 'Member') && currentRole.organization_id === organizationId) {
+                        hasCorrectRole = true;
+                        break;
+                    }
+                }
+
+                return hasCorrectRole;
+            },
+
             isOrgAdmin: function() {
                 if (!currentUser.roles) {
                     return false;
@@ -236,6 +255,10 @@ angular.module('meanVoServerApp')
              */
             getToken: function() {
                 return $cookieStore.get('token');
+            },
+
+            refreshUser: function() {
+                currentUser = User.get();
             }
         };
     });

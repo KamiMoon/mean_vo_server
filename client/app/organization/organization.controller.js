@@ -117,6 +117,24 @@ angular.module('meanVoServerApp')
                     user_id: user._id
                 }).$promise.then(function() {
                     ValidationService.success('Joined.');
+                    Auth.refreshUser();
+                });
+            } else {
+                ValidationService.error('Not logged in.');
+                $location.path('/login');
+            }
+
+        };
+
+        $scope.leave = function() {
+
+            if (user._id) {
+                OrganizationService.leave({
+                    id: id,
+                    user_id: user._id
+                }).$promise.then(function() {
+                    ValidationService.success('Left.');
+                    Auth.refreshUser();
                 });
             } else {
                 ValidationService.error('Not logged in.');

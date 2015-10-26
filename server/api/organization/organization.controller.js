@@ -106,6 +106,37 @@ exports.join = function(req, res) {
 
 };
 
+exports.leave = function(req, res) {
+    var user_id = req.body.user_id;
+    var organization_id = req.body.id;
+
+    User.findById(user_id, function(err, user) {
+        if (err) {
+            return ControllerUtil.handleError(res, err);
+        }
+
+        //find the current by user id
+        for (var i = user.roles.length - 1; i >= 0; i--) {
+            var currentRole = user.roles[i];
+
+            //remove any role related to this organization
+            if (currentRole.organization_id && currentRole.organization_id.toString() === organization_id.toString()) {
+                user.roles.splice(i, 1);
+            }
+        }
+
+        user.save(function(err, user) {
+            if (err) {
+                return ControllerUtil.handleError(res, err);
+            }
+
+            return res.status(200).json(user);
+        });
+
+    });
+
+};
+
 exports.members = function(req, res) {
 
     var organization_id = mongoose.Types.ObjectId(req.params.id);

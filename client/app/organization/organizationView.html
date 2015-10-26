@@ -72,8 +72,8 @@
                                 </td>
                             </tr>
                         </table>
-                        <!-- Join Now button TODO Add conditions so to verify a user is already a member or not-->
-                        <a ng-if="Auth.isLoggedIn()" ng-click="join()" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-plus-sign"></span>Join</a>
+                        <a ng-if="Auth.isLoggedIn() && !Auth.isMemberOf(organization._id)" ng-click="join()" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-plus-sign"></span>Join</a>
+                        <a ng-if="Auth.isLoggedIn() && Auth.isMemberOf(organization._id)" ng-click="leave()" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-minus-sign"></span>Leave</a>
                         <span ng-if="Auth.isOrgAdminFor(organization._id)">
                             <a href="/organization/edit/{{organization._id}}" class="btn btn-default btn-sm" role="button"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
                         <a href="/organization/admin/{{organization._id}}" class="btn btn-info" role="button"><span class="glyphicon glyphicon-pencil"></span>Admin</a>

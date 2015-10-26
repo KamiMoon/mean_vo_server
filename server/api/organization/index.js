@@ -17,7 +17,7 @@ router.post('/', upload.single('file'), controller.create);
 
 router.put('/update/:id', upload.single('file'), controller.update);
 router.put('/join', controller.join);
-
+router.put('/leave', controller.leave);
 
 router.delete('/:id', controller.destroy);
 

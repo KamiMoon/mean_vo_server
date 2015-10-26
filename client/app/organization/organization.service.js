@@ -12,6 +12,10 @@ angular.module('meanVoServerApp')
             join: {
                 method: 'PUT',
                 url: 'api/organizations/join'
+            },
+            leave: {
+                method: 'PUT',
+                url: 'api/organizations/leave'
             }
         });
     });

@@ -108,15 +108,14 @@ exports.unregister = function(req, res) {
         }
 
         //find the current by user id
-        for (var i = event.registrations.length - 1; i >= 0; i--) {
-            var userId = event.registrations[i].user_id.toString();
+for (var i = event.registrations.length - 1; i >= 0; i--) {
+    var userId = event.registrations[i].user_id.toString();
 
-            if (req.body.user_id === userId) {
-                event.registrations.splice(i, 1);
-            }
-        }
+    if (req.body.user_id === userId) {
+        event.registrations.splice(i, 1);
+    }
+}
 
-        console.log(event.registrations);
 
         event.save(function(err) {
             if (err) {
