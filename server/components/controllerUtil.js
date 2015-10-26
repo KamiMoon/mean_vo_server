@@ -18,6 +18,13 @@ var handleError = function(res, err) {
 
 exports.handleError = handleError;
 
+var success = function(res, results) {
+    return res.status(200).json(results);
+};
+
+exports.success = success;
+
+
 exports.validationError = function(res, err) {
     return res.status(422).json(err);
 };

@@ -10,6 +10,7 @@ var upload = fileUtil.getUpload();
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/:id/members', controller.members);
 router.get('/:id', controller.show);
 
 router.post('/', upload.single('file'), controller.create);

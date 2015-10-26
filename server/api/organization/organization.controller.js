@@ -96,12 +96,50 @@ exports.join = function(req, res) {
                     return ControllerUtil.handleError(res, err);
                 }
 
-                return res.status(201).json(user);
+                return res.status(200).json(user);
             });
         } else {
-            return res.status(201).json('Already has Role');
+            return res.status(200).json('Already has Role');
         }
 
     });
+
+};
+
+exports.members = function(req, res) {
+
+    var organization_id = mongoose.Types.ObjectId(req.params.id);
+
+    console.log(organization_id);
+
+    User.aggregate(
+        [{
+            $match: {
+                'roles.organization_id': organization_id
+            }
+        }, {
+            $unwind: '$roles'
+        }, {
+            $match: {
+                'roles.organization_id': organization_id
+            }
+        }, {
+            $group: {
+                _id: '$_id',
+                roles: {
+                    $push: '$roles'
+                },
+                name: {
+                    $first: '$name'
+                }
+            }
+        }],
+        function(err, results) {
+            if (err) {
+                return ControllerUtil.handleError(res, err);
+            }
+
+            return ControllerUtil.success(res, results);
+        });
 
 };
