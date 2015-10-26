@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Registered</th>
+            <th>Total Hours</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="event in events">
+            <td>
+                <strong>
+                    <a href="/#/event/view/{{::event._id}}">{{::event.name}}</a>
+                </strong>
+            </td>
+            <td>
+                {{::event.total_registered}}
+            </td>
+            <td>
+                {{::event.total_hours}}
+            </td>
+        </tr>
+    </tbody>
+</table>

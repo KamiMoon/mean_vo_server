@@ -1,6 +1,7 @@
 'use strict';
 
 var Event = require('./event.model');
+var mongoose = require('mongoose');
 var ControllerUtil = require('../../components/controllerUtil');
 
 // Get list of events
@@ -108,13 +109,13 @@ exports.unregister = function(req, res) {
         }
 
         //find the current by user id
-for (var i = event.registrations.length - 1; i >= 0; i--) {
-    var userId = event.registrations[i].user_id.toString();
+        for (var i = event.registrations.length - 1; i >= 0; i--) {
+            var userId = event.registrations[i].user_id.toString();
 
-    if (req.body.user_id === userId) {
-        event.registrations.splice(i, 1);
-    }
-}
+            if (req.body.user_id === userId) {
+                event.registrations.splice(i, 1);
+            }
+        }
 
 
         event.save(function(err) {
@@ -166,8 +167,6 @@ exports.updateregistration = function(req, res) {
     });
 
 };
-
-
 
 function handleError(res, err) {
     return res.status(500).send(err);

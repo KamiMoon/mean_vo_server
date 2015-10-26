@@ -2,6 +2,8 @@
 
 var Organization = require('./organization.model');
 var User = require('../user/user.model');
+var Event = require('../event/event.model');
+
 var mongoose = require('mongoose');
 
 var ControllerUtil = require('../../components/controllerUtil');
@@ -157,6 +159,41 @@ exports.members = function(req, res) {
             $project: {
                 'name': 1,
                 'roles': 1
+            }
+        }],
+        function(err, results) {
+            if (err) {
+                return ControllerUtil.handleError(res, err);
+            }
+
+            return ControllerUtil.success(res, results);
+        });
+
+};
+
+exports.eventTotalsForOrganization = function(req, res) {
+
+    var organization_id = mongoose.Types.ObjectId(req.params.id);
+
+    Event.aggregate(
+        [{
+            $match: {
+                'organization_id': organization_id
+            }
+        }, {
+            $unwind: '$registrations'
+        }, {
+            $group: {
+                _id: '$_id',
+                total_hours: {
+                    $sum: '$registrations.hours'
+                },
+                total_registered: {
+                    $sum: 1
+                },
+                name: {
+                    $first: '$name'
+                }
             }
         }],
         function(err, results) {
