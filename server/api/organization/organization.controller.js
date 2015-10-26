@@ -42,7 +42,8 @@ exports.create = function(req, res) {
 
             user.roles.push({
                 role: 'Organization Admin Primary',
-                organization_id: organization._id
+                organization_id: organization._id,
+                organization_name: organization.name
             });
 
             user.save(function(err, user) {
@@ -69,6 +70,7 @@ exports.destroy = function(req, res) {
 exports.join = function(req, res) {
     var user_id = req.body.user_id;
     var organization_id = req.body.id;
+    var organization_name = req.body.organization_name;
 
     User.findById(user_id, function(err, user) {
         if (err) {
@@ -88,7 +90,8 @@ exports.join = function(req, res) {
         if (!alreadyHasRole) {
             user.roles.push({
                 role: 'Member',
-                organization_id: mongoose.Types.ObjectId(organization_id)
+                organization_id: mongoose.Types.ObjectId(organization_id),
+                organization_name: organization_name
             });
 
             user.save(function(err, user) {
@@ -145,24 +148,15 @@ exports.members = function(req, res) {
 
     User.aggregate(
         [{
-            $match: {
-                'roles.organization_id': organization_id
-            }
-        }, {
             $unwind: '$roles'
         }, {
             $match: {
                 'roles.organization_id': organization_id
             }
         }, {
-            $group: {
-                _id: '$_id',
-                roles: {
-                    $push: '$roles'
-                },
-                name: {
-                    $first: '$name'
-                }
+            $project: {
+                'name': 1,
+                'roles': 1
             }
         }],
         function(err, results) {

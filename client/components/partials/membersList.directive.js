@@ -11,12 +11,15 @@ angular.module('meanVoServerApp')
             templateUrl: 'components/partials/membersList.html',
             link: function(scope, element, attrs) {
 
-                $timeout(function() {
-                    $timeout(function() {
+                //wait till the value is populated to call
+                var unregister = scope.$watch('organizationId', function() {
+                    if (scope.organizationId) {
                         $http.get('/api/organizations/' + scope.organizationId + '/members').then(function(results) {
                             scope.users = results.data;
                         });
-                    });
+
+                        unregister();
+                    }
                 });
 
             }

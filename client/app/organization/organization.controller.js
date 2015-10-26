@@ -114,7 +114,8 @@ angular.module('meanVoServerApp')
             if (user._id) {
                 OrganizationService.join({
                     id: id,
-                    user_id: user._id
+                    user_id: user._id,
+                    organization_name: $scope.organization.name
                 }).$promise.then(function() {
                     ValidationService.success('Joined.');
                     Auth.refreshUser();
@@ -150,7 +151,5 @@ angular.module('meanVoServerApp')
         $scope.organization = OrganizationService.get({
             id: id
         });
-
-
 
     });

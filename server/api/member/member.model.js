@@ -8,6 +8,7 @@ var MemberSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Organization'
     },
+    organization_name: String,
     role: {
         type: String
     },

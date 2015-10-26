@@ -2,8 +2,8 @@
     <tr>
         <th>User</th>
         <th>Organization</th>
-        <th>Roles</th>
-<th>Status</th>
+        <th>Role</th>
+        <th>Status</th>
         <th>Action</th>
     </tr>
     <tr ng-repeat="user in users">
@@ -11,12 +11,18 @@
             <a href="/#/profile/{{::user._id}}">{{::user.name}}</a>
         </td>
         <td>
-            <a href="/#/organization/view/?">TODO: Organization Name</a>
+            <a href="/#/organization/view/{{::user.roles.organization_id}}">{{::user.roles.organization_name}}</a>
         </td>
-        <td>TODO: role</td>
-        <td>TODO: status</td>
         <td>
-<!-- <?php
+            {{::user.roles.role}}
+        </td>
+        <td>
+            {{::user.roles.status}}
+        </td>
+        <td>
+            <update-status update-id="{{organization._id}}" status="{{organization.status}}" model-obj="Organization"></update-status>
+        </td>
+        <!-- <?php
             
                 $temp_role_id = $member['Member']['role_id'];
                 $temp_org_id = $member['Member']['organization_id'];
@@ -45,6 +51,5 @@
             
             ?>
  -->
-        </td>
     </tr>
 </table>
