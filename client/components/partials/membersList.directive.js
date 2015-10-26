@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-    .directive('membersList', function($http) {
+    .directive('membersList', function($http, $timeout) {
 
         return {
             restrict: 'E',
@@ -11,8 +11,12 @@ angular.module('meanVoServerApp')
             templateUrl: 'components/partials/membersList.html',
             link: function(scope, element, attrs) {
 
-                $http.get('/api/organizations/members/' + scope.organizationId, function(results) {
-                    scope.users = results;
+                $timeout(function() {
+                    $timeout(function() {
+                        $http.get('/api/organizations/' + scope.organizationId + '/members').then(function(results) {
+                            scope.users = results.data;
+                        });
+                    });
                 });
 
             }
