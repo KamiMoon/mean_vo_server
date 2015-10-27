@@ -96,6 +96,7 @@ angular.module('meanVoServerApp')
             $scope.currentRegistration = null;
             $scope.registration = {
                 user_id: user._id,
+                user_name: user.name,
                 comment: ''
             };
         };

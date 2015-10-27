@@ -9,6 +9,7 @@ var RegistrationSchema = new Schema({
     user_id: {
         type: Schema.Types.ObjectId
     },
+    user_name: String,
     status: {
         type: String,
         default: 'Pending'

@@ -205,3 +205,25 @@ exports.eventTotalsForOrganization = function(req, res) {
         });
 
 };
+
+exports.registrationsForOrganization = function(req, res) {
+
+    var organization_id = mongoose.Types.ObjectId(req.params.id);
+
+    Event.aggregate(
+        [{
+            $match: {
+                'organization_id': organization_id
+            }
+        }, {
+            $unwind: '$registrations'
+        }],
+        function(err, results) {
+            if (err) {
+                return ControllerUtil.handleError(res, err);
+            }
+
+            return ControllerUtil.success(res, results);
+        });
+
+};

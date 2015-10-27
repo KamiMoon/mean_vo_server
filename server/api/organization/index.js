@@ -12,6 +12,7 @@ var router = express.Router();
 router.get('/', controller.index);
 router.get('/:id/members', controller.members);
 router.get('/:id/eventTotalsForOrganization', controller.eventTotalsForOrganization);
+router.get('/:id/registrationsForOrganization', controller.registrationsForOrganization);
 router.get('/:id', controller.show);
 
 router.post('/', upload.single('file'), controller.create);

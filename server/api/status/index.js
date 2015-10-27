@@ -29,6 +29,25 @@ router.put('/update', function(req, res) {
             res.status(200).json(result);
 
         });
+    } else if (updateObj.modelObj === 'Registration') {
+        console.log('trying to update registration');
+        console.log(updateObj);
+
+        mongoose.models['Event'].findOneAndUpdate({
+            '_id': updateObj.eventId,
+            'registrations._id': updateObj.id
+        }, {
+            '$set': {
+                'registrations.$.status': updateObj.status
+            }
+        }, function(err, result) {
+            if (err) {
+                ControllerUtil.handleError(err);
+            }
+
+            res.status(200).json(result);
+
+        });
     } else {
         //update the organization or the event or any model with status
         mongoose.models[updateObj.modelObj].findOneAndUpdate({

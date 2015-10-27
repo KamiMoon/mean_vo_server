@@ -9,10 +9,12 @@ angular.module('meanVoServerApp')
             scope: {
                 updateId: "@",
                 status: "@",
-                //Role, Organization, Event
+                //Role, Organization, Event, Registration
                 modelObj: "@",
                 //required for role updates
-                userId: "@"
+                userId: "@",
+                //required for Registration update
+                eventId: "@"
             },
             template: '<button ng-if="status === \'Pending\' || status === \'Dissaproved\'" class="btn btn-success" ng-click="updateStatus(\'Approved\')">Approve</button>' +
                 '<button ng-if="status === \'Approved\'" class="btn btn-danger" ng-click="updateStatus(\'Dissaproved\')">Dissaprove</button>',
@@ -24,7 +26,8 @@ angular.module('meanVoServerApp')
                         id: scope.updateId,
                         status: status,
                         modelObj: scope.modelObj,
-                        userId: scope.userId
+                        userId: scope.userId,
+                        eventId: scope.eventId
                     };
 
                     $http.put('api/status/update', updateObj).then(function() {
