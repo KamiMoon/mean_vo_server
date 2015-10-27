@@ -4,7 +4,7 @@
         <th style="width:200px">Event</th>
         <th>Start Time</th>
         <th>End Time</th>
-        <th></th>
+        <th>Hours</th>
         <th>Action</th>
     </tr>
     <tr ng-repeat="event in events">
@@ -22,8 +22,14 @@
             {{::event.registrations.end_time}}
         </td>
         <td>
+            {{::event.registrations.hours}}
+        </td>
+        <td>
             <span ng-if="canUpdate(event.registrations.user_id, event.organization_id)">
                 <update-status update-id="{{event.registrations._id}}" status="{{event.registrations.status}}" event-id="{{event._id}}" model-obj="Registration"></update-status>
+            </span>
+            <span ng-if="event.registrations.hours >= 0 && canUpdate(event.registrations.user_id, event.organization_id)">
+                <update-status update-id="{{event.registrations._id}}" status="{{event.registrations.hour_status}}" event-id="{{event._id}}" model-obj="Hour" label="Hours"></update-status>
             </span>
             <!--
                 <button type="button" class="btn btn-default btn-sm" id="buttonlink">
@@ -49,18 +55,6 @@
                                 <?php echo $this->Html->link('Log hours', array('controller' => 'hours', 'action' => 'add', $registration['Registration']['id'])); ?>
                             </button>
                             -->
-        </td>
-        <td>
-            <!-- <?php if($this->Auth->isOrgAdminFor($registration['Event']['organization_id'])){ ?>
-    <?php echo $this->element('update_status', 
-                    array(
-                        'orgId' => $registration['Event']['organization_id'],
-                        'statusId' => $registration['Status']['id'], 
-                        'updateId' => $registration['Registration']['id'], 
-                        'defaultAction' => 'updateRegistrationStatus'
-                    ));?>
-        <?php }?>
- -->
         </td>
     </tr>
 </table>

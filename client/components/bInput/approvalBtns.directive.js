@@ -7,18 +7,21 @@ angular.module('meanVoServerApp')
         return {
             restrict: 'E',
             scope: {
+                label: "@",
                 updateId: "@",
                 status: "@",
-                //Role, Organization, Event, Registration
+                //Role, Organization, Event, Registration, Hour
                 modelObj: "@",
                 //required for role updates
                 userId: "@",
                 //required for Registration update
                 eventId: "@"
             },
-            template: '<button ng-if="status === \'Pending\' || status === \'Dissaproved\'" class="btn btn-success" ng-click="updateStatus(\'Approved\')">Approve</button>' +
-                '<button ng-if="status === \'Approved\'" class="btn btn-danger" ng-click="updateStatus(\'Dissaproved\')">Dissaprove</button>',
+            template: '<button ng-if="status === \'Pending\' || status === \'Dissaproved\'" class="btn btn-success" ng-click="updateStatus(\'Approved\')">Approve {{label}}</button>' +
+                '<button ng-if="status === \'Approved\'" class="btn btn-danger" ng-click="updateStatus(\'Dissaproved\')">Dissaprove {{label}}</button>',
             link: function(scope, element, attrs) {
+
+                scope.label = scope.label || scope.modelObj;
 
                 scope.updateStatus = function(status) {
 
