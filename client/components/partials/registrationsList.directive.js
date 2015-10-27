@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('meanVoServerApp')
-    .directive('registrationsList', function($http, Auth) {
+    .directive('registrationsList', function($http, Auth, EventService, ValidationService, $rootScope) {
 
         return {
             restrict: 'E',
@@ -29,6 +29,29 @@ angular.module('meanVoServerApp')
 
                 scope.canUpdate = function(userId, organizationId) {
                     return Auth.isMine(userId) || Auth.isOrgAdminFor(organizationId);
+                };
+
+                scope.unregister = function(event, registration) {
+                    var registrationId = registration._id;
+
+                    EventService.unregister({
+                        id: event._id
+                    }, registration).$promise.then(function() {
+                        ValidationService.success();
+
+                        //find and remove
+                        for (var i = 0; i < scope.events.length; i++) {
+                            if (scope.events[i].registrations && scope.events[i].registrations._id === registrationId) {
+                                scope.events.splice(i, 1);
+                                break;
+                            }
+                        }
+
+                        $rootScope.$broadcast('Unregistered');
+
+                    }, function(err) {
+                        ValidationService.error(err);
+                    });
                 };
             }
         };

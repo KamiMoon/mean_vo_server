@@ -55,6 +55,7 @@
                                 <?php echo $this->Html->link('Log hours', array('controller' => 'hours', 'action' => 'add', $registration['Registration']['id'])); ?>
                             </button>
                             -->
+            <a target="_self" ng-click="unregister(event, event.registrations)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-trash"></span>Unregister</a>
         </td>
     </tr>
 </table>
