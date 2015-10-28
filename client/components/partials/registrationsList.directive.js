@@ -31,6 +31,10 @@ angular.module('meanVoServerApp')
                     return Auth.isMine(userId) || Auth.isOrgAdminFor(organizationId);
                 };
 
+                scope.shouldShowHourInput = function(status) {
+                    return status === 'Approved';
+                };
+
                 scope.unregister = function(event, registration) {
                     var registrationId = registration._id;
 
@@ -49,6 +53,16 @@ angular.module('meanVoServerApp')
 
                         $rootScope.$broadcast('Unregistered');
 
+                    }, function(err) {
+                        ValidationService.error(err);
+                    });
+                };
+
+                scope.saveHours = function(event, registration) {
+                    EventService.updateregistration({
+                        id: event._id
+                    }, registration).$promise.then(function() {
+                        ValidationService.success();
                     }, function(err) {
                         ValidationService.error(err);
                     });

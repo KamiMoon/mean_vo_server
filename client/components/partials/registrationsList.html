@@ -22,7 +22,7 @@
             {{::event.registrations.end_time}}
         </td>
         <td>
-            {{::event.registrations.hours}}
+            <input type="tel" class="form-control" ng-model="event.registrations.hours" size="4" />
         </td>
         <td>
             <span ng-if="canUpdate(event.registrations.user_id, event.organization_id)">
@@ -31,30 +31,7 @@
             <span ng-if="event.registrations.hours >= 0 && canUpdate(event.registrations.user_id, event.organization_id)">
                 <update-status update-id="{{event.registrations._id}}" status="{{event.registrations.hour_status}}" event-id="{{event._id}}" model-obj="Hour" label="Hours"></update-status>
             </span>
-            <!--
-                <button type="button" class="btn btn-default btn-sm" id="buttonlink">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    <?php echo $this->Html->link('Edit', array('controller' => 'registrations', 'action' => 'edit', $registration['Registration']['id'])); ?>
-                </button>
-                <button type="button" class="btn btn-default btn-sm" id="buttonlink">
-                    <span class="glyphicon glyphicon-eye-open"></span>
-                    <?php echo $this->Html->link('View', array('controller' => 'registrations', 'action' => 'view', $registration['Registration']['id'])); ?>
-                </button>
-                <?php if($registration['Registration']['status_id'] == 2 || $this->Auth->isOrgAdminFor($registration['Event']['organization_id'])){?>
-                    <?php 
-
-
-                if(isset($registration['Hour']['hours'])) { ?>
-                        <button type="button" class="btn btn-default btn-sm" id="buttonlink">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            <?php echo $this->Html->link('Edit hours', array('controller' => 'hours', 'action' => 'edit', $registration['Hour']['id'])); ?>
-                        </button>
-                        <?php }else{ ?>
-                            <button type="button" class="btn btn-default btn-sm" id="buttonlink">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <?php echo $this->Html->link('Log hours', array('controller' => 'hours', 'action' => 'add', $registration['Registration']['id'])); ?>
-                            </button>
-                            -->
+            <a target="_self" ng-click="saveHours(event, event.registrations)" class="btn btn-info" role="button">Save Hours</a>
             <a target="_self" ng-click="unregister(event, event.registrations)" class="btn btn-default" role="button"><span class="glyphicon glyphicon-trash"></span>Unregister</a>
         </td>
     </tr>
