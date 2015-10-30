@@ -1,51 +1,87 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
+<html class="no-js" lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <title>Volunteer Omaha</title>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- required for HTML5 pushstate links -->
     <base href="/">
-    <title>Volunteer Omaha</title>
     <meta name="description" content="Volunteer Omaha - Portfolio Application">
+    <meta name="keywords" content="Volunteer, Omaha, Organizations">
     <meta name="author" content="Eric Kizaki">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <!-- =========================
+     FAV AND TOUCH ICONS AND FONT  
+    ============================== -->
     <link rel="shortcut icon" href="favicon.ico">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="assets/styles/bootstrap.css" />
-    <link rel="stylesheet" href="assets/styles/bootstrap-theme.css" />
-    <link rel="stylesheet" href="assets/styles/cake-bootstrap.css" />
+    <!-- =========================
+     STYLESHEETS   
+    ============================== -->
+    <link rel="stylesheet" href="assets/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/styles/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="assets/styles/volunteeromaha.css">
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <!--<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript">
     // This identifies your website in the createToken call below
     Stripe.setPublishableKey('pk_test_4uDBOrpIEdDtHAZbXVfOZHjB');
     // ...
-    </script>
+    </script>-->
 </head>
 
 <body ng-app="meanVoServerApp">
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
     <!-- components/navbar directive -->
-    <div class="header">
-        <navbar></navbar>
-    </div>
-    <div class="container pagebg">
+    <navbar></navbar>
+    <div class="container">
         <!--  components/feedback directive  -->
         <b-feedback></b-feedback>
         <!-- Add your site or application content here -->
         <div ui-view=""></div>
     </div>
-    <div class="footer">
-        <b-footer />
-    </div>
+    <!-- FOOTER -->
+    <footer id="footer" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <h3>Us</h3>
+                    <ul>
+                        <li><a href="http://visitu.co/store/index.html" target="_blank">About Us</a> </li>
+                        <li><a href="http://visitu.zendesk.com" target="_blank">Blog</a> </li>
+                        <li><a href="http://visitu.co/privacy/index.html" target="_blank">Privacy</a> </li>
+                        <li><a href="http://visitu.co/terms/index.html" target="_blank">Terms</a> </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <h3>Social</h3>
+                    <ul class="social-links">
+                        <li class="facebook-small"><a href="https://www.facebook.com/youtube/" target="_blank">Facebook</a> </li>
+                        <li class="twitter-small"><a href="https://twitter.com/realDonaldTrump" target="_blank">Twitter</a></li>
+                        <li class="youtube-small"><a href="https://www.youtube.com/user/boogie2988" target="_blank">YouTube</a></li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="http://visitu.zendesk.com" target="_blank">Blog</a></li>
+                        <li><a href="http://visitu.co/share" target="_blank">Screen Share</a></li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li> <a href="mailto:erickizaki@gmail.com">erickizaki@gmail.com</a> </li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END FOOTER -->
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <!--<script>
     (function(i, s, o, g, r, a, m) {
@@ -67,6 +103,9 @@
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
+    <!-- =========================
+     SCRIPTS   
+    ============================== -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery-ui.custom.min.js"></script>
     <script src="assets/js/jquery.payment.js"></script>

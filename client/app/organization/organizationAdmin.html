@@ -1,7 +1,88 @@
 Administer <a ui-sref="organizationView({id: organization._id})">{{::organization.name}}</a>
-<br />
-<members-list organization-id="{{organization._id}}"></members-list>
-<br />
-<events-list organization-id="{{organization._id}}"></events-list>
-<br />
-<registrations-list organization-id="{{organization._id}}"></registrations-list>
+<div ng-if="Auth.isOrgAdminFor(organization._id)">
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-warning">
+                <div class="panel-footer">
+                    <span class="glyphicon glyphicon-map-marker"></span> Members
+                </div>
+                <div class="panel-body">
+                    <members-list organization-id="{{organization._id}}"></members-list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-warning">
+                <div class="panel-footer">
+                    <span class="glyphicon glyphicon-map-marker"></span> Events
+                </div>
+                <div class="panel-body">
+                    <events-list organization-id="{{organization._id}}"></events-list>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-warning">
+                <div class="panel-body">
+                    <span class="glyphicon glyphicon-map-marker"></span> Registrations
+                </div>
+                <div class="panel-footer">
+                    <registrations-list organization-id="{{organization._id}}"></registrations-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="!Auth.isOrgAdminFor(organization._id)">Not Authorized</div>
+<!--
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-footer">
+                                <span class="glyphicon glyphicon-map-marker"></span> Approve Organizations
+                            </div>
+                            <div class="panel-header">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <br>
+                                        <form action="/volunteeromaha/organizations/saveApprovedOrganizations/<?php echo $organization['Organization']['id']; ?>" class="form-horizontal" role="form" id="OrganizationAdminForm" method="post" accept-charset="utf-8">
+                                            <div style="display:none;">
+                                                <input type="hidden" name="_method" value="POST">
+                                            </div>
+                                            <input type="hidden" name="data[Organization][id]" seperator="</div>" class="form-control" id="OrganizationId" value="<?php echo $organization['Organization']['id']; ?>">
+                                            <div class="form-group">
+                                                <label for="OrganizationApproveorg" class="col-lg-3 control-label">All Organizations</label>
+                                                <div class="col-lg-8">
+                                                    <select name="data[Approveorg][]" seperator="</div>" class="form-control" multiple="multiple" id="OrganizationApproveorg">
+                                                        <?php 
+		
+		
+		foreach ($organizations as $orgKey => $orgValue):?>
+                                                            <option value="<?php echo $orgKey;?>">
+                                                                <?php echo $orgValue;?>
+                                                            </option>
+                                                            <?php endforeach;?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <input class="btn btn-primary" type="submit" value="Save">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php }?>
+                    <?php }?>
+-->
