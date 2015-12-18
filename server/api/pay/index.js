@@ -11,17 +11,15 @@ var router = express.Router();
 
 router.post('/once', function(request, res) {
 
-    console.log('once');
-
-    console.log(request.body);
-
     // (Assuming you're using express - expressjs.com)
     // Get the credit card details submitted by the form
     var stripeToken = request.body.stripeToken;
+    var amount = request.body.amount * 100;
 
-    /*
+    console.log(stripeToken);
+
     var charge = stripe.charges.create({
-        amount: 1000, // amount in cents, again
+        amount: amount, // amount in cents, again
         currency: 'usd',
         source: stripeToken,
         description: 'Example charge'
@@ -31,9 +29,12 @@ router.post('/once', function(request, res) {
             ControllerUtil.handleError(err);
         }
 
+
+        console.log(charge);
+
         return res.status(201).json('success');
     });
-*/
+
 
     //Request
     //stripeToken
@@ -54,32 +55,33 @@ router.post('/once', function(request, res) {
     //Response
     //redirect
 
+    /*
+        stripe.customers.create({
+            source: stripeToken,
+            description: 'payinguser@example.com'
+        }).then(function(customer) {
+            stripe.charges.create({
+                amount: 1000, // amount in cents, again
+                currency: 'usd',
+                customer: customer.id,
+                description: 'Example Charge',
+                metadata: {
+                    'order_id': '6735'
+                }
+            }, function(err, charge) {
+                if (err && err.type === 'StripeCardError') {
+                    // The card has been declined
+                    ControllerUtil.handleError(err);
+                }
+                console.log('customer:');
+                console.log(customer);
+                console.log('charge:');
+                console.log(charge);
 
-    stripe.customers.create({
-        source: stripeToken,
-        description: 'payinguser@example.com'
-    }).then(function(customer) {
-        stripe.charges.create({
-            amount: 1000, // amount in cents, again
-            currency: 'usd',
-            customer: customer.id,
-            description: 'Example Charge',
-            metadata: {
-                'order_id': '6735'
-            }
-        }, function(err, charge) {
-            if (err && err.type === 'StripeCardError') {
-                // The card has been declined
-                ControllerUtil.handleError(err);
-            }
-            console.log('customer:');
-            console.log(customer);
-            console.log('charge:');
-            console.log(charge);
-
-            return res.status(201).json('success');
+                return res.status(201).json('success');
+            });
         });
-    });
+    */
 });
 
 module.exports = router;
